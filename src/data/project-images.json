@@ -1,9 +1,113 @@
 {
-  "xplore-austin": { "cover": null, "images": [] },
-  "texas-momentum": { "cover": null, "images": [] },
-  "herdup": { "cover": null, "images": [] },
-  "sell-fellowship": { "cover": null, "images": [] },
-  "center-for-integrated-design": { "cover": null, "images": [] },
-  "well-water-finders": { "cover": null, "images": [] },
-  "cultured-carrot": { "cover": null, "images": [] }
+  "xplore-austin": {
+    "cover": "/projects/xplore-austin/cover.png",
+    "images": []
+  },
+  "center-for-integrated-design": {
+    "cover": "/projects/center-for-integrated-design/cover.png",
+    "images": [
+      "/projects/center-for-integrated-design/001.png",
+      "/projects/center-for-integrated-design/002.png",
+      "/projects/center-for-integrated-design/003.png",
+      "/projects/center-for-integrated-design/004.png",
+      "/projects/center-for-integrated-design/005.png",
+      "/projects/center-for-integrated-design/006.png",
+      "/projects/center-for-integrated-design/007.png",
+      "/projects/center-for-integrated-design/008.png",
+      "/projects/center-for-integrated-design/009.png",
+      "/projects/center-for-integrated-design/010.png",
+      "/projects/center-for-integrated-design/011.png",
+      "/projects/center-for-integrated-design/012.png",
+      "/projects/center-for-integrated-design/013.png",
+      "/projects/center-for-integrated-design/014.png",
+      "/projects/center-for-integrated-design/015.png",
+      "/projects/center-for-integrated-design/016.png",
+      "/projects/center-for-integrated-design/017.png",
+      "/projects/center-for-integrated-design/018.png",
+      "/projects/center-for-integrated-design/019.png",
+      "/projects/center-for-integrated-design/020.png",
+      "/projects/center-for-integrated-design/021.png",
+      "/projects/center-for-integrated-design/022.png",
+      "/projects/center-for-integrated-design/023.png",
+      "/projects/center-for-integrated-design/024.png"
+    ]
+  },
+  "herdup": {
+    "cover": "/projects/herdup/cover.png",
+    "images": [
+      "/projects/herdup/001.png",
+      "/projects/herdup/002.png",
+      "/projects/herdup/003.png",
+      "/projects/herdup/004.png",
+      "/projects/herdup/005.png",
+      "/projects/herdup/006.png"
+    ]
+  },
+  "project-cultured-carrot": {
+    "cover": "/projects/project-cultured-carrot/cover.png",
+    "images": [
+      "/projects/project-cultured-carrot/001.png"
+    ]
+  },
+  "graduation-party-materials": {
+    "cover": "/projects/graduation-party-materials/cover.png",
+    "images": [
+      "/projects/graduation-party-materials/001.png",
+      "/projects/graduation-party-materials/002.png",
+      "/projects/graduation-party-materials/003.png",
+      "/projects/graduation-party-materials/004.png",
+      "/projects/graduation-party-materials/005.png",
+      "/projects/graduation-party-materials/006.png",
+      "/projects/graduation-party-materials/007.png",
+      "/projects/graduation-party-materials/008.png",
+      "/projects/graduation-party-materials/009.png",
+      "/projects/graduation-party-materials/010.png",
+      "/projects/graduation-party-materials/011.png",
+      "/projects/graduation-party-materials/012.png",
+      "/projects/graduation-party-materials/013.png",
+      "/projects/graduation-party-materials/014.png",
+      "/projects/graduation-party-materials/015.png",
+      "/projects/graduation-party-materials/016.png",
+      "/projects/graduation-party-materials/017.png",
+      "/projects/graduation-party-materials/018.png",
+      "/projects/graduation-party-materials/019.png",
+      "/projects/graduation-party-materials/020.png"
+    ]
+  },
+  "well-water-finders": {
+    "cover": "/projects/well-water-finders/cover.png",
+    "images": []
+  },
+  "sell-fellowship": {
+    "cover": "/projects/sell-fellowship/cover.png",
+    "images": [
+      "/projects/sell-fellowship/001.png",
+      "/projects/sell-fellowship/002.png",
+      "/projects/sell-fellowship/003.png",
+      "/projects/sell-fellowship/004.png"
+    ]
+  },
+  "state-officer-campaign": {
+    "cover": "/projects/state-officer-campaign/cover.png",
+    "images": [
+      "/projects/state-officer-campaign/001.png",
+      "/projects/state-officer-campaign/002.png",
+      "/projects/state-officer-campaign/003.png",
+      "/projects/state-officer-campaign/004.png",
+      "/projects/state-officer-campaign/005.png"
+    ]
+  },
+  "texas-momentum": {
+    "cover": "/projects/texas-momentum/cover.png",
+    "images": [
+      "/projects/texas-momentum/001.png",
+      "/projects/texas-momentum/002.png",
+      "/projects/texas-momentum/003.png",
+      "/projects/texas-momentum/004.png",
+      "/projects/texas-momentum/005.png",
+      "/projects/texas-momentum/006.png",
+      "/projects/texas-momentum/007.png",
+      "/projects/texas-momentum/008.png"
+    ]
+  }
 }

@@ -45,18 +45,31 @@ function slugify(title) {
     .replace(/^-|-$/g, "");
 }
 
-/** Extract a file extension from a URL, falling back to ".png". */
-function extFromUrl(url) {
+/** Extract a file extension from a URL, falling back to the given default. */
+function extFromUrl(url, fallback = ".png") {
   try {
     const pathname = new URL(url).pathname;
     const ext = path.extname(pathname).split("?")[0].toLowerCase();
-    if ([".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".avif"].includes(ext)) {
-      return ext;
-    }
+    const allowed = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".avif", ".mp4", ".mov", ".webm"];
+    if (allowed.includes(ext)) return ext;
   } catch {
     // ignore parse errors
   }
-  return ".png";
+  return fallback;
+}
+
+/** Get the URL from a video block. */
+function getVideoUrl(videoObj) {
+  if (!videoObj) return null;
+  if (videoObj.type === "file") return { url: videoObj.file?.url ?? null, type: "file" };
+  if (videoObj.type === "external") return { url: videoObj.external?.url ?? null, type: "external" };
+  return null;
+}
+
+/** Extract caption text from a block's caption array. */
+function getBlockCaption(captionArr) {
+  if (!captionArr || captionArr.length === 0) return "";
+  return captionArr.map((t) => t.plain_text).join("");
 }
 
 /** Get the image URL from an image block or cover object. */
@@ -133,10 +146,23 @@ async function main() {
 
   do {
     await sleep(RATE_LIMIT_MS);
-    const res = await notion.dataSources.query({
-      data_source_id: NOTION_DATABASE_ID,
-      start_cursor: cursor,
-      page_size: 100,
+    const res = await fetch(
+      `https://api.notion.com/v1/databases/${NOTION_DATABASE_ID}/query`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${NOTION_API_KEY}`,
+          "Notion-Version": "2022-06-28",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          start_cursor: cursor,
+          page_size: 100,
+        }),
+      }
+    ).then((r) => {
+      if (!r.ok) throw new Error(`Notion API ${r.status}: ${r.statusText}`);
+      return r.json();
     });
     pages.push(...res.results);
     cursor = res.has_more ? res.next_cursor : undefined;
@@ -162,7 +188,7 @@ async function main() {
 
     console.log(`Processing: ${title} (${slug})`);
 
-    const entry = { cover: null, images: [] };
+    const entry = { cover: null, images: [], videos: [], embeds: [], links: [] };
 
     // 2a. Cover image
     const coverUrl = getImageUrl(page.cover);
@@ -206,6 +232,52 @@ async function main() {
     }
 
     if (imageBlocks.length > 0) console.log();
+
+    // 2c. Collect video blocks
+    const videoBlocks = blocks.filter((b) => b.type === "video");
+    let vidIdx = 1;
+    for (const block of videoBlocks) {
+      const info = getVideoUrl(block.video);
+      if (!info || !info.url) continue;
+      const caption = getBlockCaption(block.video?.caption);
+
+      if (info.type === "external") {
+        entry.videos.push({ url: info.url, type: "external", caption });
+      } else {
+        // Notion-hosted video — download since URLs expire
+        const ext = extFromUrl(info.url, ".mp4");
+        const filename = `video-${String(vidIdx).padStart(3, "0")}${ext}`;
+        const destPath = path.join(dir, filename);
+        try {
+          await downloadImage(info.url, destPath);
+          entry.videos.push({ url: `/projects/${slug}/${filename}`, type: "file", caption });
+          vidIdx++;
+        } catch (err) {
+          console.error(`  Failed to download video: ${err.message}`);
+          failures++;
+        }
+      }
+    }
+
+    // 2d. Collect embed blocks
+    const embedBlocks = blocks.filter((b) => b.type === "embed");
+    for (const block of embedBlocks) {
+      const url = block.embed?.url;
+      if (!url) continue;
+      const caption = getBlockCaption(block.embed?.caption);
+      entry.embeds.push({ url, caption });
+    }
+
+    // 2e. Collect bookmark and link_preview blocks
+    const linkBlocks = blocks.filter((b) => b.type === "bookmark" || b.type === "link_preview");
+    for (const block of linkBlocks) {
+      const data = block[block.type];
+      const url = data?.url;
+      if (!url) continue;
+      const title = getBlockCaption(data?.caption) || "";
+      entry.links.push({ url, title });
+    }
+
     manifest[slug] = entry;
   }
 

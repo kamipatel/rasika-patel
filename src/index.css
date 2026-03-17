@@ -251,3 +251,19 @@ body { background: var(--bg); overflow-x: hidden; }
 .mobile-menu-overlay a:hover {
   color: var(--accent);
 }
+
+/* ── Project card grid responsive ── */
+@media (max-width: 768px) {
+  .project-card-grid { grid-template-columns: 1fr !important; }
+  .featured-card-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Orbital timeline responsive ── */
+@media (max-width: 480px) {
+  .radial-timeline-orbital { display: none !important; }
+  .radial-timeline-linear { display: block !important; }
+}
+@media (min-width: 481px) {
+  .radial-timeline-orbital { display: block !important; }
+  .radial-timeline-linear { display: none !important; }
+}

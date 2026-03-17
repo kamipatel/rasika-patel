@@ -7,12 +7,15 @@ import {
   useSpring,
   useReducedMotion,
 } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import Marquee from "./components/Marquee";
 import RotatingTitle from "./components/RotatingTitle";
 import { useScrollSequence } from "./components/useScrollSequence";
 import { featured, projects } from "./data/projects";
-import projectImages from "./data/project-images.json";
+import Reveal from "./components/Reveal";
+import MagButton from "./components/MagButton";
+import FeaturedCard from "./components/FeaturedCard";
+import ProjectGrid from "./components/ProjectGrid";
+import RadialOrbitalTimeline from "./components/RadialOrbitalTimeline";
 
 /* ─── hooks ─── */
 const useMediaQuery = (query) => {
@@ -50,34 +53,7 @@ const HERO_ROLES = ["Innovator", "Creative Strategist", "Marketer", "Builder", "
 /* ─── animation helpers ─── */
 const springConfig = { type: "spring", stiffness: 60, damping: 20 };
 
-const revealVariants = {
-  hidden: { opacity: 0, y: 48 },
-  visible: { opacity: 1, y: 0, transition: springConfig },
-};
-
-const revealVariantsReduced = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.01 } },
-};
-
 /* ─── components ─── */
-function Reveal({ children, delay = 0, style = {}, reduced = false }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.08 });
-  const variants = reduced ? revealVariantsReduced : revealVariants;
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={variants}
-      transition={{ ...variants.visible.transition, delay }}
-      style={style}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function SplitReveal({ text, style = {}, charDelay = 0.035, baseDelay = 0, reduced = false }) {
   const ref = useRef(null);
@@ -119,268 +95,6 @@ function SplitReveal({ text, style = {}, charDelay = 0.035, baseDelay = 0, reduc
         </motion.span>
       ))}
     </span>
-  );
-}
-
-function MagButton({ children, href, filled = false, onClick }) {
-  const ref = useRef(null);
-  const [off, setOff] = useState({ x: 0, y: 0 });
-  const [hov, setHov] = useState(false);
-  const move = (e) => {
-    if (!ref.current) return;
-    const r = ref.current.getBoundingClientRect();
-    setOff({ x: (e.clientX - r.left - r.width / 2) * 0.25, y: (e.clientY - r.top - r.height / 2) * 0.25 });
-  };
-  return (
-    <motion.a
-      ref={ref}
-      href={href}
-      onClick={onClick}
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => { setHov(false); setOff({ x: 0, y: 0 }); }}
-      onMouseMove={move}
-      whileTap={{ scale: 0.98 }}
-      aria-label={typeof children === "string" ? children : undefined}
-      className="clickable"
-      style={{
-        display: "inline-flex", alignItems: "center", gap: "8px",
-        textDecoration: "none",
-        fontFamily: "var(--mono)", fontSize: "12px", letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 700,
-        color: filled ? "var(--bg)" : "var(--text-mid)",
-        background: filled ? "var(--accent)" : "transparent",
-        border: filled ? "none" : "1.5px solid var(--border)",
-        padding: "15px 32px", borderRadius: "100px",
-        transform: `translate(${off.x}px, ${off.y}px) scale(${hov ? 1.04 : 1})`,
-        transition: hov ? "transform 0.12s ease" : "transform 0.5s cubic-bezier(0.22,1,0.36,1)",
-        boxShadow: filled && hov ? "0 0 40px var(--accent-glow)" : "none",
-      }}
-    >
-      {children}
-    </motion.a>
-  );
-}
-
-function FeaturedCard({ reduced }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.08 });
-  const [hov, setHov] = useState(false);
-  const navigate = useNavigate();
-  return (
-    <motion.div
-      ref={ref}
-      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 60 }}
-      animate={isInView ? { opacity: 1, y: 0 } : undefined}
-      transition={reduced ? { duration: 0.01 } : { ...springConfig, delay: 0.1 }}
-    >
-      <div
-        className="featured-grid clickable"
-        role="button"
-        aria-label={`View ${featured.title} project details`}
-        tabIndex={0}
-        onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-        onClick={() => navigate(`/projects/${featured.slug}`)}
-        onKeyDown={(e) => { if (e.key === "Enter") navigate(`/projects/${featured.slug}`); }}
-        style={{
-          display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0",
-          borderRadius: "24px", overflow: "hidden", cursor: "pointer",
-          border: `1px solid ${hov ? "var(--accent-dim)" : "var(--border)"}`,
-          background: "var(--card)",
-          transform: hov ? "scale(1.008)" : "scale(1)",
-          transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
-        }}
-      >
-        {/* Left — cover image or gradient fallback */}
-        <div style={{
-          background: "linear-gradient(160deg, var(--accent), #C2185B)",
-          minHeight: "360px", position: "relative", overflow: "hidden",
-        }}>
-          {projectImages[featured.slug]?.cover && (
-            <img
-              src={projectImages[featured.slug].cover}
-              alt={`${featured.title} cover`}
-              style={{
-                position: "absolute", inset: 0,
-                width: "100%", height: "100%",
-                objectFit: "cover",
-              }}
-            />
-          )}
-          {/* Overlay for text readability */}
-          <div style={{
-            position: "absolute", inset: 0,
-            background: projectImages[featured.slug]?.cover
-              ? "linear-gradient(160deg, rgba(232,97,60,0.7), rgba(194,24,91,0.7))"
-              : "none",
-          }} />
-          <div style={{
-            position: "absolute", inset: 0, opacity: 0.12,
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }} />
-          <div style={{
-            position: "relative", zIndex: 1,
-            padding: "48px 44px", display: "flex", flexDirection: "column", justifyContent: "space-between",
-            minHeight: "360px",
-          }}>
-            <div>
-              <span style={{
-                fontFamily: "var(--mono)", fontSize: "10px", letterSpacing: "2px",
-                background: "rgba(0,0,0,0.25)", backdropFilter: "blur(8px)",
-                padding: "5px 14px", borderRadius: "100px", color: "#fff",
-              }}>FEATURED PROJECT</span>
-            </div>
-            <div>
-              <div style={{
-                fontFamily: "var(--display)", fontSize: "clamp(40px, 5vw, 64px)",
-                fontWeight: 800, color: "#fff", lineHeight: 1.0, letterSpacing: "-2px", marginBottom: "12px",
-              }}>{featured.title}</div>
-              <div style={{
-                fontFamily: "var(--mono)", fontSize: "11px", color: "rgba(255,255,255,0.7)",
-                letterSpacing: "0.5px",
-              }}>{featured.role}</div>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div style={{
-                width: "32px", height: "32px", borderRadius: "50%",
-                background: "rgba(255,255,255,0.2)", backdropFilter: "blur(8px)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: "14px", color: "#fff",
-                transform: hov ? "translate(2px, -2px)" : "translate(0,0)",
-                transition: "transform 0.3s ease",
-              }}>↗</div>
-              <span style={{ fontFamily: "var(--mono)", fontSize: "10px", color: "rgba(255,255,255,0.5)", letterSpacing: "1px" }}>VIEW PROJECT</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right — info panel */}
-        <div style={{ padding: "44px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-          <div style={{
-            fontFamily: "var(--display)", fontSize: "72px", fontWeight: 800,
-            color: "var(--accent)", opacity: 0.12, lineHeight: 1, marginBottom: "4px",
-          }}>{featured.num}</div>
-          <p style={{ fontFamily: "var(--body)", fontSize: "16px", color: "var(--text-dim)", lineHeight: 1.7, marginBottom: "24px" }}>
-            {featured.desc}
-          </p>
-          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "20px" }}>
-            <div style={{ fontFamily: "var(--display)", fontSize: "28px", fontWeight: 800, color: "var(--accent)" }}>{featured.impact.split(" ")[0]}</div>
-            <div style={{ fontFamily: "var(--mono)", fontSize: "10px", color: "var(--text-dim)", letterSpacing: "1px", alignSelf: "center" }}>{featured.impact.split(" ").slice(1).join(" ").toUpperCase()}</div>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-            {featured.tags.map((t) => (
-              <span key={t} style={{
-                fontFamily: "var(--mono)", fontSize: "10px", color: "var(--text-dim)",
-                border: "1px solid var(--border)", padding: "4px 12px", borderRadius: "100px",
-              }}>{t}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function ProjectRow({ project, index, reduced }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.06 });
-  const [hov, setHov] = useState(false);
-  const navigate = useNavigate();
-  return (
-    <motion.div
-      ref={ref}
-      className="project-row"
-      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : undefined}
-      transition={reduced ? { duration: 0.01 } : { ...springConfig, delay: index * 0.06 }}
-    >
-      <div
-        onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-        onClick={() => navigate(`/projects/${project.slug}`)}
-        onKeyDown={(e) => { if (e.key === "Enter") navigate(`/projects/${project.slug}`); }}
-        className="project-grid clickable"
-        role="button"
-        aria-label={`View ${project.title} project details`}
-        tabIndex={0}
-        style={{
-          display: "grid",
-          gridTemplateColumns: projectImages[project.slug]?.cover
-            ? "60px 60px 1fr auto"
-            : "60px 1fr auto",
-          alignItems: "start", gap: "24px",
-          padding: "32px 0",
-          borderBottom: "1px solid var(--border)",
-          cursor: "pointer",
-          transition: "all 0.35s ease",
-        }}
-      >
-        {/* Number */}
-        <span style={{
-          fontFamily: "var(--display)", fontSize: "36px", fontWeight: 800,
-          color: hov ? "var(--accent)" : "var(--text-faint)",
-          lineHeight: 1, transition: "color 0.4s ease", paddingTop: "4px",
-        }}>{project.num}</span>
-
-        {/* Thumbnail */}
-        {projectImages[project.slug]?.cover && (
-          <div style={{
-            width: "60px", height: "60px", borderRadius: "12px", overflow: "hidden",
-            flexShrink: 0, border: "1px solid var(--border)",
-          }}>
-            <img
-              src={projectImages[project.slug].cover}
-              alt={`${project.title} thumbnail`}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          </div>
-        )}
-
-        {/* Info */}
-        <div style={{
-          transform: hov ? "translateX(8px)" : "translateX(0)",
-          transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1)",
-        }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: "12px", flexWrap: "wrap", marginBottom: "6px" }}>
-            <h3 style={{
-              fontFamily: "var(--display)", fontSize: "clamp(22px, 3vw, 30px)", fontWeight: 700,
-              color: hov ? "var(--text-light)" : "var(--text-light)", lineHeight: 1.15, transition: "color 0.3s ease",
-            }}>{project.title}</h3>
-            <span style={{
-              fontFamily: "var(--mono)", fontSize: "10px", color: "var(--text-dim)",
-              letterSpacing: "0.5px",
-            }}>— {project.role}</span>
-          </div>
-          <p style={{
-            fontFamily: "var(--body)", fontSize: "14.5px", color: "var(--text-dim)",
-            lineHeight: 1.65, maxWidth: "580px", marginBottom: "12px",
-          }}>{project.desc}</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", alignItems: "center" }}>
-            <span style={{
-              fontFamily: "var(--mono)", fontSize: "10px", fontWeight: 700,
-              color: "var(--accent)", background: "var(--accent-bg)",
-              padding: "3px 10px", borderRadius: "100px", letterSpacing: "0.5px",
-            }}>{project.impact}</span>
-            {project.tags.map((t) => (
-              <span key={t} style={{
-                fontFamily: "var(--mono)", fontSize: "10px", color: "var(--text-dim)",
-                border: "1px solid var(--border)", padding: "3px 10px", borderRadius: "100px",
-              }}>{t}</span>
-            ))}
-          </div>
-        </div>
-
-        {/* Arrow / Timeline */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "8px", paddingTop: "6px" }}>
-          <span style={{
-            fontFamily: "var(--mono)", fontSize: "10px", color: "var(--text-dim)", letterSpacing: "0.5px",
-          }}>{project.timeline}</span>
-          <span style={{
-            fontSize: "18px", color: "var(--accent)",
-            opacity: hov ? 1 : 0, transform: hov ? "translate(0,0)" : "translate(-6px,6px)",
-            transition: "all 0.3s ease",
-          }}>↗</span>
-        </div>
-      </div>
-    </motion.div>
   );
 }
 
@@ -590,7 +304,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           ref={heroScrollRef}
           aria-label="Hero section"
           style={{
-            height: "100vh",
+            height: "400vh",
             position: "relative",
           }}
         >
@@ -818,11 +532,14 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           {/* Featured project — full-width card */}
           <FeaturedCard reduced={reduced} />
 
-          {/* Remaining projects — editorial list */}
-          <div style={{ marginTop: "12px", borderTop: "1px solid var(--border)" }}>
-            {projects.map((p, i) => <ProjectRow key={p.title} project={p} index={i} reduced={reduced} />)}
-          </div>
+          {/* Project grid */}
+          <ProjectGrid projects={projects} reduced={reduced} />
         </section>
+
+        {/* ═══════════════════════════════════
+           TIMELINE
+           ═══════════════════════════════════ */}
+        <RadialOrbitalTimeline reduced={reduced} />
 
         {/* ═══════════════════════════════════
            SKILLS
