@@ -1,0 +1,229 @@
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
+
+import { Client } from "@notionhq/client";
+import { writeFileSync, mkdirSync, createWriteStream } from "node:fs";
+import { pipeline } from "node:stream/promises";
+import { Readable } from "node:stream";
+import path from "node:path";
+
+// ---------------------------------------------------------------------------
+// Config
+// ---------------------------------------------------------------------------
+
+const NOTION_API_KEY = process.env.NOTION_API_KEY;
+const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
+
+if (!NOTION_API_KEY || !NOTION_DATABASE_ID) {
+  console.error(
+    "Missing NOTION_API_KEY or NOTION_DATABASE_ID in environment.\n" +
+      "Add them to .env.local and re-run."
+  );
+  process.exit(1);
+}
+
+const notion = new Client({ auth: NOTION_API_KEY });
+
+const PUBLIC_DIR = path.resolve("public/projects");
+const MANIFEST_PATH = path.resolve("src/data/project-images.json");
+
+// Notion rate limit: 3 req/s — wait 350ms between requests to stay safe
+const RATE_LIMIT_MS = 350;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Derive a URL-safe slug from a project title. */
+function slugify(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/** Extract a file extension from a URL, falling back to ".png". */
+function extFromUrl(url) {
+  try {
+    const pathname = new URL(url).pathname;
+    const ext = path.extname(pathname).split("?")[0].toLowerCase();
+    if ([".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".avif"].includes(ext)) {
+      return ext;
+    }
+  } catch {
+    // ignore parse errors
+  }
+  return ".png";
+}
+
+/** Get the image URL from an image block or cover object. */
+function getImageUrl(imageObj) {
+  if (!imageObj) return null;
+  if (imageObj.type === "file") return imageObj.file?.url ?? null;
+  if (imageObj.type === "external") return imageObj.external?.url ?? null;
+  return null;
+}
+
+/** Extract the title string from a Notion page's Title property. */
+function getPageTitle(page) {
+  const props = page.properties;
+  for (const prop of Object.values(props)) {
+    if (prop.type === "title" && prop.title?.length > 0) {
+      return prop.title.map((t) => t.plain_text).join("");
+    }
+  }
+  return null;
+}
+
+/** Download a file from `url` to `destPath`. Returns true on success. */
+async function downloadImage(url, destPath) {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status} for ${url}`);
+  }
+  const stream = Readable.fromWeb(res.body);
+  await pipeline(stream, createWriteStream(destPath));
+  return true;
+}
+
+// ---------------------------------------------------------------------------
+// Recursive block fetching
+// ---------------------------------------------------------------------------
+
+async function fetchAllChildBlocks(blockId) {
+  const blocks = [];
+  let cursor;
+
+  do {
+    await sleep(RATE_LIMIT_MS);
+    const res = await notion.blocks.children.list({
+      block_id: blockId,
+      start_cursor: cursor,
+      page_size: 100,
+    });
+    blocks.push(...res.results);
+    cursor = res.has_more ? res.next_cursor : undefined;
+  } while (cursor);
+
+  // Recurse into children
+  for (const block of blocks) {
+    if (block.has_children) {
+      const children = await fetchAllChildBlocks(block.id);
+      blocks.push(...children);
+    }
+  }
+
+  return blocks;
+}
+
+// ---------------------------------------------------------------------------
+// Main
+// ---------------------------------------------------------------------------
+
+async function main() {
+  console.log("Fetching portfolio database...\n");
+
+  // 1. Query all pages from the database
+  //    @notionhq/client v5 moved databases.query → dataSources.query
+  const pages = [];
+  let cursor;
+
+  do {
+    await sleep(RATE_LIMIT_MS);
+    const res = await notion.dataSources.query({
+      data_source_id: NOTION_DATABASE_ID,
+      start_cursor: cursor,
+      page_size: 100,
+    });
+    pages.push(...res.results);
+    cursor = res.has_more ? res.next_cursor : undefined;
+  } while (cursor);
+
+  console.log(`Found ${pages.length} pages in database.\n`);
+
+  const manifest = {};
+  let totalImages = 0;
+  let failures = 0;
+
+  // 2. Process each page
+  for (const page of pages) {
+    const title = getPageTitle(page);
+    if (!title) {
+      console.log(`  Skipping page ${page.id} — no title found.`);
+      continue;
+    }
+
+    const slug = slugify(title);
+    const dir = path.join(PUBLIC_DIR, slug);
+    mkdirSync(dir, { recursive: true });
+
+    console.log(`Processing: ${title} (${slug})`);
+
+    const entry = { cover: null, images: [] };
+
+    // 2a. Cover image
+    const coverUrl = getImageUrl(page.cover);
+    if (coverUrl) {
+      const ext = extFromUrl(coverUrl);
+      const coverFile = `cover${ext}`;
+      const destPath = path.join(dir, coverFile);
+      try {
+        await downloadImage(coverUrl, destPath);
+        entry.cover = `/projects/${slug}/${coverFile}`;
+        console.log(`  Cover downloaded.`);
+      } catch (err) {
+        console.error(`  Failed to download cover: ${err.message}`);
+        failures++;
+      }
+    }
+
+    // 2b. Fetch all blocks and collect images
+    const blocks = await fetchAllChildBlocks(page.id);
+    const imageBlocks = blocks.filter((b) => b.type === "image");
+
+    let idx = 1;
+    for (const block of imageBlocks) {
+      const url = getImageUrl(block.image);
+      if (!url) continue;
+
+      const ext = extFromUrl(url);
+      const filename = `${String(idx).padStart(3, "0")}${ext}`;
+      const destPath = path.join(dir, filename);
+
+      try {
+        await downloadImage(url, destPath);
+        entry.images.push(`/projects/${slug}/${filename}`);
+        idx++;
+        totalImages++;
+        process.stdout.write(`  Image ${idx - 1}/${imageBlocks.length}\r`);
+      } catch (err) {
+        console.error(`  Failed to download image: ${err.message}`);
+        failures++;
+      }
+    }
+
+    if (imageBlocks.length > 0) console.log();
+    manifest[slug] = entry;
+  }
+
+  // 3. Write manifest
+  mkdirSync(path.dirname(MANIFEST_PATH), { recursive: true });
+  writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + "\n");
+
+  // 4. Summary
+  console.log("\n--- Summary ---");
+  console.log(`Projects processed: ${Object.keys(manifest).length}`);
+  console.log(`Images downloaded:  ${totalImages}`);
+  if (failures > 0) {
+    console.log(`Failures:           ${failures}`);
+  }
+  console.log(`Manifest written:   ${MANIFEST_PATH}`);
+}
+
+main().catch((err) => {
+  console.error("Fatal error:", err);
+  process.exit(1);
+});

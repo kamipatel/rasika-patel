@@ -2,3 +2,7 @@ node_modules
 dist
 .DS_Store
 *.local
+.vercel
+.env*.local
+ui-ux-pro-max-skill
+.claude/skills
