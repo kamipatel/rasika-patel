@@ -3,8 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, useReducedMotion } from "framer-motion";
 import Portfolio from "./Portfolio";
 import ProjectPage from "./components/ProjectPage";
-import Nav from "./components/Nav";
-import Preloader from "./components/Preloader";
+import PortfolioNav from "./components/PortfolioNav";
 import CustomCursor from "./components/CustomCursor";
 
 const useMediaQuery = (query) => {
@@ -21,7 +20,7 @@ const useMediaQuery = (query) => {
 
 export default function App() {
   const [theme, setTheme] = useState("dark");
-  const [preloaderDone, setPreloaderDone] = useState(false);
+  const [preloaderDone, setPreloaderDone] = useState(true);
   const [scrollY, setScrollY] = useState(0);
   const [activeNav, setActiveNav] = useState("hero");
   const location = useLocation();
@@ -61,28 +60,15 @@ export default function App() {
     return () => obs.disconnect();
   }, [location, preloaderDone]);
 
-  const handlePreloaderComplete = useCallback(() => {
-    setPreloaderDone(true);
-  }, []);
 
   return (
     <div style={{ background: "var(--bg)", color: "var(--text-light)", minHeight: "100vh", overflowX: "hidden" }}>
-      {/* Preloader */}
-      {!preloaderDone && !prefersReduced && (
-        <Preloader onComplete={handlePreloaderComplete} />
-      )}
 
       {/* Custom cursor — desktop only */}
       {!isMobile && <CustomCursor />}
 
       {/* Nav */}
-      <Nav
-        scrollY={scrollY}
-        loaded={preloaderDone || !!prefersReduced}
-        activeNav={activeNav}
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
+      <PortfolioNav activeNav={activeNav} />
 
       {/* Routes with page transitions */}
       <AnimatePresence mode="wait">

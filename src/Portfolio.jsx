@@ -1,4 +1,34 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+/*
+ * DESIGN RULES — DO NOT:
+ * - Use "Hello, I'm" or "Hi, I'm" intros
+ * - Use numbered sections (01, 02, 03)
+ * - Use left-text right-portrait hero splits
+ * - Use purple/blue gradients on dark backgrounds
+ * - Use simple pill/badge tags for skills
+ * - Use vertical timelines with dots and lines
+ * - Use uniform card grids where every card looks identical
+ * - Use generic subtitles like "Builder" / "Creator" / "Innovator"
+ * - Use the same border-radius on everything
+ * - Use cookie-cutter hover effects (scale 1.05 + shadow)
+ *
+ * INSTEAD:
+ * - Break the grid — overlap elements, use asymmetry
+ * - Mix scales dramatically — one huge element next to tiny details
+ * - Use editorial typography — vary weights, sizes, and spacing
+ *   within the same section
+ * - Make each project feel different, not templated
+ * - Use whitespace as a design element, not just padding
+ * - Let the content dictate the layout, not a repeating pattern
+ * - Reference magazine layouts, fashion sites, and agency portfolios
+ *   — not developer templates
+ */
+import { 
+  useEffect, 
+  useState, 
+  useMemo, 
+  useRef, 
+  useCallback 
+} from "react";
 import {
   motion,
   useInView,
@@ -13,9 +43,31 @@ import { useScrollSequence } from "./components/useScrollSequence";
 import { featured, projects } from "./data/projects";
 import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
-import FeaturedCard from "./components/FeaturedCard";
 import ProjectGrid from "./components/ProjectGrid";
 import RadialOrbitalTimeline from "./components/RadialOrbitalTimeline";
+import Vortex from "./components/Vortex";
+import IconCloud from "./components/IconCloud";
+import VelocityScroll from "./components/VelocityScroll";
+import { Icon } from "./components/ui/evervault-card";
+
+const STABLE_ICON_SLUGS = [
+  "react", 
+  "javascript", 
+  "python", 
+  "openai", 
+  "openjdk", 
+  "postgresql", 
+  "googlecloud",
+  "figma", 
+  "canva",
+  "html5",
+  "css3",
+  "supabase",
+  "anthropic",
+  "googlegemini",
+  "perplexity",
+  "qualtrics",
+];
 
 /* ─── hooks ─── */
 const useMediaQuery = (query) => {
@@ -32,23 +84,23 @@ const useMediaQuery = (query) => {
 
 /* ─── data ─── */
 const skillGroups = [
-  { label: "Design", items: ["Figma", "Canva", "Photoshop", "Illustrator", "InDesign"] },
-  { label: "Marketing", items: ["Google Analytics", "SEO", "Meta Business Suite", "Salesforce", "Qualtrics"] },
-  { label: "Code", items: ["Python", "Java", "HTML", "CSS"] },
-  { label: "Creative", items: ["Branding", "Copywriting", "Content Strategy", "UI/UX Design"] },
-  { label: "Leadership", items: ["Project Management", "Public Speaking", "Cross-Functional Collaboration"] },
+  { label: "Design", items: ["Figma", "Canva", "Illustrator", "Photoshop"] },
+  { label: "Code", items: ["Python", "Java", "SQL", "HTML/CSS"] },
+  { label: "Analytics", items: ["Tableau", "Qualtrics", "Excel", "PowerPoint"] },
+  { label: "Tools", items: ["VS Code", "Supabase"] },
+  { label: "AI", items: ["Claude", "Gemini", "Perplexity", "OpenClaw", "Antigravity"] },
 ];
 
 const stats = [
   { val: "9+", label: "Projects" },
   { val: "121%", label: "Sales Growth" },
-  { val: "100K+", label: "Organic Views" },
-  { val: "27K+", label: "Students Reached" },
+  { val: "150K+", label: "Organic Views" },
+  { val: "250+", label: "Downloads" },
 ];
 
-const skillsMarqueeItems = ["UI/UX", "Brand Strategy", "Figma", "Content Creation", "Startups", "Marketing", "Adobe Suite", "Python", "Creative Direction", "Growth"];
+const skillsMarqueeItems = ["Figma", "Python", "Tableau", "AI Tools", "Canva", "Java", "SQL", "Supabase", "Illustrator", "Qualtrics"];
 const projectMarqueeItems = [featured.title, ...projects.map((p) => p.title)];
-const HERO_ROLES = ["Innovator", "Creative Strategist", "Marketer", "Builder", "Storyteller"];
+const HERO_ROLES = ["UX Designer", "Creative Strategist", "Brand Architect", "Marketing Lead", "App Founder"];
 
 /* ─── animation helpers ─── */
 const springConfig = { type: "spring", stiffness: 60, damping: 20 };
@@ -109,16 +161,16 @@ function SkillRow({ group, index, reduced }) {
       animate={isInView ? { opacity: 1, y: 0 } : undefined}
       transition={reduced ? { duration: 0.01 } : { ...springConfig, delay: index * 0.07 }}
       style={{
-        display: "grid", gridTemplateColumns: "140px 1fr", gap: "20px", alignItems: "baseline",
-        padding: "20px 0", borderBottom: "1px solid var(--border)",
+        display: "grid", gridTemplateColumns: "180px 1fr", gap: "20px", alignItems: "center",
+        padding: "24px 0", borderBottom: "1px solid var(--border)",
       }}
     >
       <span style={{
-        fontFamily: "var(--mono)", fontSize: "10px", letterSpacing: "2px",
+        fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2.5px",
         textTransform: "uppercase", color: "var(--accent)", fontWeight: 700,
       }}>{group.label}</span>
       <motion.div
-        style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}
+        style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         variants={{
@@ -140,17 +192,20 @@ function SkillChip({ name, reduced }) {
       variants={
         reduced
           ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.01 } } }
-          : { hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: springConfig } }
+          : { hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: springConfig } }
       }
-      whileHover={reduced ? undefined : { y: -2, backgroundColor: "var(--accent)", color: "var(--bg)", borderColor: "var(--accent)", transition: { type: "spring", stiffness: 300, damping: 20 } }}
-      whileTap={reduced ? undefined : { scale: 0.96 }}
+      whileHover={reduced ? undefined : { background: "var(--surface-hover)", borderColor: "var(--accent)", y: -2 }}
       style={{
-        display: "inline-block", padding: "8px 18px", borderRadius: "100px",
-        fontFamily: "var(--body)", fontSize: "13px", fontWeight: 500,
-        color: "var(--text-mid)",
-        background: "var(--surface-hover)",
-        border: "1px solid var(--border)",
+        display: "inline-block",
+        fontFamily: "var(--mono)", fontSize: "13px", fontWeight: 500,
+        letterSpacing: "0.2px",
+        color: "var(--text-light)",
         cursor: "default",
+        padding: "10px 24px",
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
+        borderRadius: "100px",
+        backdropFilter: "blur(4px)",
       }}
     >
       {name}
@@ -176,10 +231,11 @@ function DrawLine({ reduced }) {
   );
 }
 
-function AnimatedStat({ val, label, reduced }) {
+function AnimatedStat({ val, label, reduced, variant = "secondary" }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
   const [display, setDisplay] = useState("0");
+  const isHero = variant === "hero";
 
   useEffect(() => {
     if (!isInView) return;
@@ -208,13 +264,20 @@ function AnimatedStat({ val, label, reduced }) {
   }, [isInView, val, reduced]);
 
   return (
-    <div ref={ref} style={{ background: "var(--bg)", padding: "24px 20px", textAlign: "center" }}>
+    <div ref={ref} style={{ background: "var(--bg)", padding: isHero ? "24px 16px" : "8px 4px", textAlign: "center" }}>
       <div style={{
-        fontFamily: "var(--display)", fontSize: "28px", fontWeight: 800,
-        color: "var(--accent)", lineHeight: 1, marginBottom: "4px",
+        fontFamily: "var(--display)", fontSize: isHero ? "48px" : "30px", fontWeight: 800,
+        color: "var(--accent)", lineHeight: 1, marginBottom: isHero ? "8px" : "4px",
+        textShadow: isHero ? "0 0 30px rgba(255,107,53,0.3), 0 0 60px rgba(255,107,53,0.1)" : "none",
       }}>{display}</div>
+      {isHero && (
+        <div style={{
+          width: "40px", height: "2px", background: "var(--accent)",
+          opacity: 0.6, margin: "0 auto 8px",
+        }} />
+      )}
       <div style={{
-        fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "1.5px",
+        fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "1.5px",
         textTransform: "uppercase", color: "var(--text-dim)",
       }}>{label}</div>
     </div>
@@ -247,13 +310,14 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
   const heroBlob1Y = useTransform(motionScrollY, [0, 800], [0, -120]);
   const heroBlob2Y = useTransform(motionScrollY, [0, 800], [0, -80]);
 
-  const heroScrollRef = useRef(null);
+  const heroRef = useRef(null);
   const getFramePath = useCallback((i) => `/sequence/frame_${String(i).padStart(3, '0')}.gif`, []);
   const { canvasRef, isLoaded } = useScrollSequence({
     frameCount: 128,
     framePath: getFramePath,
-    scrollRef: heroScrollRef,
+    scrollRef: heroRef,
     enabled: !reduced && !isMobile,
+    mode: "scroll",
   });
 
   useEffect(() => {
@@ -265,10 +329,11 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
   return (
     <motion.div
+      key="main-content"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.5 }}
     >
       {/* Scroll progress bar */}
       {!reduced && <ScrollProgressBar />}
@@ -288,7 +353,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         <div style={{
           position: "fixed", left: mouse.x - 250, top: mouse.y - 250,
           width: 500, height: 500,
-          background: "radial-gradient(circle, rgba(232,97,60,0.04), transparent 70%)",
+          background: "radial-gradient(circle, rgba(255,107,53,0.04), transparent 70%)",
           borderRadius: "50%", pointerEvents: "none", zIndex: 1,
           transition: "left 0.6s cubic-bezier(0.22,1,0.36,1), top 0.6s cubic-bezier(0.22,1,0.36,1)",
           filter: "blur(20px)",
@@ -301,291 +366,287 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
            ═══════════════════════════════════ */}
         <section
           id="hero"
-          ref={heroScrollRef}
+          ref={heroRef}
           aria-label="Hero section"
           style={{
-            height: "400vh",
+            height: "100dvh",
             position: "relative",
+            overflow: "hidden",
+            background: "var(--bg)",
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center",
+            padding: "calc(var(--nav-height, 80px) + 20px) 24px clamp(60px, 8vw, 80px) 24px",
+            gap: "clamp(16px, 3vh, 32px)",
           }}
         >
-          <div style={{
-            position: "sticky",
-            top: 0,
-            height: "100vh",
-            display: "flex", flexDirection: isMobile ? "column" : "row",
-            overflow: "hidden",
+          {/* 1. Interactive Vortex Background */}
+          <Vortex baseHue={20} particleCount={400} />
+
+          {/* 2. Monumental Title */}
+          <h1 style={{
+            fontFamily: "var(--display)",
+            fontSize: "clamp(50px, 10vw, 130px)",
+            fontWeight: 800, lineHeight: 0.9, letterSpacing: "-0.04em",
+            textTransform: "uppercase", margin: 0,
+            textAlign: "center",
+            zIndex: 10,
+            display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(12px, 3vw, 32px)"
           }}>
-            {/* ── Left column: text content ── */}
-            <div style={{
-              flex: isMobile ? "1 1 auto" : "0 0 50%",
-              display: "flex", flexDirection: "column", justifyContent: "center",
-              padding: "0 clamp(24px, 6vw, 80px)",
-              position: "relative", zIndex: 5,
-              order: isMobile ? 2 : 1,
+            <span style={{ color: "var(--text-light)", textShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>
+              <SplitReveal text="Rasika" baseDelay={0.4} charDelay={0.05} reduced={reduced} />
+            </span>
+            <span style={{
+              display: "flex", alignItems: "center",
+              background: "linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C)",
+              backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
             }}>
-              {/* Tag */}
-              <div style={{
-                display: "flex", alignItems: "center", gap: "12px", marginBottom: "28px",
-                opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)",
-                transition: "all 1s cubic-bezier(0.22,1,0.36,1) 0.3s",
-              }}>
-                <div style={{ width: "36px", height: "1.5px", background: "var(--accent)" }} />
-                <span style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>
-                  Marketing · Design · Innovation
-                </span>
-              </div>
+              <SplitReveal text="Patel" baseDelay={0.7} charDelay={0.05} reduced={reduced} />
+              <span style={{ marginLeft: "clamp(4px, 1vw, 12px)" }}>
+                <SplitReveal text="." baseDelay={1.0} charDelay={0.05} reduced={reduced} />
+              </span>
+            </span>
+          </h1>
 
-              {/* Name */}
-              <div style={{ marginBottom: "32px" }}>
-                <h1>
-                  <div style={{ fontFamily: "var(--display)", fontSize: "clamp(52px, 11vw, 130px)", fontWeight: 800, lineHeight: 0.92, letterSpacing: "-3px" }}>
-                    <SplitReveal text="Rasika" baseDelay={0.5} charDelay={0.04} style={{ color: "var(--text-light)", display: "block" }} reduced={reduced} />
-                  </div>
-                  <div style={{ fontFamily: "var(--display)", fontSize: "clamp(52px, 11vw, 130px)", fontWeight: 800, lineHeight: 0.92, letterSpacing: "-3px" }}>
-                    <SplitReveal text="Patel." baseDelay={0.85} charDelay={0.04}
-                      reduced={reduced}
-                      style={{
-                        display: "block",
-                        background: "linear-gradient(135deg, #E8613C, #C2185B, #7C4DFF)",
-                        backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite",
-                        WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                      }}
-                    />
-                  </div>
-                </h1>
-              </div>
-
-              {/* Rotating role titles */}
-              <div style={{
-                marginBottom: "24px",
-                opacity: loaded ? 1 : 0,
-                transform: loaded ? "translateY(0)" : "translateY(24px)",
-                transition: "all 1s cubic-bezier(0.22,1,0.36,1) 1.1s",
-              }}>
-                <RotatingTitle titles={HERO_ROLES} reduced={reduced} loaded={loaded} />
-              </div>
-
-              {/* Tagline */}
-              <p style={{
-                fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 22px)", fontWeight: 400,
-                color: "var(--text-dim)", maxWidth: "500px", lineHeight: 1.65,
-                opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(30px)",
-                transition: "all 1s cubic-bezier(0.22,1,0.36,1) 1.2s",
-              }}>
-                Building at the intersection of{" "}
-                <span style={{ color: "var(--accent)", fontWeight: 600 }}>storytelling</span> and{" "}
-                <span style={{ color: "#9C7BF2", fontWeight: 600 }}>systems</span> — turning good ideas into things people actually care about.
-              </p>
-
-              {/* CTAs */}
-              <div style={{
-                display: "flex", gap: "14px", marginTop: "40px", flexWrap: "wrap",
-                opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(24px)",
-                transition: "all 1s cubic-bezier(0.22,1,0.36,1) 1.4s",
-              }}>
-                <MagButton href="#work" filled>View My Work</MagButton>
-                <MagButton href="#contact">Get in Touch</MagButton>
-              </div>
-            </div>
-
-            {/* ── Right column: canvas ── */}
-            <div style={{
-              flex: isMobile ? "0 0 40vh" : "0 0 50%",
-              position: "relative",
-              order: isMobile ? 1 : 2,
-            }}>
-              <canvas
-                ref={canvasRef}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "100%",
-                  opacity: isLoaded ? 1 : 0,
-                  transition: "opacity 0.6s ease",
-                }}
-              />
-              {/* Left edge fade (desktop) */}
-              {!isMobile && (
-                <div style={{
-                  position: "absolute", inset: 0, pointerEvents: "none",
-                  background: "linear-gradient(to right, var(--bg) 0%, transparent 25%)",
-                }} />
-              )}
-              {/* Bottom edge fade */}
-              <div style={{
-                position: "absolute", inset: 0, pointerEvents: "none",
-                background: isMobile
-                  ? "linear-gradient(to top, var(--bg) 0%, transparent 30%)"
-                  : "linear-gradient(to bottom, transparent 75%, var(--bg) 100%)",
-              }} />
-            </div>
-
-            {/* Soft ambient gradient blobs */}
-            <motion.div style={{
-              position: "absolute", top: "-20%", left: isMobile ? "-10%" : "30%", width: "700px", height: "700px",
-              background: "radial-gradient(circle, rgba(232,97,60,0.06), transparent 65%)",
-              borderRadius: "50%", filter: "blur(80px)", pointerEvents: "none",
-              y: reduced ? 0 : heroBlob1Y, zIndex: 3,
-            }} />
-            <motion.div style={{
-              position: "absolute", bottom: "-10%", left: "-5%", width: "500px", height: "500px",
-              background: "radial-gradient(circle, rgba(150,90,220,0.04), transparent 65%)",
-              borderRadius: "50%", filter: "blur(60px)", pointerEvents: "none",
-              y: reduced ? 0 : heroBlob2Y, zIndex: 3,
-            }} />
-
-            {/* Subtle grid — constrained to left half on desktop */}
-            <div style={{
-              position: "absolute", inset: 0,
-              right: isMobile ? 0 : "50%",
-              pointerEvents: "none",
-              backgroundImage: "linear-gradient(var(--text-faint) 1px, transparent 1px), linear-gradient(90deg, var(--text-faint) 1px, transparent 1px)",
-              backgroundSize: "100px 100px",
-              maskImage: "radial-gradient(ellipse at 40% 50%, black 30%, transparent 75%)",
-              WebkitMaskImage: "radial-gradient(ellipse at 40% 50%, black 30%, transparent 75%)",
-              opacity: 0.2, zIndex: 3,
-            }} />
-
-            {/* Scroll cue */}
-            <div style={{
-              position: "absolute", bottom: "28px", left: "50%", transform: "translateX(-50%)",
-              display: "flex", flexDirection: "column", alignItems: "center", gap: "8px",
-              opacity: loaded ? 0.3 : 0, transition: "opacity 1.5s ease 2s", zIndex: 5,
-            }}>
-              <span style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--text-dim)" }}>Scroll</span>
-              <div style={{ width: "1px", height: "40px", background: "linear-gradient(to bottom, var(--accent), transparent)" }} />
-            </div>
+          {/* 3. Interactive Portrait Masked inside an Arch */}
+          <div style={{
+            width: "clamp(200px, 35vw, 320px)",
+            aspectRatio: "3/4",
+            position: "relative",
+            borderRadius: "200px 200px 0 0",
+            overflow: "hidden",
+            boxShadow: "0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(237,232,245,0.1)",
+            zIndex: 5,
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? "translateY(0)" : "translateY(20px)",
+            transition: "all 1.2s cubic-bezier(0.22,1,0.36,1) 0.8s",
+            background: "rgba(0,0,0,0.2)",
+            marginTop: "8px"
+          }}>
+            <canvas
+              ref={canvasRef}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                transform: "scale(1.2) translateY(5%)",
+              }}
+            />
           </div>
+
+          {/* 4. Subtitle (Rotating Roles) */}
+          <div style={{
+            opacity: loaded ? 1 : 0, transition: "opacity 1s ease 1.2s",
+            zIndex: 10, display: "flex", justifyContent: "center", width: "100%",
+            marginTop: "8px"
+          }}>
+            <RotatingTitle titles={HERO_ROLES} reduced={reduced} loaded={loaded} />
+          </div>
+
+          {/* 5. Tagline */}
+          <div style={{
+            opacity: loaded ? 1 : 0, transition: "opacity 1s ease 1.4s",
+            zIndex: 10, maxWidth: "600px", textAlign: "center"
+          }}>
+            <p style={{
+              fontFamily: "var(--body)", fontSize: "clamp(16px, 1.6vw, 20px)", fontWeight: 300,
+              color: "var(--text-light)", lineHeight: 1.5,
+              textShadow: "0 4px 20px rgba(0,0,0,0.8)",
+              margin: 0
+            }}>
+              Building at the intersection of{" "}
+              <span style={{ color: "var(--accent)", fontWeight: 600, fontStyle: "italic" }}>storytelling</span> and{" "}
+              <span style={{ color: "var(--accent)", fontWeight: 600, fontStyle: "italic" }}>systems</span>.
+            </p>
+          </div>
+
+          {/* 6. CTAs */}
+          <div style={{
+            display: "flex", gap: "16px", justifyContent: "center",
+            opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)",
+            transition: "all 1s cubic-bezier(0.22,1,0.36,1) 1.6s",
+            zIndex: 20, pointerEvents: "auto",
+            marginTop: "0px", flexWrap: "wrap"
+          }}>
+            <MagButton href="#work" filled>View My Work</MagButton>
+            <MagButton href="#contact">Get in Touch</MagButton>
+          </div>
+
+          {/* Smooth blend to next section */}
+          <div style={{
+            position: "absolute", bottom: 0, left: 0, right: 0, height: "15vh",
+            background: "linear-gradient(to top, var(--bg) 0%, transparent 100%)",
+            pointerEvents: "none", zIndex: 11
+          }} />
         </section>
 
-        {/* ── SKILLS MARQUEE ── */}
-        <Marquee items={skillsMarqueeItems} speed={40} />
+        {/* ── HERO-ABOUT DIVIDER ── */}
+        <Marquee items={projectMarqueeItems} speed={30} direction="left" separator="✦" />
 
         {/* ═══════════════════════════════════
            ABOUT
            ═══════════════════════════════════ */}
-        <section id="about" aria-label="About section" style={{ padding: "clamp(100px, 14vw, 180px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)", maxWidth: "1100px", margin: "0 auto" }}>
+        <section id="about" aria-label="About section" style={{ padding: "clamp(60px, 8vw, 80px) 0", maxWidth: "1100px", margin: "0 auto", background: "transparent", position: "relative", zIndex: 10 }}>
           <Reveal reduced={reduced}>
-            <span style={{ fontFamily: "var(--mono)", fontSize: "10px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>About Me</span>
+            <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>About Me</span>
           </Reveal>
 
           <Reveal delay={0.1} reduced={reduced}>
             <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 800, lineHeight: 1.2, letterSpacing: "-1px", marginTop: "20px", marginBottom: "32px", maxWidth: "780px" }}>
               A <span style={{ color: "var(--accent)" }}>Marketing</span> student at McCombs
-              obsessed with <span style={{ color: "#9C7BF2" }}>UI/UX</span>, creative strategy,
+              obsessed with <span style={{ fontStyle: "italic", color: "var(--text-light)" }}>UI/UX</span>, creative strategy,
               and building things that matter.
             </h2>
           </Reveal>
 
           <DrawLine reduced={reduced} />
 
-          <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: "60px", alignItems: "start", marginTop: "32px" }}>
+          <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1fr 310px", gap: "60px", alignItems: "start", marginTop: "32px" }}>
             <div>
               <Reveal delay={0.2} reduced={reduced}>
-                <p style={{ fontFamily: "var(--body)", fontSize: "16.5px", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
-                  I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: 600 }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: 600 }}>100K+ organic views</strong> at Texas Momentum, I'm drawn to building and shipping real things.
+                <p style={{ fontFamily: "var(--body)", fontSize: "19px", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
+                  I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum, I'm drawn to building and shipping real things.
                 </p>
               </Reveal>
               <Reveal delay={0.25} reduced={reduced}>
-                <p style={{ fontFamily: "var(--body)", fontSize: "16.5px", color: "var(--text-dim)", lineHeight: 1.75 }}>
+                <p style={{ fontFamily: "var(--body)", fontSize: "19px", color: "var(--text-dim)", lineHeight: 1.75 }}>
                   When I'm not designing in Figma, I'm sketching wireframes, curating playlists, or brainstorming ways to connect Austin's creative community through local businesses, art, and tech.
                 </p>
               </Reveal>
             </div>
 
-            {/* Stats column */}
+            {/* Stats column — asymmetric layout */}
             <Reveal delay={0.2} reduced={reduced}>
-              <div style={{
-                display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px",
-                background: "var(--border)", borderRadius: "20px", overflow: "hidden",
-              }}>
-                {stats.map((s) => (
-                  <AnimatedStat key={s.label} val={s.val} label={s.label} reduced={reduced} />
-                ))}
+              <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                {/* Hero stat — large */}
+                <div style={{ background: "rgba(255,255,255,0.03)", padding: "32px 24px", borderRadius: "4px 4px 0 0", borderLeft: "3px solid var(--accent)" }}>
+                  <AnimatedStat val={stats[0].val} label={stats[0].label} reduced={reduced} variant="hero" />
+                </div>
+                {/* Secondary stats — compact row */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "2px" }}>
+                  {stats.slice(1).map((s) => (
+                    <div key={s.label} style={{ background: "rgba(255,255,255,0.03)", padding: "8px 4px", borderRadius: "0" }}>
+                      <AnimatedStat val={s.val} label={s.label} reduced={reduced} />
+                    </div>
+                  ))}
+                </div>
               </div>
             </Reveal>
           </div>
         </section>
 
-        {/* ── PROJECT TITLE MARQUEE ── */}
-        <Marquee items={projectMarqueeItems} speed={35} direction="right" separator="✦" />
+        {/* ── TRANSITION / VELOCITY SCROLL divider ── */}
+        {!isMobile && (
+          <VelocityScroll 
+            text1="Design & Data • Strategy & Vision • Brand & Product •" 
+            text2="Digital Experiences • Human Centric • Creative Lead •" 
+          />
+        )}
 
         {/* ═══════════════════════════════════
            WORK
            ═══════════════════════════════════ */}
-        <section id="work" aria-label="Work section" style={{ padding: "clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px) clamp(100px, 14vw, 180px)", maxWidth: "1100px", margin: "0 auto" }}>
+        <section id="work" aria-label="Work section" style={{ padding: "clamp(60px, 8vw, 80px) clamp(24px, 6vw, 80px)", maxWidth: "1100px", margin: "0 auto", background: "transparent", position: "relative", zIndex: 20 }}>
           <Reveal reduced={reduced}>
-            <span style={{ fontFamily: "var(--mono)", fontSize: "10px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Selected Work</span>
+            <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Selected Work</span>
           </Reveal>
           <Reveal delay={0.08} reduced={reduced}>
-            <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(34px, 5.5vw, 60px)", fontWeight: 800, letterSpacing: "-2px", lineHeight: 1.05, marginTop: "16px", marginBottom: "48px" }}>
+            <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(40px, 7vw, 80px)", fontWeight: 800, letterSpacing: "-3px", lineHeight: 0.95, marginTop: "16px", marginBottom: "48px" }}>
               Things I've Built{" "}
               <span style={{ color: "var(--text-dim)", fontWeight: 400 }}>&</span>{" "}
               <span style={{
-                background: "linear-gradient(135deg, var(--accent), #9C7BF2)",
+                background: "linear-gradient(135deg, var(--accent), #E8453C)",
                 backgroundSize: "200% 200%", animation: "gradShift 5s ease infinite",
                 WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
               }}>Designed</span>
             </h2>
           </Reveal>
 
-          {/* Featured project — full-width card */}
-          <FeaturedCard reduced={reduced} />
-
-          {/* Project grid */}
-          <ProjectGrid projects={projects} reduced={reduced} />
+          {/* Unified Project Grid */}
+          <ProjectGrid projects={[featured, ...projects]} reduced={reduced} />
         </section>
+
+        {/* ── WORK-TIMELINE DIVIDER ── */}
+        <Marquee items={projectMarqueeItems} speed={25} direction="right" separator="✦" />
 
         {/* ═══════════════════════════════════
            TIMELINE
            ═══════════════════════════════════ */}
         <RadialOrbitalTimeline reduced={reduced} />
 
+        {/* ── TIMELINE-SKILLS DIVIDER ── */}
+        <Marquee items={projectMarqueeItems} speed={35} direction="left" separator="✦" />
+
         {/* ═══════════════════════════════════
            SKILLS
            ═══════════════════════════════════ */}
-        <section id="skills" aria-label="Skills section" style={{ padding: "clamp(80px, 12vw, 160px) clamp(24px, 6vw, 80px)", maxWidth: "1100px", margin: "0 auto" }}>
-          <Reveal reduced={reduced}>
-            <span style={{ fontFamily: "var(--mono)", fontSize: "10px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Skills & Tools</span>
-          </Reveal>
-          <Reveal delay={0.08} reduced={reduced}>
-            <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(34px, 5.5vw, 60px)", fontWeight: 800, letterSpacing: "-2px", lineHeight: 1.05, marginTop: "16px", marginBottom: "48px" }}>
-              What I Work With
-            </h2>
-          </Reveal>
+        <section id="skills" aria-label="Skills section" style={{ padding: "clamp(60px, 8vw, 80px) 0", margin: "0", position: "relative" }}>
+          <div style={{ position: "relative", zIndex: 1, padding: "0 clamp(24px, 6vw, 80px)", maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
+              <Reveal reduced={reduced}>
+                <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Skills & Tools</span>
+              </Reveal>
+              <Reveal delay={0.08} reduced={reduced}>
+                <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(26px, 3.5vw, 42px)", fontWeight: 400, letterSpacing: "-0.5px", lineHeight: 1.2, marginTop: "16px", marginBottom: "16px", color: "var(--text-light)" }}>
+                  What I Work With
+                </h2>
+              </Reveal>
 
-          <DrawLine reduced={reduced} />
+              <DrawLine reduced={reduced} />
 
-          <div>
-            {skillGroups.map((g, i) => <SkillRow key={g.label} group={g} index={i} reduced={reduced} />)}
-          </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: "60px", alignItems: "start" }}>
+                <div>
+                  <div style={{ borderTop: "1px solid var(--border)", marginTop: "40px" }}>
+                    {skillGroups.map((group, idx) => (
+                      <SkillRow key={group.label} group={group} index={idx} reduced={reduced} />
+                    ))}
+                  </div>
+                </div>
 
-          <Reveal delay={0.2} reduced={reduced}>
-            <div style={{ marginTop: "48px", padding: "24px 28px", borderRadius: "16px", background: "var(--card)", border: "1px solid var(--border)" }}>
-              <span style={{ fontFamily: "var(--mono)", fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-dim)", display: "block", marginBottom: "14px" }}>Relevant Coursework</span>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                {["Software Design (Python)", "Decision Science (Excel)", "Management Info Systems", "Design Thinking (Figma)", "Business Statistics (R)"].map((c) => (
-                  <span key={c} style={{ fontFamily: "var(--body)", fontSize: "13px", color: "var(--text-dim)", background: "var(--surface-hover)", padding: "5px 14px", borderRadius: "8px", border: "1px solid var(--border)" }}>{c}</span>
-                ))}
+                <div style={{ position: "sticky", top: "100px" }}>
+                  <Reveal reduced={reduced}>
+                    <div style={{ position: "relative", height: "350px", display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "auto", zIndex: 10 }}>
+                      <IconCloud iconSlugs={STABLE_ICON_SLUGS} />
+                    </div>
+                  </Reveal>
+                  
+                  <Reveal delay={0.2} reduced={reduced}>
+                    <div style={{ 
+                      marginTop: "20px", padding: "20px 24px", borderRadius: "12px", 
+                      background: "var(--card)", border: "1px solid var(--border)", 
+                      borderLeft: "3px solid var(--accent)", backdropFilter: "blur(10px)",
+                      pointerEvents: "auto", position: "relative", zIndex: 1
+                    }}>
+                      <span style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-dim)", display: "block", marginBottom: "12px" }}>Relevant Coursework</span>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                        {["Software Design", "Decision Science", "MIS", "Design Thinking", "Business Stats"].map((c) => (
+                          <span key={c} style={{ fontFamily: "var(--body)", fontSize: "12px", color: "var(--text-dim)", background: "rgba(255,255,255,0.03)", padding: "4px 10px", borderRadius: "4px", border: "1px solid var(--border)" }}>{c}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </Reveal>
+                </div>
               </div>
             </div>
-          </Reveal>
         </section>
+
+        {/* ── SKILLS-CONTACT DIVIDER ── */}
+        <Marquee items={projectMarqueeItems} speed={30} direction="right" separator="✦" />
 
         {/* ═══════════════════════════════════
            CONTACT
            ═══════════════════════════════════ */}
-        <section id="contact" aria-label="Contact section" style={{ padding: "clamp(80px, 12vw, 160px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)", maxWidth: "1100px", margin: "0 auto", position: "relative" }}>
-          <div style={{ position: "absolute", top: 0, right: "5%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(232,97,60,0.04), transparent 65%)", borderRadius: "50%", filter: "blur(80px)", pointerEvents: "none" }} />
+        <section id="contact" aria-label="Contact section" style={{ padding: "clamp(60px, 8vw, 80px) clamp(24px, 6vw, 80px)", maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 10 }}>
+          <div style={{ position: "absolute", top: 0, right: "5%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(255,107,53,0.04), transparent 65%)", borderRadius: "50%", filter: "blur(80px)", pointerEvents: "none" }} />
 
           <Reveal reduced={reduced}>
-            <span style={{ fontFamily: "var(--mono)", fontSize: "10px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Get in Touch</span>
+            <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)" }}>Get In Touch</span>
           </Reveal>
           <Reveal delay={0.08} reduced={reduced}>
             <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 800, letterSpacing: "-2px", lineHeight: 1.05, marginTop: "16px", marginBottom: "20px", maxWidth: "600px" }}>
               Got an idea?{" "}
               <span style={{
-                background: "linear-gradient(135deg, var(--accent), #9C7BF2)",
+                background: "linear-gradient(135deg, var(--accent), #E8453C)",
                 backgroundSize: "200% 200%", animation: "gradShift 5s ease infinite",
                 WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
               }}>Let's talk.</span>
@@ -602,7 +663,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               { href: "mailto:rasikap@utexas.edu", icon: "📧", sub: "Email", text: "rasikap@utexas.edu" },
               { href: "https://www.linkedin.com/in/rasikapatel/", icon: "💼", sub: "LinkedIn", text: "linkedin.com/in/rasikapatel" },
               { href: "https://apps.apple.com/us/app/xplore-austin/id6758564187", icon: "🗺️", sub: "App Store", text: "Xplore Austin" },
-              { href: "https://drive.google.com/file/d/1rZiUMhDQ_2CpptJT8SHn5CspbwN1Rz4g/view", icon: "📄", sub: "Resume", text: "View My Resume" },
+              { href: "https://drive.google.com/file/d/1fO7V_1aJk_rOOg4imeVFxt0a1pfiQH0B/view?usp=sharing", icon: "📄", sub: "Resume", text: "View My Resume" },
             ].map((c, i) => (
               <Reveal key={c.sub} delay={0.18 + i * 0.05} reduced={reduced}>
                 <a href={c.href} target={c.href.startsWith("mailto") ? undefined : "_blank"} rel="noopener noreferrer" className="contact-card" aria-label={`${c.sub}: ${c.text}`}>
@@ -617,6 +678,9 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           </div>
         </section>
       </main>
+      
+      {/* ── FOOTER DIVIDER ── */}
+      <Marquee items={projectMarqueeItems} speed={40} direction="left" separator="✦" />
 
       {/* FOOTER */}
       <Reveal reduced={reduced}>

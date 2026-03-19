@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 import { Client } from "@notionhq/client";
-import { writeFileSync, mkdirSync, createWriteStream } from "node:fs";
+import { writeFileSync, readFileSync, mkdirSync, createWriteStream } from "node:fs";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
 import path from "node:path";
@@ -281,11 +281,23 @@ async function main() {
     manifest[slug] = entry;
   }
 
-  // 3. Write manifest
+  // 3. Preserve manually curated sections from existing manifest
+  try {
+    const existing = JSON.parse(readFileSync(MANIFEST_PATH, "utf-8"));
+    for (const [slug, entry] of Object.entries(existing)) {
+      if (entry.sections && manifest[slug]) {
+        manifest[slug].sections = entry.sections;
+      }
+    }
+  } catch {
+    // No existing manifest — nothing to preserve
+  }
+
+  // 4. Write manifest
   mkdirSync(path.dirname(MANIFEST_PATH), { recursive: true });
   writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + "\n");
 
-  // 4. Summary
+  // 5. Summary
   console.log("\n--- Summary ---");
   console.log(`Projects processed: ${Object.keys(manifest).length}`);
   console.log(`Images downloaded:  ${totalImages}`);

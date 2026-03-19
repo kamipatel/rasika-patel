@@ -1,7 +1,28 @@
 {
   "xplore-austin": {
-    "cover": "/projects/xplore-austin/cover.png",
-    "images": []
+    "cover": "/projects/xplore-austin/logo.png",
+    "images": [],
+    "videos": [],
+    "embeds": [
+      {
+        "url": "https://xplore-v1-zeta.vercel.app/",
+        "caption": ""
+      },
+      {
+        "url": "https://www.instagram.com/xplore.austin/",
+        "caption": ""
+      },
+      {
+        "url": "https://www.canva.com/design/DAG5EuZSFFM/3M1to0kiLvI2VCN7QgCXiw/edit?utm_content=DAG5EuZSFFM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        "caption": ""
+      }
+    ],
+    "links": [
+      {
+        "url": "https://apps.apple.com/us/app/xplore-austin/id6758564187",
+        "title": ""
+      }
+    ]
   },
   "center-for-integrated-design": {
     "cover": "/projects/center-for-integrated-design/cover.png",
@@ -30,6 +51,48 @@
       "/projects/center-for-integrated-design/022.png",
       "/projects/center-for-integrated-design/023.png",
       "/projects/center-for-integrated-design/024.png"
+    ],
+    "videos": [],
+    "embeds": [],
+    "links": [],
+    "sections": [
+      {
+        "title": "Identity & Branding",
+        "images": [
+          "/projects/center-for-integrated-design/001.png",
+          "/projects/center-for-integrated-design/002.png",
+          "/projects/center-for-integrated-design/003.png"
+        ]
+      },
+      {
+        "title": "Social Media Graphics",
+        "images": [
+          "/projects/center-for-integrated-design/004.png",
+          "/projects/center-for-integrated-design/005.png",
+          "/projects/center-for-integrated-design/006.png"
+        ]
+      },
+      {
+        "title": "Course Promotion",
+        "images": [
+          "/projects/center-for-integrated-design/009.png",
+          "/projects/center-for-integrated-design/010.png",
+          "/projects/center-for-integrated-design/011.png",
+          "/projects/center-for-integrated-design/012.png"
+        ]
+      },
+      {
+        "title": "Spring 2026 Course Poster",
+        "images": [
+          "/projects/center-for-integrated-design/008.png"
+        ]
+      },
+      {
+        "title": "Assets & Stickers",
+        "images": [
+          "/projects/center-for-integrated-design/007.png"
+        ]
+      }
     ]
   },
   "herdup": {
@@ -41,13 +104,29 @@
       "/projects/herdup/004.png",
       "/projects/herdup/005.png",
       "/projects/herdup/006.png"
-    ]
+    ],
+    "videos": [],
+    "embeds": [
+      {
+        "url": "https://www.canva.com/design/DAG7JSVZAZk/MMADlYHOsLf12FId8XeGdw/edit?utm_content=DAG7JSVZAZk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        "caption": ""
+      }
+    ],
+    "links": []
   },
   "project-cultured-carrot": {
     "cover": "/projects/project-cultured-carrot/cover.png",
     "images": [
       "/projects/project-cultured-carrot/001.png"
-    ]
+    ],
+    "videos": [],
+    "embeds": [
+      {
+        "url": "https://drive.google.com/file/d/13APokSCS0EFpV7i3OjW5sy3ca4GZL6wx/view?usp=sharing",
+        "caption": ""
+      }
+    ],
+    "links": []
   },
   "graduation-party-materials": {
     "cover": "/projects/graduation-party-materials/cover.png",
@@ -72,11 +151,22 @@
       "/projects/graduation-party-materials/018.png",
       "/projects/graduation-party-materials/019.png",
       "/projects/graduation-party-materials/020.png"
-    ]
+    ],
+    "videos": [],
+    "embeds": [],
+    "links": []
   },
   "well-water-finders": {
     "cover": "/projects/well-water-finders/cover.png",
-    "images": []
+    "images": [],
+    "videos": [],
+    "embeds": [
+      {
+        "url": "https://www.canva.com/design/DAG4VU3Srvk/QoXwsbfPaZrDwOjmDNLudg/edit?utm_content=DAG4VU3Srvk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        "caption": ""
+      }
+    ],
+    "links": []
   },
   "sell-fellowship": {
     "cover": "/projects/sell-fellowship/cover.png",
@@ -85,7 +175,15 @@
       "/projects/sell-fellowship/002.png",
       "/projects/sell-fellowship/003.png",
       "/projects/sell-fellowship/004.png"
-    ]
+    ],
+    "videos": [],
+    "embeds": [
+      {
+        "url": "https://www.instagram.com/sellfellowship/?hl=en",
+        "caption": ""
+      }
+    ],
+    "links": []
   },
   "state-officer-campaign": {
     "cover": "/projects/state-officer-campaign/cover.png",
@@ -95,7 +193,15 @@
       "/projects/state-officer-campaign/003.png",
       "/projects/state-officer-campaign/004.png",
       "/projects/state-officer-campaign/005.png"
-    ]
+    ],
+    "videos": [],
+    "embeds": [
+      {
+        "url": "https://www.canva.com/design/DAG4g3KnO2U/UtuwXPt5mosSSqPnb1fYfg/edit?utm_content=DAG4g3KnO2U&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        "caption": ""
+      }
+    ],
+    "links": []
   },
   "texas-momentum": {
     "cover": "/projects/texas-momentum/cover.png",
@@ -108,6 +214,46 @@
       "/projects/texas-momentum/006.png",
       "/projects/texas-momentum/007.png",
       "/projects/texas-momentum/008.png"
-    ]
+    ],
+    "videos": [],
+    "embeds": [
+      {
+        "url": "https://www.instagram.com/txmomentum/?hl=en",
+        "caption": ""
+      },
+      {
+        "url": "https://www.instagram.com/reel/DICAwR7Rzpu/?igsh=ZjFqbjh5ejNtajk2",
+        "caption": ""
+      },
+      {
+        "url": "https://www.instagram.com/reel/DIPkSqgx2hh/?igsh=MTVwZnRzM2VkOWZpdg==",
+        "caption": ""
+      },
+      {
+        "url": "https://www.instagram.com/reel/DG5zSEoRe8H/?igsh=cG5ydmE1dXhreGVm",
+        "caption": ""
+      },
+      {
+        "url": "https://www.instagram.com/reel/DT6gKB8kYti/?igsh=dTN5YW9zMm56OHAz",
+        "caption": ""
+      },
+      {
+        "url": "https://www.instagram.com/reel/DICAwR7Rzpu/?igsh=ZjFqbjh5ejNtajk2",
+        "caption": ""
+      },
+      {
+        "url": "https://www.instagram.com/reel/DIPkSqgx2hh/?igsh=MTVwZnRzM2VkOWZpdg==",
+        "caption": ""
+      },
+      {
+        "url": "https://www.instagram.com/reel/DG5zSEoRe8H/?igsh=cG5ydmE1dXhreGVm",
+        "caption": ""
+      },
+      {
+        "url": "https://www.instagram.com/reel/DT6gKB8kYti/?igsh=dTN5YW9zMm56OHAz",
+        "caption": ""
+      }
+    ],
+    "links": []
   }
 }

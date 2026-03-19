@@ -10,7 +10,7 @@ export default function Marquee({
         borderTop: "1px solid var(--border)",
         borderBottom: "1px solid var(--border)",
         overflow: "hidden",
-        padding: "16px 0",
+        padding: "12px 0",
       }}
     >
       <div
@@ -35,7 +35,7 @@ export default function Marquee({
                 key={w + d}
                 style={{
                   fontFamily: "var(--display)",
-                  fontSize: "15px",
+                  fontSize: "18px",
                   fontWeight: 600,
                   color: "var(--text-faint)",
                   whiteSpace: "nowrap",

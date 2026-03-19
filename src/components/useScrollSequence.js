@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
-export function useScrollSequence({ frameCount, framePath, scrollRef, enabled = true }) {
+export function useScrollSequence({
+  frameCount,
+  framePath,
+  scrollRef,
+  enabled = true,
+  mode = "scroll",
+  fps = 24,
+  loop = true,
+}) {
   const canvasRef = useRef(null);
   const imagesRef = useRef([]);
   const frameIndexRef = useRef(0);
@@ -68,9 +76,67 @@ export function useScrollSequence({ frameCount, framePath, scrollRef, enabled = 
     drawFrame(frameIndexRef.current);
   }, [drawFrame]);
 
-  // Scroll + resize handling
+  // Autoplay mode
   useEffect(() => {
-    if (!isLoaded) return;
+    if (mode !== "autoplay" || !isLoaded) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    // If disabled (reduced motion or mobile), draw frame 0 once
+    if (!enabled) {
+      updateCanvasSize();
+      frameIndexRef.current = 0;
+      drawFrame(0);
+
+      const ro = new ResizeObserver(() => {
+        updateCanvasSize();
+      });
+      ro.observe(canvas);
+      return () => ro.disconnect();
+    }
+
+    updateCanvasSize();
+
+    const interval = 1000 / fps;
+    let lastTime = 0;
+    let running = true;
+
+    const tick = (timestamp) => {
+      if (!running) return;
+      if (timestamp - lastTime >= interval) {
+        lastTime = timestamp;
+        let next = frameIndexRef.current + 1;
+        if (next >= frameCount) {
+          next = loop ? 0 : frameCount - 1;
+          if (!loop) {
+            running = false;
+            return;
+          }
+        }
+        frameIndexRef.current = next;
+        drawFrame(next);
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    const ro = new ResizeObserver(() => {
+      updateCanvasSize();
+    });
+    ro.observe(canvas);
+
+    return () => {
+      running = false;
+      ro.disconnect();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [isLoaded, enabled, frameCount, fps, loop, mode, drawFrame, updateCanvasSize]);
+
+  // Scroll mode (original behavior)
+  useEffect(() => {
+    if (mode !== "scroll" || !isLoaded) return;
 
     const canvas = canvasRef.current;
     const section = scrollRef.current;
@@ -93,12 +159,10 @@ export function useScrollSequence({ frameCount, framePath, scrollRef, enabled = 
     updateCanvasSize();
 
     const onScroll = () => {
-      const rect = section.getBoundingClientRect();
+      const sy = window.scrollY;
       const vh = window.innerHeight;
-      const scrollable = rect.height - vh;
-      if (scrollable <= 0) return;
-
-      const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+      // Map scrollY 0..vh → progress 0..1
+      const progress = Math.max(0, Math.min(1, sy / vh));
       const newIndex = Math.min(Math.floor(progress * frameCount), frameCount - 1);
 
       if (newIndex !== frameIndexRef.current) {
@@ -123,7 +187,7 @@ export function useScrollSequence({ frameCount, framePath, scrollRef, enabled = 
       ro.disconnect();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [isLoaded, enabled, frameCount, scrollRef, drawFrame, updateCanvasSize]);
+  }, [isLoaded, enabled, frameCount, scrollRef, mode, drawFrame, updateCanvasSize]);
 
   return { canvasRef, isLoaded };
 }

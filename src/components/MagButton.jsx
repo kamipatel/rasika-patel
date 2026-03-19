@@ -41,7 +41,7 @@ export default function MagButton({ children, href, filled = false, onClick }) {
         background: filled ? "var(--accent)" : "transparent",
         border: filled ? "none" : "1.5px solid var(--border)",
         padding: "15px 32px",
-        borderRadius: "100px",
+        borderRadius: "4px",
         transform: `translate(${off.x}px, ${off.y}px) scale(${hov ? 1.04 : 1})`,
         transition: hov
           ? "transform 0.12s ease"

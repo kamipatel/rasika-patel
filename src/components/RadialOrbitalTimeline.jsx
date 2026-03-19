@@ -16,7 +16,7 @@ function layoutNodes(nodes) {
       return { ...node, baseAngle: angle, radius, cx, cy };
     });
 
-  return [...place(inner, 160), ...place(outer, 260)];
+  return [...place(inner, 180), ...place(outer, 280)];
 }
 
 function nodePos(node, angleOffset) {
@@ -54,19 +54,18 @@ function OrbitalSVG({ reduced }) {
 
   return (
     <svg
-      viewBox="0 0 800 800"
-      style={{ width: "100%", maxWidth: "700px", margin: "0 auto", display: "block" }}
+      viewBox="0 70 800 700"
+      style={{ width: "100%", maxWidth: "850px", margin: "0 auto", display: "block" }}
     >
       {/* Orbit rings */}
-      {[160, 260].map((r) => (
+      {[180, 280].map((r) => (
         <circle
           key={r}
           cx={400} cy={400} r={r}
           fill="none"
-          stroke="var(--border)"
+          stroke="var(--accent)"
           strokeWidth="1"
-          strokeDasharray="6 6"
-          opacity={0.5}
+          opacity={0.3}
         />
       ))}
 
@@ -84,22 +83,22 @@ function OrbitalSVG({ reduced }) {
             stroke="var(--accent)"
             strokeWidth={highlight ? 1.5 : 0.8}
             strokeDasharray="4 4"
-            opacity={highlight ? 0.5 : 0.15}
+            opacity={highlight ? 0.6 : 0.3}
             style={{ transition: "opacity 0.3s" }}
           />
         );
       })}
 
       {/* Central hub */}
-      <circle cx={400} cy={400} r={40} fill="var(--accent)" opacity={0.15} />
-      <circle cx={400} cy={400} r={28} fill="var(--accent)" opacity={0.3} />
+      <circle cx={400} cy={400} r={40} fill="var(--accent)" opacity={0.2} />
+      <circle cx={400} cy={400} r={28} fill="var(--accent)" opacity={0.4} />
       <text
         x={400} y={405}
         textAnchor="middle"
         fill="var(--accent)"
         fontFamily="var(--display)"
         fontWeight={800}
-        fontSize="18"
+        fontSize="20"
       >
         RP
       </text>
@@ -113,7 +112,7 @@ function OrbitalSVG({ reduced }) {
           (c) => (c.from === hovSlug && c.to === node.slug) || (c.to === hovSlug && c.from === node.slug)
         );
         const isActive = node.status === "in-progress";
-        const fillColor = isActive ? "var(--accent)" : "rgba(232,97,60,0.4)";
+        const fillColor = isActive ? "var(--accent)" : "rgba(255,107,53,0.4)";
 
         return (
           <g
@@ -149,7 +148,7 @@ function OrbitalSVG({ reduced }) {
               textAnchor="middle"
               fill={isHov ? "var(--text-light)" : "var(--text-mid)"}
               fontFamily="var(--mono)"
-              fontSize="10"
+              fontSize="13px"
               letterSpacing="0.5"
               style={{ transition: "fill 0.3s" }}
             >
@@ -163,7 +162,7 @@ function OrbitalSVG({ reduced }) {
               textAnchor="middle"
               fill="var(--text-dim)"
               fontFamily="var(--mono)"
-              fontSize="8"
+              fontSize="11px"
             >
               {node.timeline}
             </text>
@@ -174,20 +173,12 @@ function OrbitalSVG({ reduced }) {
   );
 }
 
-// Linear mobile fallback
+// Stacked card mobile fallback (no dots/lines)
 function LinearTimeline({ reduced }) {
   const navigate = useNavigate();
 
   return (
-    <div style={{ position: "relative", paddingLeft: "32px" }}>
-      {/* Center line */}
-      <div
-        style={{
-          position: "absolute", left: "8px", top: 0, bottom: 0,
-          width: "2px", background: "var(--border)",
-        }}
-      />
-
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
       {timelineNodes.map((node, i) => {
         const isActive = node.status === "in-progress";
         return (
@@ -199,47 +190,41 @@ function LinearTimeline({ reduced }) {
               onKeyDown={(e) => { if (e.key === "Enter") navigate(`/projects/${node.slug}`); }}
               className="clickable"
               style={{
-                position: "relative",
-                padding: "20px 0",
+                padding: "16px 20px",
                 cursor: "pointer",
+                background: isActive ? "var(--accent-bg)" : "var(--card)",
+                border: `1px solid ${isActive ? "var(--accent-dim)" : "var(--border)"}`,
+                borderRadius: "4px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "12px",
               }}
             >
-              {/* Dot on line */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: "-28px",
-                  top: "26px",
-                  width: "12px",
-                  height: "12px",
-                  borderRadius: "50%",
-                  background: isActive ? "var(--accent)" : "rgba(232,97,60,0.4)",
-                  border: isActive ? "2px solid var(--accent-dim)" : "none",
-                }}
-              />
-
-              <h4
-                style={{
-                  fontFamily: "var(--display)", fontSize: "18px", fontWeight: 700,
-                  color: "var(--text-light)", marginBottom: "4px",
-                }}
-              >
-                {node.title}
-              </h4>
-              <span
-                style={{
-                  fontFamily: "var(--mono)", fontSize: "10px", color: "var(--text-dim)",
-                  letterSpacing: "0.5px",
-                }}
-              >
-                {node.timeline}
-              </span>
+              <div>
+                <h4
+                  style={{
+                    fontFamily: "var(--display)", fontSize: "16px", fontWeight: 700,
+                    color: "var(--text-light)", marginBottom: "2px",
+                  }}
+                >
+                  {node.title}
+                </h4>
+                <span
+                  style={{
+                    fontFamily: "var(--mono)", fontSize: "10px", color: "var(--text-dim)",
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  {node.timeline}
+                </span>
+              </div>
               {isActive && (
                 <span
                   style={{
                     fontFamily: "var(--mono)", fontSize: "9px", color: "var(--accent)",
-                    background: "var(--accent-bg)", padding: "2px 8px",
-                    borderRadius: "100px", marginLeft: "8px", letterSpacing: "0.5px",
+                    fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase",
+                    flexShrink: 0,
                   }}
                 >
                   Active
@@ -263,7 +248,7 @@ export default function RadialOrbitalTimeline({ reduced }) {
       ref={ref}
       aria-label="Timeline section"
       style={{
-        padding: "clamp(80px, 12vw, 160px) clamp(24px, 6vw, 80px)",
+        padding: "clamp(60px, 8vw, 80px) clamp(24px, 6vw, 80px)",
         maxWidth: "1100px",
         margin: "0 auto",
       }}
@@ -271,7 +256,7 @@ export default function RadialOrbitalTimeline({ reduced }) {
       <Reveal reduced={reduced}>
         <span
           style={{
-            fontFamily: "var(--mono)", fontSize: "10px", letterSpacing: "3px",
+            fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px",
             textTransform: "uppercase", color: "var(--accent)",
           }}
         >
@@ -287,7 +272,7 @@ export default function RadialOrbitalTimeline({ reduced }) {
             letterSpacing: "-2px",
             lineHeight: 1.05,
             marginTop: "16px",
-            marginBottom: "48px",
+            marginBottom: "24px",
           }}
         >
           Project Orbit
