@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Globe, Instagram, Palette, Smartphone, FolderOpen, Github, ExternalLink } from "lucide-react";
@@ -6,6 +6,79 @@ import { featured, projects } from "../data/projects";
 import projectImages from "../data/project-images.json";
 
 const allProjects = [featured, ...projects];
+
+const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia(query);
+    setMatches(mql.matches);
+    const handler = (e) => setMatches(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, [query]);
+  return matches;
+};
+
+function SellRetreatCarousel() {
+  const scrollRef = useRef(null);
+  const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    if (hovered || !scrollRef.current) return;
+    const el = scrollRef.current;
+    const interval = setInterval(() => {
+      if (el) {
+        el.scrollLeft += 1;
+        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
+          el.scrollLeft = 0;
+        }
+      }
+    }, 30);
+    return () => clearInterval(interval);
+  }, [hovered]);
+
+  const images = ['retreat 1.png', '2.png', '3 copy.png', '4 copy.png', '5.png'];
+
+  return (
+    <div
+      ref={scrollRef}
+      className="sell-retreat-scroll"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onTouchStart={() => setHovered(true)}
+      onTouchEnd={() => setHovered(false)}
+      style={{
+        display: "flex",
+        gap: "16px",
+        overflowX: "auto",
+        scrollSnapType: hovered ? "x mandatory" : "none",
+        paddingBottom: "8px",
+        WebkitOverflowScrolling: "touch",
+        cursor: hovered ? "grab" : "default",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+      }}
+    >
+      <style>{`.sell-retreat-scroll::-webkit-scrollbar { display: none; }`}</style>
+      {images.map(img => (
+        <img
+          key={img}
+          src={`/projects/sell-fellowship/${img}`}
+          alt="Retreat photo"
+          style={{
+            height: "280px",
+            width: "auto",
+            borderRadius: "16px",
+            scrollSnapAlign: "start",
+            objectFit: "cover",
+            flexShrink: 0,
+            border: "1px solid var(--border)",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 function getLinkMeta(url, captionOrTitle) {
   const fallback = (label) => ({
@@ -38,6 +111,7 @@ export default function ProjectPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const project = allProjects.find((p) => p.slug === slug);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -279,33 +353,7 @@ export default function ProjectPage() {
 
           return (
             <>
-              {project.link && slug !== "texas-momentum" && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit ${project.title} externally`}
-                  className="clickable"
-                  style={{
-                    display: "inline-block",
-                    textDecoration: "none",
-                    fontFamily: "var(--mono)",
-                    fontSize: "12px",
-                    letterSpacing: "1.5px",
-                    textTransform: "uppercase",
-                    fontWeight: 700,
-                    color: "var(--bg)",
-                    background: "var(--accent)",
-                    padding: "15px 32px",
-                    borderRadius: "100px",
-                    transition: "all 0.3s ease",
-                    boxShadow: "0 0 30px var(--accent-glow)",
-                    marginBottom: "16px",
-                  }}
-                >
-                  Visit Project ↗
-                </a>
-              )}
+
               {allLinks.length > 0 && (
                 <div
                   style={{
@@ -563,6 +611,103 @@ export default function ProjectPage() {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        )}
+
+        {/* SELL Fellowship — Merch Showcase */}
+        {slug === "sell-fellowship" && (
+          <div style={{ marginTop: "80px" }}>
+            <div
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: "13px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                color: "var(--accent)",
+                marginBottom: "24px",
+              }}
+            >
+              Merch I Designed
+            </div>
+            <div style={{
+              display: "flex",
+              flexDirection: isMobile ? "column" : "row",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: isMobile ? "24px" : "0",
+              padding: "20px 0",
+            }}>
+              <img
+                src="/projects/sell-fellowship/tshirt1.png"
+                alt="SELL Fellowship merch design 1"
+                style={{
+                  width: isMobile ? "90%" : "48%",
+                  borderRadius: "16px",
+                  boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
+                  transform: isMobile ? "none" : "rotate(-4deg) translateX(20px)",
+                  zIndex: 1,
+                  border: "1px solid var(--border)",
+                }}
+              />
+              <img
+                src="/projects/sell-fellowship/tshirt2.png"
+                alt="SELL Fellowship merch design 2"
+                style={{
+                  width: isMobile ? "90%" : "48%",
+                  borderRadius: "16px",
+                  boxShadow: "0 12px 40px rgba(0,0,0,0.35)",
+                  transform: isMobile ? "none" : "rotate(4deg) translateX(-20px)",
+                  zIndex: 2,
+                  border: "1px solid var(--border)",
+                }}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* SELL Fellowship — Retreat Carousel */}
+        {slug === "sell-fellowship" && (
+          <div style={{ marginTop: "80px" }}>
+            <div
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: "13px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                color: "var(--accent)",
+                marginBottom: "24px",
+              }}
+            >
+              Retreat Recap
+            </div>
+            <SellRetreatCarousel />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: "8px",
+                marginTop: "12px",
+                fontFamily: "var(--mono)",
+                fontSize: "11px",
+                color: "var(--text-dim)",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+              }}
+            >
+              <span>Swipe to explore</span>
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                style={{ fontSize: "14px", display: "inline-block" }}
+              >
+                →
+              </motion.div>
             </div>
           </div>
         )}

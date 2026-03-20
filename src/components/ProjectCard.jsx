@@ -196,6 +196,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
             </p>
           </div>
 
+
           {/* Bottom: category + impact + view button */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap", marginTop: "4px" }}>
             {/* Category Badge */}
