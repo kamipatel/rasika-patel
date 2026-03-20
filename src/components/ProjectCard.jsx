@@ -77,11 +77,11 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
 
   const handleCardClick = () => {
     onActivate(index);
+    navigate(`/projects/${project.slug}`);
   };
 
   const handleViewProject = (e) => {
-    e.stopPropagation();
-    navigate(`/projects/${project.slug}`);
+    // Let it bubble to handleCardClick
   };
 
   const truncatedDesc = project.desc && project.desc.length > 100

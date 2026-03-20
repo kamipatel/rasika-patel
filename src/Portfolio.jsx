@@ -48,7 +48,13 @@ import RadialOrbitalTimeline from "./components/RadialOrbitalTimeline";
 import Vortex from "./components/Vortex";
 import IconCloud from "./components/IconCloud";
 import VelocityScroll from "./components/VelocityScroll";
-import { Icon } from "./components/ui/evervault-card";
+import { Icon, EvervaultCard } from "./components/ui/evervault-card";
+import { Spotlight } from "./components/ui/spotlight";
+import { DotPattern } from "./components/ui/dot-pattern";
+import { Meteors } from "./components/ui/meteors";
+import MagneticButton from "./components/ui/magnetic-button";
+import { FloatingDock } from "./components/ui/floating-dock";
+import { ShineBorder } from "./components/ui/shine-border";
 
 const STABLE_ICON_SLUGS = [
   "react", 
@@ -67,6 +73,11 @@ const STABLE_ICON_SLUGS = [
   "googlegemini",
   "perplexity",
   "qualtrics",
+  "nextdotjs",
+  "vercel",
+  "git",
+  "huggingface",
+  "nodedotjs",
 ];
 
 /* ─── hooks ─── */
@@ -85,10 +96,10 @@ const useMediaQuery = (query) => {
 /* ─── data ─── */
 const skillGroups = [
   { label: "Design", items: ["Figma", "Canva", "Illustrator", "Photoshop"] },
-  { label: "Code", items: ["Python", "Java", "SQL", "HTML/CSS"] },
+  { label: "Code", items: ["Python", "Java", "SQL", "HTML/CSS", "Next.js", "React Native", "JavaScript"] },
   { label: "Analytics", items: ["Tableau", "Qualtrics", "Excel", "PowerPoint"] },
-  { label: "Tools", items: ["VS Code", "Supabase"] },
-  { label: "AI", items: ["Claude", "Gemini", "Perplexity", "OpenClaw", "Antigravity"] },
+  { label: "Tools", items: ["VS Code", "Supabase", "Vercel", "Git"] },
+  { label: "AI", items: ["Claude", "Gemini", "Perplexity", "Gemini API", "Hugging Face"] },
 ];
 
 const stats = [
@@ -264,23 +275,43 @@ function AnimatedStat({ val, label, reduced, variant = "secondary" }) {
   }, [isInView, val, reduced]);
 
   return (
-    <div ref={ref} style={{ background: "var(--bg)", padding: isHero ? "24px 16px" : "8px 4px", textAlign: "center" }}>
-      <div style={{
-        fontFamily: "var(--display)", fontSize: isHero ? "48px" : "30px", fontWeight: 800,
-        color: "var(--accent)", lineHeight: 1, marginBottom: isHero ? "8px" : "4px",
-        textShadow: isHero ? "0 0 30px rgba(255,107,53,0.3), 0 0 60px rgba(255,107,53,0.1)" : "none",
-      }}>{display}</div>
-      {isHero && (
-        <div style={{
-          width: "40px", height: "2px", background: "var(--accent)",
-          opacity: 0.6, margin: "0 auto 8px",
-        }} />
-      )}
-      <div style={{
-        fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "1.5px",
-        textTransform: "uppercase", color: "var(--text-dim)",
-      }}>{label}</div>
-    </div>
+    <motion.div
+      ref={ref}
+      whileHover={reduced ? {} : { scale: 1.03, y: -4 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      style={{ width: "100%", height: "100%" }}
+    >
+      <ShineBorder
+        borderRadius={isHero ? 40 : 20}
+        borderWidth={1}
+        duration={isHero ? 14 : 20}
+        color={["#FF6B35", "transparent", "#FF6B35"]}
+        className="flex flex-col items-center justify-center h-full w-full bg-[var(--card)]/60 backdrop-blur-xl"
+      >
+        <div style={{ textAlign: "center", padding: isHero ? "10px 0" : "2px 0", width: "100%" }}>
+          <div style={{
+            fontFamily: "var(--display)", 
+            fontSize: isHero ? "68px" : "clamp(24px, 6vw, 32px)", 
+            fontWeight: 800,
+            color: "var(--accent)", lineHeight: 0.9, 
+            marginBottom: isHero ? "10px" : "6px",
+            letterSpacing: isHero ? "-2.5px" : "-1px",
+            whiteSpace: "nowrap"
+          }}>{display}</div>
+          {isHero && (
+            <div style={{
+              width: "30px", height: "3px", background: "var(--accent)",
+              opacity: 0.4, margin: "0 auto 10px", borderRadius: "100px"
+            }} />
+          )}
+          <div style={{
+            fontFamily: "var(--mono)", fontSize: isHero ? "9px" : "8px", 
+            letterSpacing: isHero ? "3px" : "1.5px",
+            textTransform: "uppercase", color: "var(--text-dim)", fontWeight: 700
+          }}>{label}</div>
+        </div>
+      </ShineBorder>
+    </motion.div>
   );
 }
 
@@ -518,17 +549,15 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
             {/* Stats column — asymmetric layout */}
             <Reveal delay={0.2} reduced={reduced}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 {/* Hero stat — large */}
-                <div style={{ background: "rgba(255,255,255,0.03)", padding: "32px 24px", borderRadius: "4px 4px 0 0", borderLeft: "3px solid var(--accent)" }}>
+                <div style={{ height: "160px" }}>
                   <AnimatedStat val={stats[0].val} label={stats[0].label} reduced={reduced} variant="hero" />
                 </div>
                 {/* Secondary stats — compact row */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "2px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px", height: "120px" }}>
                   {stats.slice(1).map((s) => (
-                    <div key={s.label} style={{ background: "rgba(255,255,255,0.03)", padding: "8px 4px", borderRadius: "0" }}>
-                      <AnimatedStat val={s.val} label={s.label} reduced={reduced} />
-                    </div>
+                    <AnimatedStat key={s.label} val={s.val} label={s.label} reduced={reduced} />
                   ))}
                 </div>
               </div>
@@ -636,46 +665,66 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         {/* ═══════════════════════════════════
            CONTACT
            ═══════════════════════════════════ */}
-        <section id="contact" aria-label="Contact section" style={{ padding: "clamp(60px, 8vw, 80px) clamp(24px, 6vw, 80px)", maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 10 }}>
-          <div style={{ position: "absolute", top: 0, right: "5%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(255,107,53,0.04), transparent 65%)", borderRadius: "50%", filter: "blur(80px)", pointerEvents: "none" }} />
+        <section id="contact" aria-label="Contact section" style={{ padding: "clamp(40px, 5vw, 60px) clamp(24px, 6vw, 80px)", maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 10 }}>
+          <div style={{ position: "absolute", top: "20%", left: "10%", width: "600px", height: "600px", background: "radial-gradient(circle, rgba(255,107,53,0.05), transparent 60%)", borderRadius: "50%", filter: "blur(100px)", pointerEvents: "none" }} />
 
-          <Reveal reduced={reduced}>
-            <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)" }}>Get In Touch</span>
-          </Reveal>
-          <Reveal delay={0.08} reduced={reduced}>
-            <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 800, letterSpacing: "-2px", lineHeight: 1.05, marginTop: "16px", marginBottom: "20px", maxWidth: "600px" }}>
-              Got an idea?{" "}
-              <span style={{
-                background: "linear-gradient(135deg, var(--accent), #E8453C)",
-                backgroundSize: "200% 200%", animation: "gradShift 5s ease infinite",
-                WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-              }}>Let's talk.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.14} reduced={reduced}>
-            <p style={{ fontFamily: "var(--body)", fontSize: "16px", color: "var(--text-dim)", maxWidth: "440px", lineHeight: 1.6, marginBottom: "40px" }}>
-              Whether it's a startup, brand, or creative project — I'm always excited to collaborate.
-            </p>
-          </Reveal>
+          {/* Core Spotlight effect over the background */}
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "12px", maxWidth: "660px" }}>
-            {[
-              { href: "mailto:rasikap@utexas.edu", icon: "📧", sub: "Email", text: "rasikap@utexas.edu" },
-              { href: "https://www.linkedin.com/in/rasikapatel/", icon: "💼", sub: "LinkedIn", text: "linkedin.com/in/rasikapatel" },
-              { href: "https://apps.apple.com/us/app/xplore-austin/id6758564187", icon: "🗺️", sub: "App Store", text: "Xplore Austin" },
-              { href: "https://drive.google.com/file/d/1fO7V_1aJk_rOOg4imeVFxt0a1pfiQH0B/view?usp=sharing", icon: "📄", sub: "Resume", text: "View My Resume" },
-            ].map((c, i) => (
-              <Reveal key={c.sub} delay={0.18 + i * 0.05} reduced={reduced}>
-                <a href={c.href} target={c.href.startsWith("mailto") ? undefined : "_blank"} rel="noopener noreferrer" className="contact-card" aria-label={`${c.sub}: ${c.text}`}>
-                  <div style={{ width: "42px", height: "42px", borderRadius: "12px", background: "var(--accent-bg)", border: "1px solid var(--accent-dim)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0 }}>{c.icon}</div>
-                  <div>
-                    <div style={{ fontFamily: "var(--mono)", fontSize: "10px", color: "var(--text-dim)", letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: "2px" }}>{c.sub}</div>
-                    <div>{c.text}</div>
-                  </div>
-                </a>
+          <EvervaultCard className="w-full border border-[var(--border)] rounded-[40px] overflow-hidden backdrop-blur-md relative" style={{ background: "rgba(255,255,255,0.02)" }}>
+            
+            {/* Added DotPattern & Meteors inside the interactive card */}
+            <DotPattern className="opacity-40 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]" />
+            <Meteors number={15} />
+
+            <div style={{ padding: "clamp(24px, 4vw, 48px) clamp(20px, 4vw, 60px)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", width: "100%", position: "relative", zIndex: 20 }}>
+              
+              <Reveal reduced={reduced}>
+                <span style={{ fontFamily: "var(--mono)", fontSize: "14px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--text-dim)", marginBottom: "16px", display: "inline-block" }}>
+                  Let's <span style={{ color: "var(--accent)", fontStyle: "italic" }}>build</span> something together
+                </span>
               </Reveal>
-            ))}
-          </div>
+
+              <Reveal delay={0.1} reduced={reduced}>
+                {/* Magnetic Wrapper on massive email */}
+                <MagneticButton
+                  href="mailto:rasikap@utexas.edu"
+                  style={{ 
+                    fontFamily: "var(--display)", 
+                    fontSize: "clamp(36px, 6.5vw, 110px)", 
+                    fontWeight: 800, 
+                    letterSpacing: "-2px", 
+                    lineHeight: 1, 
+                    color: "transparent",
+                    backgroundImage: "linear-gradient(135deg, var(--text-light) 0%, var(--accent) 150%)",
+                    backgroundClip: "text",
+                    WebkitBackgroundClip: "text",
+                    display: "inline-block",
+                    textDecoration: "none",
+                    position: "relative",
+                  }}
+                  whileHover={reduced ? {} : { 
+                    scale: 1.05, 
+                    textShadow: "0 0 50px rgba(255,107,53,0.6)"
+                  }}
+                >
+                  rasikap@utexas.edu
+                </MagneticButton>
+              </Reveal>
+
+              <div style={{ width: "1px", height: "30px", background: "var(--border)", margin: "24px auto", boxShadow: "0 0 10px rgba(255,107,53,0.3)" }} />
+
+              <div style={{ position: "relative", zIndex: 20 }}>
+                <FloatingDock
+                  items={[
+                    { title: "LinkedIn", href: "https://www.linkedin.com/in/rasikapatel/", icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg> },
+                    { title: "App Store", href: "https://apps.apple.com/us/app/xplore-austin/id6758564187", icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 1.44C9.6 6.44 8 5 5 5A5 5 0 0 0 0 10c0 4.22 3 12.22 6 12.22 1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5h-2c0-3-1-4-2-5Z"/></svg> },
+                    { title: "Resume", href: "https://drive.google.com/file/d/1fO7V_1aJk_rOOg4imeVFxt0a1pfiQH0B/view?usp=sharing", icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> },
+                  ]}
+                  className="flex"
+                />
+              </div>
+            </div>
+          </EvervaultCard>
         </section>
       </main>
       

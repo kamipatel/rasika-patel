@@ -25,9 +25,8 @@
     ]
   },
   "center-for-integrated-design": {
-    "cover": "/projects/center-for-integrated-design/cover.png",
+    "cover": null,
     "images": [
-      "/projects/center-for-integrated-design/001.png",
       "/projects/center-for-integrated-design/002.png",
       "/projects/center-for-integrated-design/003.png",
       "/projects/center-for-integrated-design/004.png",
@@ -59,7 +58,6 @@
       {
         "title": "Identity & Branding",
         "images": [
-          "/projects/center-for-integrated-design/001.png",
           "/projects/center-for-integrated-design/002.png",
           "/projects/center-for-integrated-design/003.png"
         ]
@@ -96,14 +94,14 @@
     ]
   },
   "herdup": {
-    "cover": "/projects/herdup/cover.png",
+    "cover": null,
     "images": [
       "/projects/herdup/001.png",
-      "/projects/herdup/002.png",
-      "/projects/herdup/003.png",
-      "/projects/herdup/004.png",
-      "/projects/herdup/005.png",
-      "/projects/herdup/006.png"
+      "/projects/herdup/002_1.png",
+      "/projects/herdup/003_1.png",
+      "/projects/herdup/003_2.png",
+      "/projects/herdup/004_1.png",
+      "/projects/herdup/004_2.png"
     ],
     "videos": [],
     "embeds": [
@@ -114,16 +112,16 @@
     ],
     "links": []
   },
-  "project-cultured-carrot": {
-    "cover": "/projects/project-cultured-carrot/cover.png",
+  "cultured-carrot": {
+    "cover": "/projects/cultured-carrot/cover.png",
     "images": [
-      "/projects/project-cultured-carrot/001.png"
+      "/projects/cultured-carrot/001.png"
     ],
     "videos": [],
     "embeds": [
       {
         "url": "https://drive.google.com/file/d/13APokSCS0EFpV7i3OjW5sy3ca4GZL6wx/view?usp=sharing",
-        "caption": ""
+        "caption": "Business Plan"
       }
     ],
     "links": []
@@ -169,12 +167,10 @@
     "links": []
   },
   "sell-fellowship": {
-    "cover": "/projects/sell-fellowship/cover.png",
+    "cover": null,
     "images": [
       "/projects/sell-fellowship/001.png",
-      "/projects/sell-fellowship/002.png",
-      "/projects/sell-fellowship/003.png",
-      "/projects/sell-fellowship/004.png"
+      "/projects/sell-fellowship/002.png"
     ],
     "videos": [],
     "embeds": [
@@ -204,56 +200,32 @@
     "links": []
   },
   "texas-momentum": {
-    "cover": "/projects/texas-momentum/cover.png",
-    "images": [
-      "/projects/texas-momentum/001.png",
-      "/projects/texas-momentum/002.png",
-      "/projects/texas-momentum/003.png",
-      "/projects/texas-momentum/004.png",
-      "/projects/texas-momentum/005.png",
-      "/projects/texas-momentum/006.png",
-      "/projects/texas-momentum/007.png",
-      "/projects/texas-momentum/008.png"
-    ],
+    "cover": null,
+    "images": [],
     "videos": [],
     "embeds": [
       {
         "url": "https://www.instagram.com/txmomentum/?hl=en",
-        "caption": ""
-      },
-      {
-        "url": "https://www.instagram.com/reel/DICAwR7Rzpu/?igsh=ZjFqbjh5ejNtajk2",
-        "caption": ""
-      },
-      {
-        "url": "https://www.instagram.com/reel/DIPkSqgx2hh/?igsh=MTVwZnRzM2VkOWZpdg==",
-        "caption": ""
-      },
-      {
-        "url": "https://www.instagram.com/reel/DG5zSEoRe8H/?igsh=cG5ydmE1dXhreGVm",
-        "caption": ""
-      },
-      {
-        "url": "https://www.instagram.com/reel/DT6gKB8kYti/?igsh=dTN5YW9zMm56OHAz",
-        "caption": ""
-      },
-      {
-        "url": "https://www.instagram.com/reel/DICAwR7Rzpu/?igsh=ZjFqbjh5ejNtajk2",
-        "caption": ""
-      },
-      {
-        "url": "https://www.instagram.com/reel/DIPkSqgx2hh/?igsh=MTVwZnRzM2VkOWZpdg==",
-        "caption": ""
-      },
-      {
-        "url": "https://www.instagram.com/reel/DG5zSEoRe8H/?igsh=cG5ydmE1dXhreGVm",
-        "caption": ""
-      },
-      {
-        "url": "https://www.instagram.com/reel/DT6gKB8kYti/?igsh=dTN5YW9zMm56OHAz",
-        "caption": ""
+        "caption": "Instagram"
       }
     ],
-    "links": []
+    "links": [],
+    "sections": [
+      {
+        "title": "Business Cards",
+        "images": [
+          "/projects/texas-momentum/001.png",
+          "/projects/texas-momentum/002.png",
+          "/projects/texas-momentum/003.png",
+          "/projects/texas-momentum/004.png"
+        ]
+      },
+      {
+        "title": "Spring 2026 Recruitment Timeline",
+        "images": [
+          "/projects/texas-momentum/recruitment-timeline.png"
+        ]
+      }
+    ]
   }
 }

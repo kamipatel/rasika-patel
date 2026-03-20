@@ -51,7 +51,7 @@ export default function App() {
         entries.forEach((e) => {
           if (e.isIntersecting) setActiveNav(e.target.id);
         }),
-      { threshold: 0.25 }
+      { threshold: 0.1, rootMargin: "-10% 0px -10% 0px" }
     );
     ids.forEach((id) => {
       const el = document.getElementById(id);

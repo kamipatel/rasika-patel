@@ -15,11 +15,11 @@ export default function PortfolioNav({ activeNav }) {
   };
 
   const navItems = [
-    { name: "Home", url: "#hero", icon: Home },
-    { name: "About", url: "#about", icon: User },
-    { name: "Work", url: "#work", icon: Briefcase },
-    { name: "Skills", url: "#skills", icon: Wrench },
-    { name: "Contact", url: "#contact", icon: Mail },
+    { name: "Home", url: "/#hero", icon: Home },
+    { name: "About", url: "/#about", icon: User },
+    { name: "Work", url: "/#work", icon: Briefcase },
+    { name: "Skills", url: "/#skills", icon: Wrench },
+    { name: "Contact", url: "/#contact", icon: Mail },
   ];
 
   return <NavBar items={navItems} activeTab={getDisplayName(activeNav)} />;

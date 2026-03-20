@@ -266,16 +266,20 @@ export default function ProjectPage() {
           const embeds = (manifest.embeds || []).map((e) => ({ url: e.url, ...getLinkMeta(e.url, e.caption) }));
           const links = (manifest.links || []).map((l) => ({ url: l.url, ...getLinkMeta(l.url, l.title) }));
           const seen = new Set();
-          if (project.link) seen.add(project.link);
-          const allLinks = [...embeds, ...links].filter(({ url }) => {
-            if (seen.has(url)) return false;
-            seen.add(url);
+          const allLinks = [
+            ...(project.link ? [{ url: project.link, ...getLinkMeta(project.link, "Official Site") }] : []),
+            ...embeds,
+            ...links
+          ].filter(({ url }) => {
+            const normalized = url.replace(/\/$/, "");
+            if (seen.has(normalized)) return false;
+            seen.add(normalized);
             return true;
           });
 
           return (
             <>
-              {project.link && (
+              {project.link && slug !== "texas-momentum" && (
                 <a
                   href={project.link}
                   target="_blank"
@@ -283,9 +287,7 @@ export default function ProjectPage() {
                   aria-label={`Visit ${project.title} externally`}
                   className="clickable"
                   style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "8px",
+                    display: "inline-block",
                     textDecoration: "none",
                     fontFamily: "var(--mono)",
                     fontSize: "12px",
@@ -298,6 +300,7 @@ export default function ProjectPage() {
                     borderRadius: "100px",
                     transition: "all 0.3s ease",
                     boxShadow: "0 0 30px var(--accent-glow)",
+                    marginBottom: "16px",
                   }}
                 >
                   Visit Project ↗
@@ -309,7 +312,7 @@ export default function ProjectPage() {
                     display: "grid",
                     gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
                     gap: "12px",
-                    marginTop: project.link ? "16px" : "0",
+                    marginTop: "0",
                   }}
                 >
                   {allLinks.map(({ url, label, description, icon: Icon, color }) => (
@@ -386,91 +389,227 @@ export default function ProjectPage() {
           );
         })()}
 
-        {/* Content image gallery or sections */}
-        {(projectImages[slug]?.sections || projectImages[slug]?.images?.length > 0) && (
+        {/* Custom Layout for Well Water Finders (Video + Gallery at bottom) */}
+        {slug === "well-water-finders" && (
           <div style={{ marginTop: "80px" }}>
-            {projectImages[slug]?.sections ? (
-              projectImages[slug].sections.map((section, idx) => (
-                <div key={section.title} style={{ marginBottom: "48px" }}>
-                  <h2
-                    style={{
-                      fontFamily: "var(--display)",
-                      fontSize: "20px",
-                      fontWeight: 700,
-                      color: "var(--text-light)",
-                      marginBottom: "24px",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "12px",
-                    }}
-                  >
-                    <span style={{ color: "var(--accent)", opacity: 0.5 }}>0{idx + 1}</span>
-                    {section.title}
-                  </h2>
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))",
-                      gap: "16px",
-                    }}
-                  >
-                    {section.images.map((src, i) => (
-                      <div
-                        key={src}
-                        style={{
-                          borderRadius: "16px",
-                          overflow: "hidden",
-                          border: "1px solid var(--border)",
-                          background: "var(--card-bg)",
-                        }}
-                      >
-                        <img
-                          src={src}
-                          alt={`${section.title} image ${i + 1}`}
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            display: "block",
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))
-            ) : (
-              <>
+            <div
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: "13px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                color: "var(--accent)",
+                marginBottom: "24px",
+              }}
+            >
+              Project Details
+            </div>
+            
+            {/* Video Hero */}
+            <div
+              style={{
+                borderRadius: "20px",
+                overflow: "hidden",
+                border: "1px solid var(--border)",
+                boxShadow: "0 20px 50px rgba(0,0,0,0.3)",
+                background: "var(--card-bg)",
+                marginBottom: "20px",
+              }}
+            >
+              <video
+                src="/projects/well-water-finders/Untitled design (3).mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+            
+            {/* Horizontal Scrollable Gallery */}
+            <div
+              style={{
+                display: "flex",
+                overflowX: "auto",
+                gap: "16px",
+                paddingBottom: "16px",
+                scrollSnapType: "x mandatory",
+                WebkitOverflowScrolling: "touch",
+                /* Hide scrollbar for a cleaner look */
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+              }}
+              className="hide-scrollbar"
+            >
+              <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+              {["2.png", "3.png", "4.png", "5.png"].map((img) => (
                 <div
+                  key={img}
                   style={{
-                    fontFamily: "var(--mono)",
-                    fontSize: "10px",
-                    letterSpacing: "3px",
-                    textTransform: "uppercase",
-                    color: "var(--accent)",
-                    marginBottom: "24px",
+                    flex: "0 0 auto",
+                    width: "clamp(260px, 60vw, 320px)",
+                    scrollSnapAlign: "start",
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    border: "1px solid var(--border)",
                   }}
                 >
-                  Project Gallery
+                  <motion.img
+                    src={`/projects/well-water-finders/${img}`}
+                    alt={`Well Water Finders ${img}`}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      display: "block",
+                      objectFit: "cover",
+                    }}
+                  />
                 </div>
+              ))}
+            </div>
+
+            {/* Scroll Indicator */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: "8px",
+                marginTop: "12px",
+                fontFamily: "var(--mono)",
+                fontSize: "11px",
+                color: "var(--text-dim)",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+              }}
+            >
+              <span>Swipe to explore</span>
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                style={{ fontSize: "14px", display: "inline-block" }}
+              >
+                →
+              </motion.div>
+            </div>
+          </div>
+        )}
+
+        {/* Content image gallery */}
+        {slug !== "well-water-finders" && projectImages[slug]?.images?.length > 0 && (
+          <div style={{ marginTop: "80px" }}>
+            <div
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: "13px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                color: "var(--accent)",
+                marginBottom: "24px",
+              }}
+            >
+              {slug === "herdup" ? "User Interfaces" : "Project Gallery"}
+            </div>
+            <div
+              style={{
+                display: slug === "herdup" ? "flex" : "grid",
+                flexWrap: slug === "herdup" ? "wrap" : "nowrap",
+                justifyContent: slug === "herdup" ? "center" : "flex-start",
+                gridTemplateColumns: slug === "herdup" 
+                  ? "none" 
+                  : "repeat(auto-fill, minmax(min(100%, 250px), 1fr))",
+                gap: slug === "herdup" ? "32px 1.40%" : "16px",
+                alignItems: slug === "herdup" ? "center" : "stretch",
+              }}
+            >
+              {projectImages[slug].images.map((src, i) => {
+                const herdupWidth = slug === "herdup"
+                  ? src.includes("001") ? "100%"
+                  : "13.33%"  // Exact width for phone height to match row 1 height
+                  : "auto";
+
+                return (
+                  <div
+                    key={src}
+                    style={{
+                      borderRadius: slug === "herdup" && !src.includes("001") ? "0px" : "16px",
+                      overflow: "hidden",
+                      border: slug === "herdup" ? "none" : "1px solid var(--border)",
+                      width: herdupWidth,
+                      minWidth: slug === "herdup" ? "0px" : "none",
+                      flexShrink: slug === "herdup" ? 0 : 1,
+                    }}
+                  >
+                    <img
+                      src={src}
+                      alt={`${project.title} image ${i + 1}`}
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        display: "block",
+                      }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Extra sections */}
+        {projectImages[slug]?.sections?.length > 0 && (
+          <div style={{ marginTop: "80px" }}>
+            {projectImages[slug].sections.map((section, idx) => (
+              <div key={section.title} style={{ marginBottom: "48px" }}>
+                <h2
+                  style={{
+                    fontFamily: "var(--display)",
+                    fontSize: "20px",
+                    fontWeight: 700,
+                    color: "var(--text-light)",
+                    marginBottom: "24px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                  }}
+                >
+                  <span style={{ color: "var(--accent)", opacity: 0.5 }}>0{idx + 1}</span>
+                  {section.title}
+                </h2>
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))",
+                    gridTemplateColumns: section.title === "Business Cards"
+                      ? "repeat(2, 1fr)"
+                      : "repeat(auto-fill, minmax(min(100%, 250px), 1fr))",
                     gap: "16px",
+                    maxWidth: section.title === "Business Cards" ? "600px" : "none",
                   }}
                 >
-                  {projectImages[slug].images.map((src, i) => (
+                  {section.images.map((src, i) => (
                     <div
                       key={src}
                       style={{
                         borderRadius: "16px",
                         overflow: "hidden",
                         border: "1px solid var(--border)",
+                        background: "var(--card-bg)",
                       }}
                     >
                       <img
                         src={src}
-                        alt={`${project.title} image ${i + 1}`}
+                        alt={`${section.title} image ${i + 1}`}
                         style={{
                           width: "100%",
                           height: "auto",
@@ -480,8 +619,8 @@ export default function ProjectPage() {
                     </div>
                   ))}
                 </div>
-              </>
-            )}
+              </div>
+            ))}
           </div>
         )}
       </main>
