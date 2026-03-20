@@ -237,72 +237,24 @@ body {
   color: var(--accent);
 }
 
+.link-card {
+  min-height: 44px;
+}
+
 .link-card:hover {
   border-color: var(--accent-dim);
 }
 
-/* ── Hamburger ── */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 32px;
-  height: 32px;
-  background: none;
-  border: none;
-  padding: 0;
-  z-index: 110;
-}
-
-.hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--text-light);
-  border-radius: 2px;
-  transition: all 0.3s ease;
-  transform-origin: center;
-}
-
-.hamburger.open span:nth-child(1) {
-  transform: rotate(45deg) translate(2.5px, 2.5px);
-}
-
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(2.5px, -2.5px);
-}
+/* Legacy Hamburger Styles Removed - Handled by React NavBar */
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .featured-grid {
+  .featured-grid, .about-grid, .project-grid, .skill-grid {
     grid-template-columns: 1fr !important;
   }
 
-  .about-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .project-grid {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-
-  .skill-grid {
-    grid-template-columns: 1fr !important;
-    gap: 8px !important;
-  }
-
-  .nav-links {
-    display: none !important;
-  }
-
-  .hamburger {
-    display: flex;
+  button, a {
+    min-height: 44px;
   }
 }
 
@@ -390,6 +342,15 @@ body {
 
 .mobile-menu-overlay a:hover {
   color: var(--accent);
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Navigation dots removed — using inline line indicators instead */

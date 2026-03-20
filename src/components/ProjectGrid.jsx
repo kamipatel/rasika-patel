@@ -49,8 +49,8 @@ export default function ProjectGrid({ projects, reduced }) {
         className="project-card-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "24px",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))",
+          gap: "clamp(20px, 4vw, 32px)",
         }}
       >
         {restProjects.map((p, i) => (

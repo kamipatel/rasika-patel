@@ -80,7 +80,8 @@ function IconContainer({ mouseX, title, icon, href }) {
               initial={{ opacity: 0, y: 10, x: "-50%" }}
               animate={{ opacity: 1, y: 0, x: "-50%" }}
               exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="px-6 py-3 whitespace-pre rounded-xl border border-[var(--border)] bg-[#111111]/90 backdrop-blur-md text-[#e0e0e0] absolute left-1/2 -translate-x-1/2 -top-16 w-fit text-sm md:text-base font-bold uppercase tracking-widest font-mono shadow-2xl z-50 pointer-events-none"
+              style={{ position: "absolute", left: "50%", top: "-64px" }}
+              className="px-6 py-3 whitespace-pre rounded-xl border border-[var(--border)] bg-[#111111]/90 backdrop-blur-md text-[#e0e0e0] w-fit text-sm md:text-base font-bold uppercase tracking-widest font-mono shadow-2xl z-50 pointer-events-none"
             >
               {title}
             </motion.div>

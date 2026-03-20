@@ -161,7 +161,7 @@ function SplitReveal({ text, style = {}, charDelay = 0.035, baseDelay = 0, reduc
   );
 }
 
-function SkillRow({ group, index, reduced }) {
+function SkillRow({ group, index, reduced, isMobile }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.08 });
   return (
@@ -172,8 +172,12 @@ function SkillRow({ group, index, reduced }) {
       animate={isInView ? { opacity: 1, y: 0 } : undefined}
       transition={reduced ? { duration: 0.01 } : { ...springConfig, delay: index * 0.07 }}
       style={{
-        display: "grid", gridTemplateColumns: "180px 1fr", gap: "20px", alignItems: "center",
-        padding: "24px 0", borderBottom: "1px solid var(--border)",
+        display: "grid", 
+        gridTemplateColumns: isMobile ? "1fr" : "180px 1fr", 
+        gap: isMobile ? "12px" : "20px", 
+        alignItems: isMobile ? "start" : "center",
+        padding: isMobile ? "20px 0" : "24px 0", 
+        borderBottom: "1px solid var(--border)",
       }}
     >
       <span style={{
@@ -332,6 +336,7 @@ function ScrollProgressBar() {
 /* ─── main ─── */
 export default function Portfolio({ loaded = false, theme = "dark" }) {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [formStatus, setFormStatus] = useState("idle");
 
   const prefersReduced = useReducedMotion();
   const reduced = !!prefersReduced;
@@ -416,12 +421,12 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           {/* 2. Monumental Title */}
           <h1 style={{
             fontFamily: "var(--display)",
-            fontSize: "clamp(50px, 10vw, 130px)",
-            fontWeight: 800, lineHeight: 0.9, letterSpacing: "-0.04em",
+            fontSize: "clamp(46px, 11vw, 130px)",
+            fontWeight: 800, lineHeight: 0.85, letterSpacing: "-0.04em",
             textTransform: "uppercase", margin: 0,
             textAlign: "center",
             zIndex: 10,
-            display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(12px, 3vw, 32px)"
+            display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(8px, 2vw, 32px)"
           }}>
             <span style={{ color: "var(--text-light)", textShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>
               <SplitReveal text="Rasika" baseDelay={0.4} charDelay={0.05} reduced={reduced} />
@@ -441,7 +446,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
           {/* 3. Interactive Portrait Masked inside an Arch */}
           <div style={{
-            width: "clamp(200px, 35vw, 320px)",
+            width: "clamp(180px, 45vw, 320px)",
             aspectRatio: "3/4",
             position: "relative",
             borderRadius: "200px 200px 0 0",
@@ -494,14 +499,18 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
           {/* 6. CTAs */}
           <div style={{
-            display: "flex", gap: "16px", justifyContent: "center",
+            display: "flex", 
+            gap: "16px", 
+            flexDirection: isMobile ? "column" : "row",
+            justifyContent: "center",
             opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)",
             transition: "all 1s cubic-bezier(0.22,1,0.36,1) 1.6s",
             zIndex: 20, pointerEvents: "auto",
-            marginTop: "0px", flexWrap: "wrap"
+            marginTop: "8px", width: isMobile ? "100%" : "auto", 
+            maxWidth: isMobile ? "300px" : "none"
           }}>
-            <MagButton href="#work" filled>View My Work</MagButton>
-            <MagButton href="#contact">Get in Touch</MagButton>
+            <MagButton href="#work" filled style={{ width: "100%" }}>View My Work</MagButton>
+            <MagButton href="#contact" style={{ width: "100%" }}>Get in Touch</MagButton>
           </div>
 
           {/* Smooth blend to next section */}
@@ -524,7 +533,12 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           </Reveal>
 
           <Reveal delay={0.1} reduced={reduced}>
-            <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(28px, 4vw, 48px)", fontWeight: 800, lineHeight: 1.2, letterSpacing: "-1px", marginTop: "20px", marginBottom: "32px", maxWidth: "780px" }}>
+            <h2 style={{ 
+              fontFamily: "var(--display)", 
+              fontSize: "clamp(28px, 6vw, 48px)", 
+              fontWeight: 800, lineHeight: 1.1, letterSpacing: "-1px", 
+              marginTop: "20px", marginBottom: "32px", maxWidth: "780px" 
+            }}>
               A <span style={{ color: "var(--accent)" }}>Marketing</span> student at McCombs
               obsessed with <span style={{ fontStyle: "italic", color: "var(--text-light)" }}>UI/UX</span>, creative strategy,
               and building things that matter.
@@ -533,33 +547,43 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
           <DrawLine reduced={reduced} />
 
-          <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1fr 310px", gap: "60px", alignItems: "start", marginTop: "32px" }}>
+          <div className="about-grid" style={{ 
+            display: "grid", 
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 310px", 
+            gap: isMobile ? "40px" : "60px", 
+            alignItems: "start", 
+            marginTop: "32px" 
+          }}>
             <div>
               <Reveal delay={0.2} reduced={reduced}>
-                <p style={{ fontFamily: "var(--body)", fontSize: "19px", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
+                <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
                   I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum, I'm drawn to building and shipping real things.
                 </p>
               </Reveal>
               <Reveal delay={0.25} reduced={reduced}>
-                <p style={{ fontFamily: "var(--body)", fontSize: "19px", color: "var(--text-dim)", lineHeight: 1.75 }}>
+                <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75 }}>
                   When I'm not designing in Figma, I'm sketching wireframes, curating playlists, or brainstorming ways to connect Austin's creative community through local businesses, art, and tech.
                 </p>
               </Reveal>
             </div>
 
-            {/* Stats column — asymmetric layout */}
+            {/* Stats column — 2x2 grid on mobile */}
             <Reveal delay={0.2} reduced={reduced}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                {/* Hero stat — large */}
-                <div style={{ height: "160px" }}>
+              <div style={{ 
+                display: "grid", 
+                gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr", 
+                gap: "12px" 
+              }}>
+                {/* Hero stat */}
+                <div style={{ height: isMobile ? "140px" : "160px", gridColumn: isMobile ? "span 2" : "span 1" }}>
                   <AnimatedStat val={stats[0].val} label={stats[0].label} reduced={reduced} variant="hero" />
                 </div>
-                {/* Secondary stats — compact row */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px", height: "120px" }}>
-                  {stats.slice(1).map((s) => (
-                    <AnimatedStat key={s.label} val={s.val} label={s.label} reduced={reduced} />
-                  ))}
-                </div>
+                {/* Secondary stats */}
+                {stats.slice(1).map((s) => (
+                  <div key={s.label} style={{ height: "120px" }}>
+                    <AnimatedStat val={s.val} label={s.label} reduced={reduced} />
+                  </div>
+                ))}
               </div>
             </Reveal>
           </div>
@@ -623,11 +647,16 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
               <DrawLine reduced={reduced} />
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: "60px", alignItems: "start" }}>
+              <div style={{ 
+                display: "grid", 
+                gridTemplateColumns: isMobile ? "1fr" : "1fr 280px", 
+                gap: isMobile ? "40px" : "60px", 
+                alignItems: "start" 
+              }}>
                 <div>
-                  <div style={{ borderTop: "1px solid var(--border)", marginTop: "40px" }}>
+                  <div style={{ borderTop: "1px solid var(--border)", marginTop: isMobile ? "20px" : "40px" }}>
                     {skillGroups.map((group, idx) => (
-                      <SkillRow key={group.label} group={group} index={idx} reduced={reduced} />
+                      <SkillRow key={group.label} group={group} index={idx} reduced={reduced} isMobile={isMobile} />
                     ))}
                   </div>
                 </div>
@@ -690,7 +719,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                   href="mailto:rasikap@utexas.edu"
                   style={{ 
                     fontFamily: "var(--display)", 
-                    fontSize: "clamp(36px, 6.5vw, 110px)", 
+                    fontSize: "clamp(28px, 6.5vw, 110px)", 
                     fontWeight: 800, 
                     letterSpacing: "-2px", 
                     lineHeight: 1, 
@@ -713,7 +742,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
               <div style={{ width: "1px", height: "30px", background: "var(--border)", margin: "24px auto", boxShadow: "0 0 10px rgba(255,107,53,0.3)" }} />
 
-              <div style={{ position: "relative", zIndex: 20 }}>
+              <div style={{ position: "relative", zIndex: 20, width: "100%", display: "flex", justifyContent: "center" }}>
                 <FloatingDock
                   items={[
                     { title: "LinkedIn", href: "https://www.linkedin.com/in/rasikapatel/", icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg> },
@@ -722,6 +751,88 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                   ]}
                   className="flex"
                 />
+              </div>
+
+              {/* Dynamic Contact Form */}
+              <div style={{ marginTop: "48px", width: "100%", maxWidth: "460px", position: "relative", zIndex: 20 }}>
+                {formStatus === "success" ? (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }} 
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    style={{ 
+                      padding: "32px 24px", 
+                      background: "var(--accent-bg)", 
+                      border: "1px solid var(--accent-dim)", 
+                      borderRadius: "20px", 
+                      color: "var(--text-light)",
+                      fontFamily: "var(--body)",
+                      fontSize: "18px",
+                      textAlign: "center",
+                      boxShadow: "0 0 30px var(--accent-glow)"
+                    }}
+                  >
+                    <span style={{ fontSize: "24px", display: "block", marginBottom: "8px" }}>✨</span>
+                    Message sent! Thanks for reaching out.
+                  </motion.div>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      setFormStatus("submitting");
+                      const formData = new FormData(e.target);
+                      try {
+                        const res = await fetch("https://formspree.io/f/mdawjoro", {
+                          method: "POST",
+                          body: formData,
+                          headers: { Accept: "application/json" }
+                        });
+                        if (res.ok) {
+                          setFormStatus("success");
+                          e.target.reset();
+                        } else {
+                          setFormStatus("error");
+                        }
+                      } catch {
+                        setFormStatus("error");
+                      }
+                    }}
+                    className="flex flex-col gap-4 text-left w-full"
+                  >
+                    <input
+                      required type="text" name="name" placeholder="Name"
+                      style={{ padding: "24px 28px", lineHeight: "1.5" }}
+                      className="w-full rounded-2xl bg-white/5 border border-[var(--border)] font-[var(--body)] text-[17px] text-[var(--text-light)] placeholder-[var(--text-dim)] outline-none transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_25px_var(--accent-glow)] focus:bg-white/[0.08]"
+                    />
+                    <input
+                      required type="email" name="email" placeholder="Email"
+                      style={{ padding: "24px 28px", lineHeight: "1.5" }}
+                      className="w-full rounded-2xl bg-white/5 border border-[var(--border)] font-[var(--body)] text-[17px] text-[var(--text-light)] placeholder-[var(--text-dim)] outline-none transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_25px_var(--accent-glow)] focus:bg-white/[0.08]"
+                    />
+                    <textarea
+                      required name="message" placeholder="Message" rows={4}
+                      style={{ padding: "24px 28px", lineHeight: "1.6" }}
+                      className="w-full rounded-2xl bg-white/5 border border-[var(--border)] font-[var(--body)] text-[17px] text-[var(--text-light)] placeholder-[var(--text-dim)] outline-none transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_25px_var(--accent-glow)] focus:bg-white/[0.08] resize-none min-h-[160px]"
+                    />
+                    <button
+                      type="submit"
+                      disabled={formStatus === "submitting"}
+                      className="mt-2 w-full px-8 py-4 rounded-full font-[var(--mono)] text-[14px] font-bold tracking-widest uppercase transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-1"
+                      style={{
+                        background: "var(--accent)", color: "var(--bg)", border: "none", cursor: "pointer",
+                        boxShadow: "0 0 20px var(--accent-glow)",
+                      }}
+                      onMouseEnter={(e) => { if (formStatus !== "submitting") e.currentTarget.style.boxShadow = "0 0 30px var(--accent-dim)"; }}
+                      onMouseLeave={(e) => { if (formStatus !== "submitting") e.currentTarget.style.boxShadow = "0 0 20px var(--accent-glow)"; }}
+                    >
+                      {formStatus === "submitting" ? "Sending..." : "Send Message"}
+                    </button>
+                    {formStatus === "error" && (
+                      <span className="text-[#E8453C] text-[14px] text-center font-[var(--body)] mt-2">
+                        Something went wrong. Please try again.
+                      </span>
+                    )}
+                  </form>
+                )}
               </div>
             </div>
           </EvervaultCard>

@@ -277,10 +277,11 @@ export default function ProjectPage() {
             background: "var(--card)",
             border: "1px solid var(--border)",
             borderRadius: "20px",
-            padding: "40px",
+            padding: isMobile ? "24px" : "40px",
             display: "flex",
-            alignItems: "baseline",
-            gap: "16px",
+            flexDirection: isMobile ? "column" : "row",
+            alignItems: isMobile ? "flex-start" : "baseline",
+            gap: isMobile ? "8px" : "16px",
             marginBottom: "40px",
           }}
         >
@@ -358,7 +359,7 @@ export default function ProjectPage() {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+                    gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(220px, 1fr))",
                     gap: "12px",
                     marginTop: "0",
                   }}
@@ -571,21 +572,25 @@ export default function ProjectPage() {
             </div>
             <div
               style={{
-                display: slug === "herdup" ? "flex" : "grid",
-                flexWrap: slug === "herdup" ? "wrap" : "nowrap",
-                justifyContent: slug === "herdup" ? "center" : "flex-start",
-                gridTemplateColumns: slug === "herdup" 
-                  ? "none" 
-                  : "repeat(auto-fill, minmax(min(100%, 250px), 1fr))",
-                gap: slug === "herdup" ? "32px 1.40%" : "16px",
-                alignItems: slug === "herdup" ? "center" : "stretch",
+                display: slug === "herdup" ? "flex" : "flex",
+                flexDirection: "row",
+                overflowX: "auto",
+                scrollSnapType: "x mandatory",
+                WebkitOverflowScrolling: "touch",
+                gap: slug === "herdup" ? "20px" : "16px",
+                paddingBottom: "16px",
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+                alignItems: "start",
+                justifyContent: "flex-start"
               }}
+              className="hide-scrollbar"
             >
               {projectImages[slug].images.map((src, i) => {
                 const herdupWidth = slug === "herdup"
                   ? src.includes("001") ? "100%"
-                  : "13.33%"  // Exact width for phone height to match row 1 height
-                  : "auto";
+                  : isMobile ? "260px" : "13.33%"
+                  : isMobile ? "280px" : "320px";
 
                 return (
                   <div
@@ -595,8 +600,9 @@ export default function ProjectPage() {
                       overflow: "hidden",
                       border: slug === "herdup" ? "none" : "1px solid var(--border)",
                       width: herdupWidth,
-                      minWidth: slug === "herdup" ? "0px" : "none",
-                      flexShrink: slug === "herdup" ? 0 : 1,
+                      minWidth: herdupWidth,
+                      flexShrink: 0,
+                      scrollSnapAlign: "start",
                     }}
                   >
                     <img
