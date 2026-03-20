@@ -518,7 +518,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         {/* ═══════════════════════════════════
            ABOUT
            ═══════════════════════════════════ */}
-        <section id="about" aria-label="About section" style={{ padding: "clamp(60px, 8vw, 80px) 0", maxWidth: "1100px", margin: "0 auto", background: "transparent", position: "relative", zIndex: 10 }}>
+        <section id="about" aria-label="About section" style={{ padding: `clamp(60px, 8vw, 80px) ${isMobile ? '24px' : '0'}`, maxWidth: "1100px", margin: "0 auto", background: "transparent", position: "relative", zIndex: 10 }}>
           <Reveal reduced={reduced}>
             <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>About Me</span>
           </Reveal>
