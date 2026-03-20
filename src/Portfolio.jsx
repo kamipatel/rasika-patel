@@ -571,11 +571,11 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             <Reveal delay={0.2} reduced={reduced}>
               <div style={{ 
                 display: "grid", 
-                gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr", 
+                gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
                 gap: "12px" 
               }}>
                 {/* Hero stat */}
-                <div style={{ height: isMobile ? "140px" : "160px", gridColumn: isMobile ? "span 2" : "span 1" }}>
+                <div style={{ height: isMobile ? "140px" : "160px", gridColumn: isMobile ? "span 1" : "span 3" }}>
                   <AnimatedStat val={stats[0].val} label={stats[0].label} reduced={reduced} variant="hero" />
                 </div>
                 {/* Secondary stats */}
