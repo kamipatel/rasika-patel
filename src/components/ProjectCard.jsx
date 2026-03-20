@@ -258,7 +258,8 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
                 background: "none",
                 border: "none",
                 borderBottom: "1px solid rgba(255,255,255,0.3)",
-                padding: "4px 0",
+                padding: isMobile ? "12px 16px" : "4px 0",
+                minHeight: isMobile ? "48px" : "auto",
                 cursor: "pointer",
                 transition: "border-color 0.3s ease, color 0.3s ease",
               }}

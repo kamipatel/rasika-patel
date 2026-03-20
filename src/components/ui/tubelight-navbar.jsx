@@ -23,12 +23,12 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
     <>
       <div
         className={cn(
-          "fixed top-0 left-1/2 -translate-x-1/2 z-[100] pt-6 md:pt-8 w-full max-w-fit px-4",
+          "fixed top-0 left-0 right-0 z-[100] pt-6 md:pt-8 px-4",
           className
         )}
       >
         {/* Desktop / Tablet Nav */}
-        <div className="hidden md:flex items-center gap-2 bg-[var(--card)]/80 border border-[var(--border)] backdrop-blur-2xl py-2 px-2 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+        <div className="hidden md:flex items-center justify-center gap-3 bg-[var(--card)]/80 border border-[var(--border)] backdrop-blur-2xl py-2.5 px-3 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5)] max-w-fit mx-auto">
           {items.map((item) => {
             const isActive = activeTab === item.name;
             return (
@@ -37,7 +37,7 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
                 href={item.url}
                 onClick={() => onTabChange?.(item.name)}
                 className={cn(
-                  "relative cursor-pointer text-[15px] font-bold px-6 py-3 rounded-full transition-all duration-300",
+                  "relative cursor-pointer text-[16px] font-bold px-7 py-3.5 rounded-full transition-all duration-300",
                   "text-[var(--text-mid)] hover:text-[var(--text-light)]",
                   isActive && "text-[var(--accent)] font-black"
                 )}
@@ -59,7 +59,7 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
         </div>
 
         {/* Mobile Hamburger Trigger */}
-        <div className="md:hidden flex justify-center">
+        <div className="md:hidden flex justify-end">
           <button
             onClick={toggleMenu}
             className="p-4 rounded-full bg-[var(--card)]/90 border border-[var(--border)] backdrop-blur-xl text-[var(--accent)] shadow-2xl active:scale-95 transition-transform"

@@ -226,36 +226,6 @@ export default function ProjectPage() {
           {project.timeline}
         </div>
 
-        {/* Cover image hero */}
-        {projectImages[slug]?.cover && (
-          <div
-            style={{
-              borderRadius: "20px",
-              overflow: "hidden",
-              marginBottom: "40px",
-              border: "1px solid var(--border)",
-            }}
-          >
-            <img
-              src={projectImages[slug].cover}
-              alt={`${project.title} cover`}
-              style={{
-                width: "100%",
-                height: "auto",
-                display: "block",
-              }}
-            />
-          </div>
-        )}
-
-        {/* Divider */}
-        <div
-          style={{
-            height: "1px",
-            background: "var(--border)",
-            marginBottom: "40px",
-          }}
-        />
 
         {/* Description */}
         <p
@@ -772,6 +742,41 @@ export default function ProjectPage() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Cover image (Moved to bottom) */}
+        {projectImages[slug]?.cover && (
+          <div
+            style={
+              slug === "xplore-austin"
+                ? {
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    marginTop: "80px",
+                    marginBottom: "40px",
+                    border: "none",
+                    height: isMobile ? "141px" : "375px",
+                  }
+                : {
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    marginTop: "80px",
+                    marginBottom: "40px",
+                    border: "1px solid var(--border)",
+                  }
+            }
+          >
+            <img
+              src={projectImages[slug].cover}
+              alt={`${project.title} cover`}
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+                marginTop: slug === "xplore-austin" ? (isMobile ? "-25%" : "-32%") : "0",
+              }}
+            />
           </div>
         )}
       </main>

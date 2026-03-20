@@ -121,6 +121,16 @@ body {
   }
 }
 
+.gradient-text-chars > span:not(.sr-only) > span,
+.gradient-text-chars > span:not(.sr-only) > span > span {
+  background: linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C);
+  background-size: 200% 200%;
+  animation: gradShift 6s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 @keyframes glowPulse {
 
   0%,
@@ -368,7 +378,7 @@ body {
 }
 
 /* ── Orbital timeline responsive ── */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .radial-timeline-orbital {
     display: none !important;
   }
@@ -378,7 +388,7 @@ body {
   }
 }
 
-@media (min-width: 481px) {
+@media (min-width: 769px) {
   .radial-timeline-orbital {
     display: block !important;
   }

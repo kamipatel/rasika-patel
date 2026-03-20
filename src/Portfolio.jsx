@@ -55,6 +55,8 @@ import { Meteors } from "./components/ui/meteors";
 import MagneticButton from "./components/ui/magnetic-button";
 import { FloatingDock } from "./components/ui/floating-dock";
 import { ShineBorder } from "./components/ui/shine-border";
+import { TextEffect } from "./components/ui/text-effect";
+import { AnimatedBeam } from "./components/ui/animated-beam";
 
 const STABLE_ICON_SLUGS = [
   "react", 
@@ -347,6 +349,13 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
   const heroBlob2Y = useTransform(motionScrollY, [0, 800], [0, -80]);
 
   const heroRef = useRef(null);
+  const beamContainerRef = useRef(null);
+  const beamHubRef = useRef(null);
+  const beamDesignRef = useRef(null);
+  const beamCodeRef = useRef(null);
+  const beamAnalyticsRef = useRef(null);
+  const beamToolsRef = useRef(null);
+  const beamAIRef = useRef(null);
   const getFramePath = useCallback((i) => `/sequence/frame_${String(i).padStart(3, '0')}.gif`, []);
   const { canvasRef, isLoaded } = useScrollSequence({
     frameCount: 128,
@@ -421,7 +430,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           {/* 2. Monumental Title */}
           <h1 style={{
             fontFamily: "var(--display)",
-            fontSize: "clamp(46px, 11vw, 130px)",
+            fontSize: isMobile ? "clamp(38px, 10vw, 56px)" : "clamp(46px, 11vw, 130px)",
             fontWeight: 800, lineHeight: 0.85, letterSpacing: "-0.04em",
             textTransform: "uppercase", margin: 0,
             textAlign: "center",
@@ -429,20 +438,61 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(8px, 2vw, 32px)"
           }}>
             <span style={{ color: "var(--text-light)", textShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>
-              <SplitReveal text="Rasika" baseDelay={0.4} charDelay={0.05} reduced={reduced} />
+              {reduced ? <span>Rasika</span> : (
+                <TextEffect per="char" as="span" preset="blur" delay={0.4} style={{ display: "inline-block" }}>Rasika</TextEffect>
+              )}
             </span>
-            <span style={{
-              display: "flex", alignItems: "center",
-              background: "linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C)",
-              backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-            }}>
-              <SplitReveal text="Patel" baseDelay={0.7} charDelay={0.05} reduced={reduced} />
+            <span style={{ display: "flex", alignItems: "center" }}>
+              {reduced ? (
+                <span style={{
+                  background: "linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C)",
+                  backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite",
+                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+                }}>Patel</span>
+              ) : (
+                <TextEffect per="char" as="span" preset="blur" delay={0.7}
+                  className="gradient-text-chars"
+                  style={{ display: "inline-block" }}>Patel</TextEffect>
+              )}
               <span style={{ marginLeft: "clamp(4px, 1vw, 12px)" }}>
-                <SplitReveal text="." baseDelay={1.0} charDelay={0.05} reduced={reduced} />
+                {reduced ? (
+                  <span style={{
+                    background: "linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C)",
+                    backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite",
+                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+                  }}>.</span>
+                ) : (
+                  <TextEffect per="char" as="span" preset="blur" delay={1.0}
+                    className="gradient-text-chars"
+                    style={{ display: "inline-block" }}>.</TextEffect>
+                )}
               </span>
             </span>
           </h1>
+
+          {/* 2b. Role Badge */}
+          <div style={{
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? "translateY(0)" : "translateY(8px)",
+            transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.6s",
+            zIndex: 10,
+          }}>
+            <span style={{
+              display: "inline-block",
+              fontFamily: "var(--mono)",
+              fontSize: "clamp(11px, 1.2vw, 14px)",
+              fontWeight: 500,
+              color: "var(--accent)",
+              border: "1px solid var(--accent-dim)",
+              background: "var(--accent-bg)",
+              borderRadius: "999px",
+              padding: "6px 16px",
+              letterSpacing: "0.03em",
+              textShadow: "0 2px 8px rgba(0,0,0,0.4)",
+            }}>
+              Incoming Marketing Intern @ ServiceNow
+            </span>
+          </div>
 
           {/* 3. Interactive Portrait Masked inside an Arch */}
           <div style={{
@@ -600,12 +650,12 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         {/* ═══════════════════════════════════
            WORK
            ═══════════════════════════════════ */}
-        <section id="work" aria-label="Work section" style={{ padding: "clamp(60px, 8vw, 80px) clamp(24px, 6vw, 80px)", maxWidth: "1100px", margin: "0 auto", background: "transparent", position: "relative", zIndex: 20 }}>
+        <section id="work" aria-label="Work section" style={{ padding: "clamp(60px, 8vw, 80px) clamp(24px, 6vw, 80px)", maxWidth: "1100px", margin: "0 auto", background: "var(--bg)", position: "relative", zIndex: 20, overflow: "hidden" }}>
           <Reveal reduced={reduced}>
             <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Selected Work</span>
           </Reveal>
           <Reveal delay={0.08} reduced={reduced}>
-            <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(40px, 7vw, 80px)", fontWeight: 800, letterSpacing: "-3px", lineHeight: 0.95, marginTop: "16px", marginBottom: "48px" }}>
+            <h2 style={{ fontFamily: "var(--display)", fontSize: isMobile ? "clamp(32px, 9vw, 44px)" : "clamp(40px, 7vw, 80px)", fontWeight: 800, letterSpacing: isMobile ? "-1px" : "-3px", lineHeight: 0.95, marginTop: "16px", marginBottom: "48px" }}>
               Things I've Built{" "}
               <span style={{ color: "var(--text-dim)", fontWeight: 400 }}>&</span>{" "}
               <span style={{
@@ -647,14 +697,65 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
               <DrawLine reduced={reduced} />
 
-              <div style={{ 
-                display: "grid", 
-                gridTemplateColumns: isMobile ? "1fr" : "1fr 280px", 
-                gap: isMobile ? "40px" : "60px", 
-                alignItems: "start" 
+              {/* Hub-and-spoke beam diagram — desktop only */}
+              {!isMobile && (
+                <div
+                  ref={beamContainerRef}
+                  style={{
+                    position: "relative",
+                    height: "220px",
+                    marginTop: "40px",
+                    marginBottom: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {/* Top row: Design, Code, Analytics */}
+                  <div style={{ position: "absolute", top: "16px", left: 0, right: 0, display: "flex", justifyContent: "space-around", padding: "0 40px" }}>
+                    <div ref={beamDesignRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                      Design
+                    </div>
+                    <div ref={beamCodeRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                      Code
+                    </div>
+                    <div ref={beamAnalyticsRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                      Analytics
+                    </div>
+                  </div>
+
+                  {/* Center hub */}
+                  <div ref={beamHubRef} style={{ width: "48px", height: "48px", borderRadius: "50%", background: "var(--card)", border: "2px solid var(--accent)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", color: "var(--accent)", fontWeight: 700, zIndex: 2 }}>
+                    ∗
+                  </div>
+
+                  {/* Bottom row: Tools, AI */}
+                  <div style={{ position: "absolute", bottom: "16px", left: 0, right: 0, display: "flex", justifyContent: "space-evenly", padding: "0 80px" }}>
+                    <div ref={beamToolsRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                      Tools
+                    </div>
+                    <div ref={beamAIRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                      AI
+                    </div>
+                  </div>
+
+                  {/* Animated beams from hub to each category */}
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamDesignRef} curvature={75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={0} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamCodeRef} curvature={75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={0.5} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAnalyticsRef} curvature={75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={1} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamToolsRef} curvature={-75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={1.5} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAIRef} curvature={-75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={2} duration={4} />
+                </div>
+              )}
+
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "1fr" : "1fr 280px",
+                gap: isMobile ? "40px" : "60px",
+                alignItems: "start"
               }}>
                 <div>
-                  <div style={{ borderTop: "1px solid var(--border)", marginTop: isMobile ? "20px" : "40px" }}>
+                  <div style={{ borderTop: "1px solid var(--border)", marginTop: isMobile ? "20px" : "0" }}>
                     {skillGroups.map((group, idx) => (
                       <SkillRow key={group.label} group={group} index={idx} reduced={reduced} isMobile={isMobile} />
                     ))}
@@ -662,11 +763,13 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                 </div>
 
                 <div style={{ position: "sticky", top: "100px" }}>
-                  <Reveal reduced={reduced}>
-                    <div style={{ position: "relative", height: "350px", display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "auto", zIndex: 10 }}>
-                      <IconCloud iconSlugs={STABLE_ICON_SLUGS} />
-                    </div>
-                  </Reveal>
+                  {!isMobile && (
+                    <Reveal reduced={reduced}>
+                      <div style={{ position: "relative", height: "350px", display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "auto", zIndex: 10 }}>
+                        <IconCloud iconSlugs={STABLE_ICON_SLUGS} />
+                      </div>
+                    </Reveal>
+                  )}
                   
                   <Reveal delay={0.2} reduced={reduced}>
                     <div style={{ 
@@ -719,9 +822,9 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                   href="mailto:rasikap@utexas.edu"
                   style={{ 
                     fontFamily: "var(--display)", 
-                    fontSize: "clamp(28px, 6.5vw, 110px)", 
+                    fontSize: isMobile ? "clamp(24px, 7vw, 42px)" : "clamp(28px, 6.5vw, 110px)", 
                     fontWeight: 800, 
-                    letterSpacing: "-2px", 
+                    letterSpacing: isMobile ? "-1px" : "-2px", 
                     lineHeight: 1, 
                     color: "transparent",
                     backgroundImage: "linear-gradient(135deg, var(--text-light) 0%, var(--accent) 150%)",
@@ -740,7 +843,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                 </MagneticButton>
               </Reveal>
 
-              <div style={{ width: "1px", height: "30px", background: "var(--border)", margin: "24px auto", boxShadow: "0 0 10px rgba(255,107,53,0.3)" }} />
+              <div style={{ width: "1px", height: "12px", background: "var(--border)", margin: "8px auto", boxShadow: "0 0 10px rgba(255,107,53,0.3)" }} />
 
               <div style={{ position: "relative", zIndex: 20, width: "100%", display: "flex", justifyContent: "center" }}>
                 <FloatingDock
