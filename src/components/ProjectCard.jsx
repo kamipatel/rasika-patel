@@ -11,6 +11,7 @@ const PROJECT_META = {
   "center-for-integrated-design": { icon: "\u{1F3A8}", gradient: ["#38bdf8", "#2563eb"] },
   "well-water-finders":           { icon: "\u{1F4A7}", gradient: ["#2dd4bf", "#059669"] },
   "cultured-carrot":              { icon: "\u{1F955}", gradient: ["#f59e0b", "#f97316"] },
+  "ama":                          { icon: "\u{1F4CA}", gradient: ["#10b981", "#059669"] },
 };
 
 const DEFAULT_META = { icon: "\u2728", gradient: ["#6366f1", "#4338ca"] };

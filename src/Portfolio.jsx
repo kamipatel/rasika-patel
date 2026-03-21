@@ -40,7 +40,7 @@ import {
 import Marquee from "./components/Marquee";
 import RotatingTitle from "./components/RotatingTitle";
 import { useScrollSequence } from "./components/useScrollSequence";
-import { featured, projects } from "./data/projects";
+import { projects } from "./data/projects";
 import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
 import ProjectGrid from "./components/ProjectGrid";
@@ -99,7 +99,7 @@ const useMediaQuery = (query) => {
 const skillGroups = [
   { label: "Design", items: ["Figma", "Canva", "Illustrator", "Photoshop"] },
   { label: "Code", items: ["Python", "Java", "SQL", "HTML/CSS", "Next.js", "React Native", "JavaScript"] },
-  { label: "Analytics", items: ["Tableau", "Qualtrics", "Excel", "PowerPoint"] },
+  { label: "Analytics", items: ["PostHog", "Qualtrics", "Excel", "PowerPoint"] },
   { label: "Tools", items: ["VS Code", "Supabase", "Vercel", "Git"] },
   { label: "AI", items: ["Claude", "Gemini", "Perplexity", "Gemini API", "Hugging Face"] },
 ];
@@ -112,7 +112,7 @@ const stats = [
 ];
 
 const skillsMarqueeItems = ["Figma", "Python", "Tableau", "AI Tools", "Canva", "Java", "SQL", "Supabase", "Illustrator", "Qualtrics"];
-const projectMarqueeItems = [featured.title, ...projects.map((p) => p.title)];
+const projectMarqueeItems = projects.map((p) => p.title);
 const HERO_ROLES = ["UX Designer", "Creative Strategist", "Brand Architect", "Marketing Lead", "App Founder"];
 
 /* ─── animation helpers ─── */
@@ -667,7 +667,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           </Reveal>
 
           {/* Unified Project Grid */}
-          <ProjectGrid projects={[featured, ...projects]} reduced={reduced} />
+          <ProjectGrid projects={projects} reduced={reduced} />
         </section>
 
         {/* ── WORK-TIMELINE DIVIDER ── */}
@@ -703,8 +703,8 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                   ref={beamContainerRef}
                   style={{
                     position: "relative",
-                    height: "220px",
-                    marginTop: "40px",
+                    height: "150px",
+                    marginTop: "16px",
                     marginBottom: "8px",
                     display: "flex",
                     alignItems: "center",
@@ -712,39 +712,39 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                   }}
                 >
                   {/* Top row: Design, Code, Analytics */}
-                  <div style={{ position: "absolute", top: "16px", left: 0, right: 0, display: "flex", justifyContent: "space-around", padding: "0 40px" }}>
-                    <div ref={beamDesignRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                  <div style={{ position: "absolute", top: "6px", left: 0, right: 0, display: "flex", justifyContent: "space-around", padding: "0 20px" }}>
+                    <div ref={beamDesignRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "6px 16px" }}>
                       Design
                     </div>
-                    <div ref={beamCodeRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                    <div ref={beamCodeRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "6px 16px" }}>
                       Code
                     </div>
-                    <div ref={beamAnalyticsRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                    <div ref={beamAnalyticsRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "6px 16px" }}>
                       Analytics
                     </div>
                   </div>
 
                   {/* Center hub */}
-                  <div ref={beamHubRef} style={{ width: "48px", height: "48px", borderRadius: "50%", background: "var(--card)", border: "2px solid var(--accent)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", color: "var(--accent)", fontWeight: 700, zIndex: 2 }}>
+                  <div ref={beamHubRef} style={{ width: "38px", height: "38px", borderRadius: "50%", background: "var(--card)", border: "2px solid var(--accent)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", color: "var(--accent)", fontWeight: 700, zIndex: 2 }}>
                     ∗
                   </div>
 
                   {/* Bottom row: Tools, AI */}
-                  <div style={{ position: "absolute", bottom: "16px", left: 0, right: 0, display: "flex", justifyContent: "space-evenly", padding: "0 80px" }}>
-                    <div ref={beamToolsRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                  <div style={{ position: "absolute", bottom: "6px", left: 0, right: 0, display: "flex", justifyContent: "space-evenly", padding: "0 60px" }}>
+                    <div ref={beamToolsRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "6px 16px" }}>
                       Tools
                     </div>
-                    <div ref={beamAIRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "8px 20px" }}>
+                    <div ref={beamAIRef} style={{ fontFamily: "var(--mono)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--accent)", fontWeight: 700, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "100px", padding: "6px 16px" }}>
                       AI
                     </div>
                   </div>
 
                   {/* Animated beams from hub to each category */}
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamDesignRef} curvature={75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={0} duration={4} />
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamCodeRef} curvature={75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={0.5} duration={4} />
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAnalyticsRef} curvature={75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={1} duration={4} />
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamToolsRef} curvature={-75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={1.5} duration={4} />
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAIRef} curvature={-75} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={2} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamDesignRef} curvature={50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={0} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamCodeRef} curvature={50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={0.5} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAnalyticsRef} curvature={50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={1} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamToolsRef} curvature={-50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={1.5} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAIRef} curvature={-50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={2} duration={4} />
                 </div>
               )}
 
@@ -766,13 +766,13 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                     <Reveal reduced={reduced}>
                       <div style={{
                         position: "relative",
-                        height: isMobile ? "240px" : "350px",
+                        height: isMobile ? "170px" : "350px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         pointerEvents: "auto",
                         zIndex: 10,
-                        ...(isMobile && { transform: "scale(0.7)", transformOrigin: "center center" })
+                        ...(isMobile && { transform: "scale(0.7)", transformOrigin: "center top", marginBottom: "40px" })
                       }}>
                         <IconCloud iconSlugs={STABLE_ICON_SLUGS} />
                       </div>

@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Globe, Instagram, Palette, Smartphone, FolderOpen, Github, ExternalLink } from "lucide-react";
-import { featured, projects } from "../data/projects";
+import { projects } from "../data/projects";
 import projectImages from "../data/project-images.json";
 
-const allProjects = [featured, ...projects];
+const allProjects = projects;
 
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);

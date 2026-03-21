@@ -6,6 +6,7 @@ export const timelineNodes = [
   { slug: "center-for-integrated-design", title: "Center for Integrated Design", timeline: "Oct 2025 - Present", status: "in-progress", energy: 80, relatedIds: [] },
   { slug: "well-water-finders", title: "Well Water Finders", timeline: "Fall 2024", status: "completed", energy: 100, relatedIds: [] },
   { slug: "cultured-carrot", title: "The Cultured Carrot", timeline: "2022-2025", status: "completed", energy: 100, relatedIds: [] },
+  { slug: "ama", title: "AMA", timeline: "Fall 2024 - Spring 2025", status: "completed", energy: 80, relatedIds: [] },
 ];
 
 export const connections = [

@@ -26,40 +26,25 @@ export default function ProjectGrid({ projects, reduced }) {
     setIsPaused(true);
   }, []);
 
-  const featuredProject = projects[0];
-  const restProjects = projects.slice(1);
-
   return (
     <div>
-      {/* Featured project — full width, prominent */}
-      <div style={{ marginTop: "32px", marginBottom: "20px" }}>
-        <div style={{ gridColumn: "1 / -1" }}>
-          <ProjectCard
-            project={featuredProject}
-            index={0}
-            reduced={reduced}
-            isActive={0 === activeIndex}
-            onActivate={handleActivate}
-          />
-        </div>
-      </div>
-
-      {/* Remaining projects — asymmetric 2-column grid */}
+      {/* Projects — uniform 2-column grid */}
       <div
         className="project-card-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))",
           gap: "clamp(20px, 4vw, 32px)",
+          marginTop: "32px",
         }}
       >
-        {restProjects.map((p, i) => (
+        {projects.map((p, i) => (
           <ProjectCard
             key={p.slug}
             project={p}
-            index={i + 1}
+            index={i}
             reduced={reduced}
-            isActive={i + 1 === activeIndex}
+            isActive={i === activeIndex}
             onActivate={handleActivate}
           />
         ))}
