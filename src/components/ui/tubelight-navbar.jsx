@@ -23,12 +23,18 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
     <>
       <div
         className={cn(
-          "fixed top-0 left-0 right-0 z-[100] pt-6 md:pt-8 px-4",
+          "fixed top-0 left-0 right-0 z-[100] pt-6 md:pt-0 px-4 md:px-0",
           className
         )}
       >
         {/* Desktop / Tablet Nav */}
-        <div className="hidden md:flex items-center justify-center gap-3 bg-[var(--card)]/80 border border-[var(--border)] backdrop-blur-2xl py-2.5 px-3 rounded-full shadow-[0_10px_40px_rgba(0,0,0,0.5)] max-w-fit mx-auto">
+        <div className="hidden md:flex items-center relative w-full bg-[var(--card)]/80 backdrop-blur-2xl py-4 px-12">
+          {/* Logo */}
+          <a href="/#hero" className="absolute left-12 top-1/2 -translate-y-1/2 z-10 text-[var(--accent)] font-black text-xl tracking-tight px-3 py-2">
+            RP<span className="text-[var(--text-mid)]">.</span>
+          </a>
+          {/* Nav links */}
+          <div className="w-full flex items-center justify-center gap-6">
           {items.map((item) => {
             const isActive = activeTab === item.name;
             return (
@@ -56,6 +62,7 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
               </a>
             );
           })}
+          </div>
         </div>
 
         {/* Mobile Hamburger Trigger */}

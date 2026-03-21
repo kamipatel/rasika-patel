@@ -590,8 +590,8 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               marginTop: "20px", marginBottom: "32px", maxWidth: "780px" 
             }}>
               A <span style={{ color: "var(--accent)" }}>Marketing</span> student at McCombs
-              obsessed with <span style={{ fontStyle: "italic", color: "var(--text-light)" }}>UI/UX</span>, creative strategy,
-              and building things that matter.
+              obsessed with <span style={{ fontStyle: "italic", color: "var(--text-light)" }}>building products</span>, creative strategy,
+              and shipping things that matter.
             </h2>
           </Reveal>
 
@@ -607,7 +607,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             <div>
               <Reveal delay={0.2} reduced={reduced}>
                 <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
-                  I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum, I'm drawn to building and shipping real things.
+                  I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum to joining <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong> as an incoming marketing intern, I'm drawn to building and shipping real things.
                 </p>
               </Reveal>
               <Reveal delay={0.25} reduced={reduced}>
@@ -762,14 +762,21 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                   </div>
                 </div>
 
-                <div style={{ position: "sticky", top: "100px" }}>
-                  {!isMobile && (
+                <div style={{ position: isMobile ? "relative" : "sticky", top: isMobile ? undefined : "100px" }}>
                     <Reveal reduced={reduced}>
-                      <div style={{ position: "relative", height: "350px", display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "auto", zIndex: 10 }}>
+                      <div style={{
+                        position: "relative",
+                        height: isMobile ? "240px" : "350px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        pointerEvents: "auto",
+                        zIndex: 10,
+                        ...(isMobile && { transform: "scale(0.7)", transformOrigin: "center center" })
+                      }}>
                         <IconCloud iconSlugs={STABLE_ICON_SLUGS} />
                       </div>
                     </Reveal>
-                  )}
                   
                   <Reveal delay={0.2} reduced={reduced}>
                     <div style={{ 
@@ -899,22 +906,22 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                         setFormStatus("error");
                       }
                     }}
-                    className="flex flex-col gap-4 text-left w-full"
+                    className="flex flex-col gap-4 text-left w-full relative z-30 bg-[var(--bg)] rounded-3xl p-6"
                   >
                     <input
                       required type="text" name="name" placeholder="Name"
                       style={{ padding: "24px 28px", lineHeight: "1.5" }}
-                      className="w-full rounded-2xl bg-white/5 border border-[var(--border)] font-[var(--body)] text-[17px] text-[var(--text-light)] placeholder-[var(--text-dim)] outline-none transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_25px_var(--accent-glow)] focus:bg-white/[0.08]"
+                      className="w-full rounded-2xl bg-white/10 border border-[var(--border)] font-[var(--body)] text-[17px] text-[var(--text-light)] placeholder-[var(--text-dim)] outline-none transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_25px_var(--accent-glow)] focus:bg-white/[0.15]"
                     />
                     <input
                       required type="email" name="email" placeholder="Email"
                       style={{ padding: "24px 28px", lineHeight: "1.5" }}
-                      className="w-full rounded-2xl bg-white/5 border border-[var(--border)] font-[var(--body)] text-[17px] text-[var(--text-light)] placeholder-[var(--text-dim)] outline-none transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_25px_var(--accent-glow)] focus:bg-white/[0.08]"
+                      className="w-full rounded-2xl bg-white/10 border border-[var(--border)] font-[var(--body)] text-[17px] text-[var(--text-light)] placeholder-[var(--text-dim)] outline-none transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_25px_var(--accent-glow)] focus:bg-white/[0.15]"
                     />
                     <textarea
                       required name="message" placeholder="Message" rows={4}
                       style={{ padding: "24px 28px", lineHeight: "1.6" }}
-                      className="w-full rounded-2xl bg-white/5 border border-[var(--border)] font-[var(--body)] text-[17px] text-[var(--text-light)] placeholder-[var(--text-dim)] outline-none transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_25px_var(--accent-glow)] focus:bg-white/[0.08] resize-none min-h-[160px]"
+                      className="w-full rounded-2xl bg-white/10 border border-[var(--border)] font-[var(--body)] text-[17px] text-[var(--text-light)] placeholder-[var(--text-dim)] outline-none transition-all duration-300 focus:border-[var(--accent)] focus:shadow-[0_0_25px_var(--accent-glow)] focus:bg-white/[0.15] resize-none min-h-[160px]"
                     />
                     <button
                       type="submit"
