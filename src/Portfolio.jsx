@@ -766,13 +766,13 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                     <Reveal reduced={reduced}>
                       <div style={{
                         position: "relative",
-                        height: isMobile ? "170px" : "350px",
+                        height: isMobile ? "280px" : "350px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         pointerEvents: "auto",
                         zIndex: 10,
-                        ...(isMobile && { transform: "scale(0.7)", transformOrigin: "center top", marginBottom: "24px" })
+                        ...(isMobile && { transform: "scale(0.65)", transformOrigin: "center top", marginBottom: "40px", overflow: "hidden" })
                       }}>
                         <IconCloud iconSlugs={STABLE_ICON_SLUGS} />
                       </div>
@@ -857,7 +857,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                   items={[
                     { title: "LinkedIn", href: "https://www.linkedin.com/in/rasikapatel/", icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg> },
                     { title: "App Store", href: "https://apps.apple.com/us/app/xplore-austin/id6758564187", icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 1.44C9.6 6.44 8 5 5 5A5 5 0 0 0 0 10c0 4.22 3 12.22 6 12.22 1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5h-2c0-3-1-4-2-5Z"/></svg> },
-                    { title: "Resume", href: "https://drive.google.com/file/d/1fO7V_1aJk_rOOg4imeVFxt0a1pfiQH0B/view?usp=sharing", icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> },
+                    { title: "Resume", href: "https://drive.google.com/file/d/1aZehnbBxOty_i0yXKJn5UT6O0ZCI3lCF/view?usp=sharing", icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> },
                   ]}
                   className="flex"
                 />
