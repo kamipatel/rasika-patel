@@ -766,13 +766,13 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                     <Reveal reduced={reduced}>
                       <div style={{
                         position: "relative",
-                        height: isMobile ? "280px" : "350px",
+                        height: isMobile ? "380px" : "350px",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         pointerEvents: "auto",
                         zIndex: 10,
-                        ...(isMobile && { transform: "scale(0.65)", transformOrigin: "center top", marginBottom: "40px", overflow: "hidden" })
+                        ...(isMobile && { transform: "scale(0.6)", transformOrigin: "center top", marginBottom: "-60px" })
                       }}>
                         <IconCloud iconSlugs={STABLE_ICON_SLUGS} />
                       </div>
