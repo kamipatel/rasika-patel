@@ -751,7 +751,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               <div style={{
                 display: "grid",
                 gridTemplateColumns: isMobile ? "1fr" : "1fr 280px",
-                gap: isMobile ? "40px" : "60px",
+                gap: isMobile ? "16px" : "60px",
                 alignItems: "start"
               }}>
                 <div>
@@ -762,7 +762,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                   </div>
                 </div>
 
-                <div style={{ position: isMobile ? "relative" : "sticky", top: isMobile ? undefined : "100px" }}>
+                <div style={{ position: isMobile ? "relative" : "sticky", top: isMobile ? undefined : "100px", ...(isMobile && { marginTop: 0, paddingTop: 0 }) }}>
                     <Reveal reduced={reduced}>
                       <div style={{
                         position: "relative",
@@ -772,7 +772,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                         justifyContent: "center",
                         pointerEvents: "auto",
                         zIndex: 10,
-                        ...(isMobile && { transform: "scale(0.7)", transformOrigin: "center top", marginBottom: "40px" })
+                        ...(isMobile && { transform: "scale(0.7)", transformOrigin: "center top", marginBottom: "24px" })
                       }}>
                         <IconCloud iconSlugs={STABLE_ICON_SLUGS} />
                       </div>
