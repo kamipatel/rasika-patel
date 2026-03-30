@@ -612,7 +612,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               </Reveal>
               <Reveal delay={0.25} reduced={reduced}>
                 <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75 }}>
-                  When I'm not designing in Figma, I'm sketching wireframes, curating playlists, or brainstorming ways to connect Austin's creative community through local businesses, art, and tech.
+                  When I'm not designing in Figma, I'm sketching wireframes, curating playlists, exploring Austin's food scene, or hunting for the best matcha in the city — always happy to share my recs. I love brainstorming ways to connect Austin's creative community through local businesses, art, and tech.
                 </p>
               </Reveal>
             </div>
