@@ -490,7 +490,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               letterSpacing: "0.03em",
               textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             }}>
-              Incoming Marketing Intern @ ServiceNow
+              Marketing Intern @ ServiceNow
             </span>
           </div>
 
@@ -607,7 +607,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             <div>
               <Reveal delay={0.2} reduced={reduced}>
                 <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
-                  I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum to joining <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong> as an incoming marketing intern, I'm drawn to building and shipping real things.
+                  I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum to joining <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong> as a marketing intern, I'm drawn to building and shipping real things.
                 </p>
               </Reveal>
               <Reveal delay={0.25} reduced={reduced}>
