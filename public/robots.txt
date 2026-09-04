@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rasikapatel.com/sitemap.xml
+Sitemap: https://rasika-patel.vercel.app/sitemap.xml

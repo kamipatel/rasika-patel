@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--
+  Source for public/og-image.png (1200x630 placeholder).
+  Tokens are copied from src/index.css — keep them in sync if the palette changes.
+  Regenerate:
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless --disable-gpu --hide-scrollbars \
+      --window-size=1200,630 --force-device-scale-factor=1 \
+      --virtual-time-budget=8000 \
+      --screenshot=public/og-image.png scripts/og-image.html
+-->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens lifted verbatim from src/index.css */
+  :root {
+    --bg: #170F2E;
+    --accent: #FF6B35;
+    --text-light: rgba(237, 232, 245, 0.92);
+    --text-dim: rgba(237, 232, 245, 0.38);
+    --border: rgba(237, 232, 245, 0.08);
+    --display: 'Bricolage Grotesque', sans-serif;
+    --body: 'Outfit', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 90px;
+    position: relative;
+  }
+  /* Same accent bloom the contact section uses */
+  .glow {
+    position: absolute;
+    top: -12%; right: -8%;
+    width: 760px; height: 760px;
+    background: radial-gradient(circle, rgba(255,107,53,0.10), transparent 62%);
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+  }
+  h1 {
+    font-family: var(--display);
+    font-size: 150px;
+    font-weight: 800;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .light { color: var(--text-light); display: block; }
+  /* Same gradient the hero puts on "Patel" */
+  .grad {
+    display: block;
+    background: linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .rule {
+    width: 88px; height: 3px;
+    background: var(--accent);
+    opacity: 0.5;
+    border-radius: 100px;
+    margin: 44px 0 32px;
+    position: relative;
+  }
+  p {
+    font-family: var(--body);
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1.45;
+    color: var(--text-light);
+    max-width: 900px;
+    position: relative;
+  }
+  p em { color: var(--accent); font-weight: 600; font-style: italic; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <h1><span class="light">Rasika</span><span class="grad">Patel.</span></h1>
+  <div class="rule"></div>
+  <p>Building at the intersection of <em>storytelling</em> and <em>systems</em>.</p>
+</body>
+</html>

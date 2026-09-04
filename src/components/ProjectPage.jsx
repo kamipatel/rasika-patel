@@ -165,21 +165,6 @@ export default function ProjectPage() {
           ← Back
         </Link>
 
-        {/* Project number */}
-        <div
-          style={{
-            fontFamily: "var(--display)",
-            fontSize: "96px",
-            fontWeight: 800,
-            color: "var(--accent)",
-            opacity: 0.1,
-            lineHeight: 1,
-            marginBottom: "-20px",
-          }}
-        >
-          {project.num}
-        </div>
-
         {/* Title */}
         <h1
           style={{
