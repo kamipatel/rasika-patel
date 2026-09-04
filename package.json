@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.js",
     "preview": "vite preview",
-    "fetch-images": "node scripts/fetch-notion-images.js"
+    "fetch-images": "node scripts/fetch-notion-images.js",
+    "prerender": "node scripts/prerender.js"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",

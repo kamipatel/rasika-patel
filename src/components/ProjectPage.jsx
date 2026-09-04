@@ -5,7 +5,7 @@ import { Globe, Instagram, Palette, Smartphone, FolderOpen, Github, ExternalLink
 import { projects } from "../data/projects";
 import projectImages from "../data/project-images.json";
 import Seo from "./Seo";
-import { truncate } from "../lib/site";
+import { projectMeta } from "../lib/routeMeta";
 
 const allProjects = projects;
 
@@ -134,11 +134,7 @@ export default function ProjectPage() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Seo
-        title={`${project.title} — Rasika Patel`}
-        description={truncate(`${project.role}. ${project.desc}`)}
-        path={`/projects/${project.slug}`}
-      />
+      <Seo {...projectMeta(project)} />
 
       <main
         style={{

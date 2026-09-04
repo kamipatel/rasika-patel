@@ -8,7 +8,7 @@ import ResumeEntry from "./ResumeEntry";
 import { education, experience, leadership, RESUME_PDF_URL } from "../data/resume";
 import { skillGroups } from "../data/skills";
 import Seo from "./Seo";
-import { truncate } from "../lib/site";
+import { resumeMeta } from "../lib/routeMeta";
 
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);
@@ -21,12 +21,6 @@ const useMediaQuery = (query) => {
   }, [query]);
   return matches;
 };
-
-// Derived from résumé data so the tag can't drift from what the page shows
-const CURRENT_ROLE = experience.find((e) => e.current) ?? experience[0];
-const RESUME_DESCRIPTION = truncate(
-  `${CURRENT_ROLE.role} at ${CURRENT_ROLE.org}. ${education.degree}, ${education.minor}, at UT Austin.`
-);
 
 const CONTACT_LINKS = [
   { label: "rasikap@utexas.edu", href: "mailto:rasikap@utexas.edu", icon: Mail },
@@ -85,11 +79,7 @@ export default function ResumePage() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Seo
-        title="Résumé — Rasika Patel"
-        description={RESUME_DESCRIPTION}
-        path="/resume"
-      />
+      <Seo {...resumeMeta()} />
 
       <main
         style={{

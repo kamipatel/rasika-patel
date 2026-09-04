@@ -43,7 +43,7 @@ import { useScrollSequence } from "./components/useScrollSequence";
 import { projects } from "./data/projects";
 import { skillGroups } from "./data/skills";
 import Seo from "./components/Seo";
-import { SITE_DEFAULTS } from "./lib/site";
+import { homeMeta } from "./lib/routeMeta";
 import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
 import ProjectGrid from "./components/ProjectGrid";
@@ -375,12 +375,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Seo
-        title={SITE_DEFAULTS.title}
-        description={SITE_DEFAULTS.description}
-        metaDescription={SITE_DEFAULTS.metaDescription}
-        path="/"
-      />
+      <Seo {...homeMeta()} />
 
       {/* Scroll progress bar */}
       {!reduced && <ScrollProgressBar />}
