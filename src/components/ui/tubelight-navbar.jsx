@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+
+/** Hash links scroll within the home page; everything else is a router route. */
+const isRouteLink = (url) => !url.includes("#");
+
+// Hoisted so the component identity is stable across renders
+const MotionLink = motion(Link);
 
 export function NavBar({ items, className, activeTab, onTabChange }) {
   const [isMobile, setIsMobile] = useState(false);
@@ -30,17 +37,21 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
         {/* Desktop / Tablet Nav */}
         <div className="hidden md:flex items-center relative w-full bg-[var(--card)]/80 backdrop-blur-2xl py-4 px-12">
           {/* Logo */}
-          <a href="/#hero" className="absolute left-12 top-1/2 -translate-y-1/2 z-10 text-[var(--accent)] font-black text-xl tracking-tight px-3 py-2">
+          <Link to="/#hero" className="absolute left-12 top-1/2 -translate-y-1/2 z-10 text-[var(--accent)] font-black text-xl tracking-tight px-3 py-2">
             RP<span className="text-[var(--text-mid)]">.</span>
-          </a>
+          </Link>
           {/* Nav links */}
           <div className="w-full flex items-center justify-center gap-6">
           {items.map((item) => {
             const isActive = activeTab === item.name;
+            const Tag = isRouteLink(item.url) ? Link : "a";
+            const linkProps = isRouteLink(item.url)
+              ? { to: item.url }
+              : { href: item.url };
             return (
-              <a
+              <Tag
                 key={item.name}
-                href={item.url}
+                {...linkProps}
                 onClick={() => onTabChange?.(item.name)}
                 className={cn(
                   "relative cursor-pointer text-[16px] font-bold px-7 py-3.5 rounded-full transition-all duration-300",
@@ -59,7 +70,7 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
                     <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-8 h-1 bg-[var(--accent)] rounded-t-full shadow-[0_0_15px_var(--accent)]" />
                   </motion.div>
                 )}
-              </a>
+              </Tag>
             );
           })}
           </div>
@@ -95,10 +106,14 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
               {items.map((item, i) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.name;
+                const MobileTag = isRouteLink(item.url) ? MotionLink : motion.a;
+                const mobileProps = isRouteLink(item.url)
+                  ? { to: item.url }
+                  : { href: item.url };
                 return (
-                  <motion.a
+                  <MobileTag
                     key={item.name}
-                    href={item.url}
+                    {...mobileProps}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
@@ -113,7 +128,7 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
                   >
                     <Icon size={28} className={isActive ? "text-[var(--accent)]" : "opacity-50"} />
                     {item.name}
-                  </motion.a>
+                  </MobileTag>
                 );
               })}
             </motion.div>

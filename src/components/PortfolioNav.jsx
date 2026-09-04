@@ -1,7 +1,10 @@
-import { Home, User, Briefcase, Wrench, Mail } from "lucide-react";
+import { Home, User, Briefcase, Wrench, Mail, FileText } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { NavBar } from "@/components/ui/tubelight-navbar";
 
 export default function PortfolioNav({ activeNav }) {
+  const location = useLocation();
+
   // Map internal section IDs to display names expected by the navbar
   const getDisplayName = (id) => {
     switch (id) {
@@ -20,7 +23,12 @@ export default function PortfolioNav({ activeNav }) {
     { name: "Work", url: "/#work", icon: Briefcase },
     { name: "Skills", url: "/#skills", icon: Wrench },
     { name: "Contact", url: "/#contact", icon: Mail },
+    { name: "Resume", url: "/resume", icon: FileText },
   ];
 
-  return <NavBar items={navItems} activeTab={getDisplayName(activeNav)} />;
+  // Route pages own the active state; section tracking only applies on home
+  const activeTab =
+    location.pathname === "/resume" ? "Resume" : getDisplayName(activeNav);
+
+  return <NavBar items={navItems} activeTab={activeTab} />;
 }

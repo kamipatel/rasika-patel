@@ -7,6 +7,10 @@ import {
   useTransform,
 } from "framer-motion";
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+
+/** Internal routes navigate in place; external links open in a new tab. */
+const isInternal = (href) => href.startsWith("/");
 
 export const FloatingDock = ({ items, className }) => {
   let mouseX = useMotionValue(Infinity);
@@ -63,9 +67,14 @@ function IconContainer({ mouseX, title, icon, href }) {
   });
 
   const [hovered, setHovered] = useState(false);
+  const Wrapper = isInternal(href) ? Link : "a";
 
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer">
+    <Wrapper
+      {...(isInternal(href)
+        ? { to: href }
+        : { href, target: "_blank", rel: "noopener noreferrer" })}
+    >
       <motion.div
         ref={ref}
         style={{ width, height }}
@@ -94,6 +103,6 @@ function IconContainer({ mouseX, title, icon, href }) {
           {icon}
         </motion.div>
       </motion.div>
-    </a>
+    </Wrapper>
   );
 }
