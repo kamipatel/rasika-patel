@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Globe, Instagram, Palette, Smartphone, FolderOpen, Github, ExternalLink } from "lucide-react";
 import { projects } from "../data/projects";
 import projectImages from "../data/project-images.json";
+import Seo from "./Seo";
+import { truncate } from "../lib/site";
 
 const allProjects = projects;
 
@@ -132,6 +134,12 @@ export default function ProjectPage() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
+      <Seo
+        title={`${project.title} — Rasika Patel`}
+        description={truncate(`${project.role}. ${project.desc}`)}
+        path={`/projects/${project.slug}`}
+      />
+
       <main
         style={{
           minHeight: "100vh",

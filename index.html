@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!--
+      Tags marked data-rh="true" are the homepage defaults AND the fallback any
+      non-JS consumer sees. React Helmet (src/components/Seo.jsx) claims and
+      rewrites them per route on mount. Keep them in sync with SITE_DEFAULTS
+      in src/lib/site.js.
+    -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rasika Patel — Portfolio</title>
-    <meta name="description" content="Rasika Patel — Marketing, Design & Innovation. BBA Marketing at UT Austin's McCombs School of Business." />
+    <title data-rh="true">Rasika Patel — Portfolio</title>
+    <meta data-rh="true" name="description" content="Rasika Patel — Marketing, Design & Innovation. BBA Marketing at UT Austin's McCombs School of Business." />
     <meta name="author" content="Rasika Patel" />
-    <link rel="canonical" href="https://rasika-patel.vercel.app/" />
+    <link data-rh="true" rel="canonical" href="https://rasika-patel.vercel.app/" />
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Rasika Patel — Portfolio" />
-    <meta property="og:description" content="Marketing, Design & Innovation. BBA Marketing at UT Austin's McCombs School of Business." />
+    <meta data-rh="true" property="og:title" content="Rasika Patel — Portfolio" />
+    <meta data-rh="true" property="og:description" content="Marketing, Design & Innovation. BBA Marketing at UT Austin's McCombs School of Business." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://rasika-patel.vercel.app/" />
+    <meta data-rh="true" property="og:url" content="https://rasika-patel.vercel.app/" />
     <meta property="og:site_name" content="Rasika Patel" />
     <meta property="og:image" content="https://rasika-patel.vercel.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -21,8 +27,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Rasika Patel — Portfolio" />
-    <meta name="twitter:description" content="Marketing, Design & Innovation. BBA Marketing at UT Austin's McCombs School of Business." />
+    <meta data-rh="true" name="twitter:title" content="Rasika Patel — Portfolio" />
+    <meta data-rh="true" name="twitter:description" content="Marketing, Design & Innovation. BBA Marketing at UT Austin's McCombs School of Business." />
     <meta name="twitter:image" content="https://rasika-patel.vercel.app/og-image.png" />
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
