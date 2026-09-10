@@ -57,7 +57,12 @@ const IconCloudComponent = ({ iconSlugs }) => {
   }, [data]);
 
   return (
-    <div style={{ width: "100%", height: "100%", minHeight: "240px" }}>
+    // Decorative: every skill in the cloud is already listed as text in the
+    // adjacent SkillRow list, and these anchors carry no href.
+    <div
+      aria-hidden="true"
+      style={{ width: "100%", height: "100%", minHeight: "240px" }}
+    >
       <Cloud {...cloudProps}>{renderedIcons}</Cloud>
     </div>
   );

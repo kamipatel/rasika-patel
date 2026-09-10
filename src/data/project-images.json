@@ -126,34 +126,6 @@
     ],
     "links": []
   },
-  "graduation-party-materials": {
-    "cover": "/projects/graduation-party-materials/cover.png",
-    "images": [
-      "/projects/graduation-party-materials/001.png",
-      "/projects/graduation-party-materials/002.png",
-      "/projects/graduation-party-materials/003.png",
-      "/projects/graduation-party-materials/004.png",
-      "/projects/graduation-party-materials/005.png",
-      "/projects/graduation-party-materials/006.png",
-      "/projects/graduation-party-materials/007.png",
-      "/projects/graduation-party-materials/008.png",
-      "/projects/graduation-party-materials/009.png",
-      "/projects/graduation-party-materials/010.png",
-      "/projects/graduation-party-materials/011.png",
-      "/projects/graduation-party-materials/012.png",
-      "/projects/graduation-party-materials/013.png",
-      "/projects/graduation-party-materials/014.png",
-      "/projects/graduation-party-materials/015.png",
-      "/projects/graduation-party-materials/016.png",
-      "/projects/graduation-party-materials/017.png",
-      "/projects/graduation-party-materials/018.png",
-      "/projects/graduation-party-materials/019.png",
-      "/projects/graduation-party-materials/020.png"
-    ],
-    "videos": [],
-    "embeds": [],
-    "links": []
-  },
   "well-water-finders": {
     "cover": "/projects/well-water-finders/cover.png",
     "images": [],
@@ -176,24 +148,6 @@
     "embeds": [
       {
         "url": "https://www.instagram.com/sellfellowship/?hl=en",
-        "caption": ""
-      }
-    ],
-    "links": []
-  },
-  "state-officer-campaign": {
-    "cover": "/projects/state-officer-campaign/cover.png",
-    "images": [
-      "/projects/state-officer-campaign/001.png",
-      "/projects/state-officer-campaign/002.png",
-      "/projects/state-officer-campaign/003.png",
-      "/projects/state-officer-campaign/004.png",
-      "/projects/state-officer-campaign/005.png"
-    ],
-    "videos": [],
-    "embeds": [
-      {
-        "url": "https://www.canva.com/design/DAG4g3KnO2U/UtuwXPt5mosSSqPnb1fYfg/edit?utm_content=DAG4g3KnO2U&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
         "caption": ""
       }
     ],

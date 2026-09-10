@@ -71,6 +71,9 @@ function IconContainer({ mouseX, title, icon, href }) {
 
   return (
     <Wrapper
+      // Icon-only link: the visible label is a hover tooltip, so screen
+      // readers need the title as an accessible name.
+      aria-label={title}
       {...(isInternal(href)
         ? { to: href }
         : { href, target: "_blank", rel: "noopener noreferrer" })}

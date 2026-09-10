@@ -100,7 +100,7 @@ const useMediaQuery = (query) => {
 
 /* ─── data ─── */
 const stats = [
-  { val: "9+", label: "Projects" },
+  { val: "11", label: "Projects" },
   { val: "121%", label: "Sales Growth" },
   { val: "150K+", label: "Organic Views" },
   { val: "250+", label: "Downloads" },
