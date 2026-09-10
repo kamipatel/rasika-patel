@@ -24,7 +24,7 @@ export const experience = [
   {
     org: "Harkey Institute for Entrepreneurial Studies",
     sub: "McCombs School of Business",
-    role: "Communications & Campus Engagement Intern",
+    role: "Marketing & Campus Engagement Intern",
     location: "Austin, TX",
     dates: "Aug 2026 – Present",
     current: true,
@@ -147,4 +147,4 @@ export const leadership = [
 
 /** Hosted PDF of the same résumé. */
 export const RESUME_PDF_URL =
-  "https://drive.google.com/file/d/1aZehnbBxOty_i0yXKJn5UT6O0ZCI3lCF/view?usp=sharing";
+  "https://drive.google.com/file/d/1qkVpTgjdguEhu5UOeZfe-pXZFcu4ioxS/view?usp=sharing";

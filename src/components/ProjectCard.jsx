@@ -105,13 +105,14 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
       } : undefined}
       transition={reduced ? { duration: 0.01 } : { ...springConfig, delay: index * 0.06 }}
       onClick={handleCardClick}
-      style={{ cursor: "pointer", borderRadius: index === 0 ? "2px" : index % 2 === 0 ? "16px" : "8px" }}
+      style={{ cursor: "pointer", height: "100%", borderRadius: index === 0 ? "2px" : index % 2 === 0 ? "16px" : "8px" }}
     >
       <div
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{
           position: "relative",
+          height: "100%",
           borderRadius: "12px",
           padding: "20px",
           overflow: "hidden",
@@ -152,7 +153,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
         }} />
 
         {/* Content */}
-        <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", gap: "16px" }}>
+        <div style={{ position: "relative", zIndex: 2, flex: 1, display: "flex", flexDirection: "column", gap: "16px" }}>
           {/* Top: icon + tags */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
             <span style={{ fontSize: "32px", lineHeight: 1 }}>{meta.icon}</span>
@@ -216,7 +217,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
 
 
           {/* Bottom: category + impact + view button */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap", marginTop: "4px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap", marginTop: "auto", paddingTop: "4px" }}>
             {/* Category Badge */}
             <div style={{
               display: "flex",

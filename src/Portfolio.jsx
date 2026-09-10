@@ -487,7 +487,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               letterSpacing: "0.03em",
               textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             }}>
-              Communications Intern @ Harkey Institute
+              Marketing Intern @ Harkey Institute
             </span>
           </div>
 
