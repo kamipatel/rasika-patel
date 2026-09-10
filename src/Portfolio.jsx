@@ -487,7 +487,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               letterSpacing: "0.03em",
               textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             }}>
-              Marketing Intern @ Harkey Institute
+              Marketing & Campus Engagement Intern{"\u00A0@\u00A0Harkey Institute"}
             </span>
           </div>
 
@@ -604,7 +604,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             <div>
               <Reveal delay={0.2} reduced={reduced}>
                 <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
-                  I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum to interning in marketing at <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong>, I'm drawn to building and shipping real things. Now I'm at the <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Harkey Institute</strong> at McCombs, running comms for entrepreneurship programs on campus.
+                  I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum to interning in marketing at <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong>, I'm drawn to building and shipping real things. Now I'm at the <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Harkey Institute</strong> at McCombs, running marketing for entrepreneurship programs on campus.
                 </p>
               </Reveal>
               <Reveal delay={0.25} reduced={reduced}>
