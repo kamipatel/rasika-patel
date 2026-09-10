@@ -1,17 +1,59 @@
-export const timelineNodes = [
-  { slug: "xplore-austin", href: "/work/xplore", title: "Xplore Austin", timeline: "Jan 2025 - Present", status: "in-progress", energy: 90, relatedIds: ["herdup"] },
-  { slug: "foundry", title: "Foundry", timeline: "Mar 2026 - Present", status: "in-progress", energy: 85, relatedIds: ["xplore-austin"] },
-  { slug: "sell-fellowship", title: "SELL Fellowship", timeline: "Jan 2025 - Present", status: "in-progress", energy: 80, relatedIds: ["texas-momentum"] },
-  { slug: "texas-momentum", title: "Texas Momentum", timeline: "Jan-May 2025 · Jan-May 2026", status: "completed", energy: 85, relatedIds: ["sell-fellowship"] },
-  { slug: "herdup", title: "HerdUp", timeline: "Jan 2025 - Dec 2025", status: "completed", energy: 70, relatedIds: ["xplore-austin"] },
-  { slug: "center-for-integrated-design", title: "Center for Integrated Design", timeline: "Oct 2025 - May 2026", status: "completed", energy: 80, relatedIds: [] },
-  { slug: "well-water-finders", title: "Well Water Finders", timeline: "Fall 2024", status: "completed", energy: 100, relatedIds: [] },
-  { slug: "cultured-carrot", title: "The Cultured Carrot", timeline: "2022-2025", status: "completed", energy: 100, relatedIds: [] },
-  { slug: "ama", title: "AMA", timeline: "Fall 2024 - Spring 2025", status: "completed", energy: 80, relatedIds: [] },
-];
+/*
+ * Project orbit nodes.
+ *
+ * Derived from projects.js rather than hand-maintained, so adding a project
+ * puts it in the orbit automatically instead of leaving the two lists to
+ * drift apart. Only the orbit-specific bits are declared here.
+ */
+import { projects } from "./projects.js";
 
-export const connections = [
-  { from: "xplore-austin", to: "herdup", label: "App Projects" },
-  { from: "texas-momentum", to: "sell-fellowship", label: "Marketing / Brand" },
-  { from: "foundry", to: "xplore-austin", label: "Shipping Product" },
-];
+/**
+ * Per-project orbit tuning.
+ * `energy` sizes the node and, for active projects, promotes it to the inner
+ * ring (in-progress and >= 80). `short` replaces long titles, which overlap
+ * their neighbours at orbit scale.
+ */
+const ORBIT = {
+  "xplore-austin": { energy: 90, related: ["herdup"] },
+  foundry: { energy: 85, related: ["xplore-austin"] },
+  harkey: { energy: 82, short: "Harkey", related: ["servicenow"] },
+  servicenow: { energy: 88, short: "ServiceNow", related: ["harkey"] },
+  "sell-fellowship": { energy: 80, related: ["texas-momentum"] },
+  "texas-momentum": { energy: 85, related: ["sell-fellowship"] },
+  herdup: { energy: 70, related: ["xplore-austin"] },
+  "center-for-integrated-design": { energy: 80, short: "Center for Integrated Design" },
+  "well-water-finders": { energy: 100 },
+  "cultured-carrot": { energy: 100, short: "The Cultured Carrot" },
+  ama: { energy: 80, short: "AMA" },
+};
+
+const DEFAULT_ENERGY = 75;
+
+export const timelineNodes = projects.map((project) => {
+  const orbit = ORBIT[project.slug] ?? {};
+  return {
+    slug: project.slug,
+    href: project.href,
+    title: orbit.short ?? project.title,
+    timeline: project.timeline,
+    // A project still running is active; everything else has wrapped.
+    status: /present/i.test(project.timeline) ? "in-progress" : "completed",
+    energy: orbit.energy ?? DEFAULT_ENERGY,
+    relatedIds: orbit.related ?? [],
+  };
+});
+
+/** Edges drawn between related nodes, de-duplicated across both directions. */
+export const connections = (() => {
+  const seen = new Set();
+  const edges = [];
+  for (const node of timelineNodes) {
+    for (const to of node.relatedIds) {
+      const key = [node.slug, to].sort().join("|");
+      if (seen.has(key) || !timelineNodes.some((n) => n.slug === to)) continue;
+      seen.add(key);
+      edges.push({ from: node.slug, to });
+    }
+  }
+  return edges;
+})();

@@ -696,6 +696,99 @@ export default function ProjectPage() {
           </div>
         )}
 
+        {/* Shipped sites — live client work with a preview of each */}
+        {project.sites?.length > 0 && (
+          <div style={{ marginTop: "80px" }}>
+            <div
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: "13px",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                color: "var(--accent)",
+                marginBottom: "24px",
+              }}
+            >
+              Sites I Built
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
+              {project.sites.map((site) => (
+                <a
+                  key={site.url}
+                  href={site.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="clickable"
+                  style={{ textDecoration: "none", display: "block" }}
+                >
+                  <div
+                    style={{
+                      borderRadius: "16px",
+                      overflow: "hidden",
+                      border: "1px solid var(--border)",
+                      background: "var(--card)",
+                    }}
+                  >
+                    <img
+                      src={site.image}
+                      alt={`${site.name} homepage`}
+                      loading="lazy"
+                      style={{ width: "100%", height: "auto", display: "block" }}
+                    />
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      justifyContent: "space-between",
+                      gap: "16px",
+                      flexWrap: "wrap",
+                      marginTop: "14px",
+                    }}
+                  >
+                    <div>
+                      <div
+                        style={{
+                          fontFamily: "var(--display)",
+                          fontSize: "18px",
+                          fontWeight: 700,
+                          color: "var(--text-light)",
+                        }}
+                      >
+                        {site.name}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "var(--body)",
+                          fontSize: "14px",
+                          color: "var(--text-dim)",
+                          marginTop: "2px",
+                        }}
+                      >
+                        {site.tagline}
+                      </div>
+                    </div>
+                    <span
+                      style={{
+                        fontFamily: "var(--mono)",
+                        fontSize: "11px",
+                        letterSpacing: "1px",
+                        textTransform: "uppercase",
+                        color: "var(--accent)",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Visit &#8599;
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Extra sections */}
         {projectImages[slug]?.sections?.length > 0 && (
           <div style={{ marginTop: "80px" }}>

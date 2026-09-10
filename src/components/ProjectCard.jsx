@@ -9,6 +9,8 @@ const PROJECT_META = {
   "herdup":                       { icon: "\u{1F402}", gradient: ["#22d3ee", "#3b82f6"] },
   "sell-fellowship":              { icon: "\u{1F4A1}", gradient: ["#f43f5e", "#ec4899"] },
   "foundry":                      { icon: "\u{1F528}", gradient: ["#fb923c", "#c2410c"] },
+  "harkey":                       { icon: "\u{1F3DB}\uFE0F", gradient: ["#fbbf24", "#b45309"] },
+  "servicenow":                   { icon: "\u{1F3A4}", gradient: ["#4ade80", "#15803d"] },
   "center-for-integrated-design": { icon: "\u{1F3A8}", gradient: ["#38bdf8", "#2563eb"] },
   "well-water-finders":           { icon: "\u{1F4A7}", gradient: ["#2dd4bf", "#059669"] },
   "cultured-carrot":              { icon: "\u{1F955}", gradient: ["#f59e0b", "#f97316"] },

@@ -17,7 +17,7 @@
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
-import { PRERENDER_ROUTES } from "../src/lib/routeMeta.js";
+import { ALL_ROUTES, PRERENDER_ROUTES } from "../src/lib/routeMeta.js";
 import { absoluteUrl } from "../src/lib/site.js";
 
 const DIST = path.resolve("dist");
@@ -112,6 +112,24 @@ function buildHead(shell, route) {
   return html;
 }
 
+/**
+ * The sitemap is generated from the same route list, so adding a project can
+ * never leave it behind the way a hand-maintained public/sitemap.xml did.
+ */
+function writeSitemap() {
+  const priority = (path) =>
+    path === "/" ? "1.0" : path.startsWith("/work/") || path === "/resume" ? "0.9" : "0.8";
+  const body = ALL_ROUTES.map(
+    (r) => `  <url>\n    <loc>${absoluteUrl(r.path)}</loc>\n    <priority>${priority(r.path)}</priority>\n  </url>`
+  ).join("\n");
+  writeFileSync(
+    path.join(DIST, "sitemap.xml"),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`,
+    "utf8"
+  );
+  console.log(`  sitemap.xml with ${ALL_ROUTES.length} urls`);
+}
+
 const shell = readFileSync(SHELL, "utf8");
 
 for (const route of PRERENDER_ROUTES) {
@@ -120,5 +138,7 @@ for (const route of PRERENDER_ROUTES) {
   writeFileSync(path.join(outDir, "index.html"), buildHead(shell, route), "utf8");
   console.log(`  prerendered ${route.path}`);
 }
+
+writeSitemap();
 
 console.log(`prerender: wrote ${PRERENDER_ROUTES.length} route(s)`);
