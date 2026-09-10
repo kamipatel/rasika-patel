@@ -4,6 +4,7 @@ import { AnimatePresence, useReducedMotion } from "framer-motion";
 import Portfolio from "./Portfolio";
 import ProjectPage from "./components/ProjectPage";
 import ResumePage from "./components/ResumePage";
+import XploreCaseStudy from "./pages/XploreCaseStudy";
 import PortfolioNav from "./components/PortfolioNav";
 import CustomCursor from "./components/CustomCursor";
 import { useHashScroll } from "./lib/useHashScroll";
@@ -87,6 +88,7 @@ export default function App() {
             }
           />
           <Route path="/resume" element={<ResumePage />} />
+          <Route path="/work/xplore" element={<XploreCaseStudy />} />
           <Route path="/projects/:slug" element={<ProjectPage />} />
         </Routes>
       </AnimatePresence>

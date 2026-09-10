@@ -79,7 +79,8 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
 
   const handleCardClick = () => {
     onActivate(index);
-    navigate(`/projects/${project.slug}`);
+    // A project may point at a dedicated case study instead of the generic page
+    navigate(project.href ?? `/projects/${project.slug}`);
   };
 
   const handleViewProject = (e) => {
@@ -196,6 +197,21 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
             }}>
               {truncatedDesc}
             </p>
+            {project.clients?.length > 0 && (
+              <p style={{
+                fontFamily: "var(--mono)",
+                fontSize: "11px",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                color: "var(--text-dim)",
+                marginTop: "10px",
+              }}>
+                Clients ·{" "}
+                <span style={{ color: "var(--text-mid)" }}>
+                  {project.clients.join(", ")}
+                </span>
+              </p>
+            )}
           </div>
 
 

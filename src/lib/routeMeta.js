@@ -28,6 +28,14 @@ export const resumeMeta = () => {
   };
 };
 
+export const xploreMeta = () => ({
+  path: "/work/xplore",
+  title: "Xplore Austin — Case Study — Rasika Patel",
+  description: truncate(
+    "How a discovery app for UT students grew through ranked local guides — 200K+ organic views, 500+ downloads, 79% reach from non-followers."
+  ),
+});
+
 export const projectMeta = (project) => ({
   path: `/projects/${project.slug}`,
   title: `${project.title} — Rasika Patel`,
@@ -35,10 +43,13 @@ export const projectMeta = (project) => ({
 });
 
 /** Every route the site can serve. Project routes follow src/data/projects.js. */
+const SUPERSEDED_SLUGS = new Set(["xplore-austin"]);
+
 export const ALL_ROUTES = [
   homeMeta(),
   resumeMeta(),
-  ...projects.map(projectMeta),
+  xploreMeta(),
+  ...projects.filter((p) => !SUPERSEDED_SLUGS.has(p.slug)).map(projectMeta),
 ];
 
 /** Routes needing their own static HTML file. "/" is already dist/index.html. */

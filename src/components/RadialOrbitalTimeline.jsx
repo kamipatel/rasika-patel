@@ -119,7 +119,7 @@ function OrbitalSVG({ reduced }) {
             key={node.slug}
             style={{ cursor: "pointer", transition: "opacity 0.3s" }}
             opacity={dimmed ? 0.3 : 1}
-            onClick={() => navigate(`/projects/${node.slug}`)}
+            onClick={() => navigate(node.href ?? `/projects/${node.slug}`)}
             onMouseEnter={() => setHovSlug(node.slug)}
             onMouseLeave={() => setHovSlug(null)}
           >
@@ -184,10 +184,10 @@ function LinearTimeline({ reduced }) {
         return (
           <Reveal key={node.slug} delay={i * 0.06} reduced={reduced}>
             <div
-              onClick={() => navigate(`/projects/${node.slug}`)}
+              onClick={() => navigate(node.href ?? `/projects/${node.slug}`)}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => { if (e.key === "Enter") navigate(`/projects/${node.slug}`); }}
+              onKeyDown={(e) => { if (e.key === "Enter") navigate(node.href ?? `/projects/${node.slug}`); }}
               className="clickable"
               style={{
                 padding: "16px 20px",

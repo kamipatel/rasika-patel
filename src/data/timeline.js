@@ -1,5 +1,5 @@
 export const timelineNodes = [
-  { slug: "xplore-austin", title: "Xplore Austin", timeline: "Jan 2025 - Present", status: "in-progress", energy: 90, relatedIds: ["herdup"] },
+  { slug: "xplore-austin", href: "/work/xplore", title: "Xplore Austin", timeline: "Jan 2025 - Present", status: "in-progress", energy: 90, relatedIds: ["herdup"] },
   { slug: "foundry", title: "Foundry", timeline: "Mar 2026 - Present", status: "in-progress", energy: 85, relatedIds: ["xplore-austin"] },
   { slug: "sell-fellowship", title: "SELL Fellowship", timeline: "Jan 2025 - Present", status: "in-progress", energy: 80, relatedIds: ["texas-momentum"] },
   { slug: "texas-momentum", title: "Texas Momentum", timeline: "Jan-May 2025 · Jan-May 2026", status: "completed", energy: 85, relatedIds: ["sell-fellowship"] },

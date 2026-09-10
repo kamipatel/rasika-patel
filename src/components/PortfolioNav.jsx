@@ -27,8 +27,11 @@ export default function PortfolioNav({ activeNav }) {
   ];
 
   // Route pages own the active state; section tracking only applies on home
-  const activeTab =
-    location.pathname === "/resume" ? "Resume" : getDisplayName(activeNav);
+  const activeTab = location.pathname.startsWith("/work/")
+    ? "Work"
+    : location.pathname === "/resume"
+      ? "Resume"
+      : getDisplayName(activeNav);
 
   return <NavBar items={navItems} activeTab={activeTab} />;
 }

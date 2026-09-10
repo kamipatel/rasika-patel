@@ -150,9 +150,9 @@ export default function ResumeEntry({ entry, index, reduced, isMobile }) {
           ))}
         </ul>
 
-        {entry.slug && (
+        {(entry.href || entry.slug) && (
           <Link
-            to={`/projects/${entry.slug}`}
+            to={entry.href ?? `/projects/${entry.slug}`}
             className="clickable"
             style={{
               display: "inline-block",

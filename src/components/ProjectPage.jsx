@@ -230,6 +230,25 @@ export default function ProjectPage() {
           {project.desc}
         </p>
 
+        {project.clients?.length > 0 && (
+          <div
+            style={{
+              fontFamily: "var(--mono)",
+              fontSize: "12px",
+              letterSpacing: "1.5px",
+              textTransform: "uppercase",
+              color: "var(--text-dim)",
+              marginTop: "-32px",
+              marginBottom: "48px",
+            }}
+          >
+            Clients ·{" "}
+            <span style={{ color: "var(--text-light)" }}>
+              {project.clients.join(", ")}
+            </span>
+          </div>
+        )}
+
         {/* Impact stat */}
         <div
           style={{

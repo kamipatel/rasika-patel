@@ -90,27 +90,28 @@ export const experience = [
 
 export const leadership = [
   {
-    org: "Foundry",
-    role: "Founder & Developer",
-    location: "Austin, TX",
-    dates: "Mar 2026 – Present",
-    current: true,
-    slug: "foundry",
-    bullets: [
-      "Design and build small-business websites end to end, from branding through launch, shipped on a React/Vercel stack",
-      "Delivered 2 client sites to date",
-    ],
-  },
-  {
     org: "Xplore Austin",
     role: "Founder & UX Designer",
     location: "Austin, TX",
     dates: "Jan 2025 – Present",
     current: true,
     slug: "xplore-austin",
+    href: "/work/xplore",
     bullets: [
       "Founded and shipped an App Store mobile app connecting UT Austin students to small and student-run businesses through curated lists, peer recommendations, and exclusive deals — 250+ downloads",
       "Selected as a Kendra Scott WELI Spark Founder (Jan – May 2026) for mentorship and support to grow monetization and expansion",
+    ],
+  },
+  {
+    org: "Foundry",
+    role: "Founder",
+    location: "Austin, TX",
+    dates: "Present",
+    current: true,
+    slug: "foundry",
+    bullets: [
+      "Build and deploy custom websites for small business owners end to end, from branding and design to development and launch",
+      "Clients to date: Mithas and Kake N Kream",
     ],
   },
   {
