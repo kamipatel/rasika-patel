@@ -103,7 +103,7 @@ const stats = [
   { val: "11", label: "Projects" },
   { val: "121%", label: "Sales Growth" },
   { val: "150K+", label: "Organic Views" },
-  { val: "250+", label: "Downloads" },
+  { val: "500+", label: "Downloads" },
 ];
 
 const skillsMarqueeItems = ["Figma", "Python", "Tableau", "AI Tools", "Canva", "Java", "SQL", "Supabase", "Illustrator", "Qualtrics"];
