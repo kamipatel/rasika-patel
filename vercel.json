@@ -5,6 +5,11 @@
       "source": "/projects/xplore-austin",
       "destination": "/work/xplore",
       "permanent": true
+    },
+    {
+      "source": "/projects/servicenow",
+      "destination": "/work/servicenow",
+      "permanent": true
     }
   ],
   "rewrites": [

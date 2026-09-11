@@ -36,6 +36,14 @@ export const xploreMeta = () => ({
   ),
 });
 
+export const servicenowMeta = () => ({
+  path: "/work/servicenow",
+  title: "Rebuilding the Speakers Bureau — Rasika Patel",
+  description: truncate(
+    "How a Fortune 500 executive speaker programme was rebuilt: four root causes of underuse, an eight-step enrollment flow, and an AI-scored certification gate."
+  ),
+});
+
 export const projectMeta = (project) => ({
   path: `/projects/${project.slug}`,
   title: `${project.title} — Rasika Patel`,
@@ -43,12 +51,13 @@ export const projectMeta = (project) => ({
 });
 
 /** Every route the site can serve. Project routes follow src/data/projects.js. */
-const SUPERSEDED_SLUGS = new Set(["xplore-austin"]);
+const SUPERSEDED_SLUGS = new Set(["xplore-austin", "servicenow"]);
 
 export const ALL_ROUTES = [
   homeMeta(),
   resumeMeta(),
   xploreMeta(),
+  servicenowMeta(),
   ...projects.filter((p) => !SUPERSEDED_SLUGS.has(p.slug)).map(projectMeta),
 ];
 
