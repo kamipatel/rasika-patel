@@ -124,8 +124,14 @@ export default function ProjectPage() {
     return null;
   }
 
-  const impactNum = project.impact.split(" ")[0];
-  const impactLabel = project.impact.split(" ").slice(1).join(" ");
+  // Impacts are either a figure plus a label ("500+ downloads") or a plain
+  // phrase ("Full prototype"). Splitting a phrase on the first space renders
+  // a giant "Full" over "PROTOTYPE", so only split when it starts with a figure.
+  const isFigure = /^[\d$]/.test(project.impact);
+  const impactNum = isFigure ? project.impact.split(" ")[0] : null;
+  const impactLabel = isFigure
+    ? project.impact.split(" ").slice(1).join(" ")
+    : project.impact;
 
   return (
     <motion.div
@@ -263,25 +269,38 @@ export default function ProjectPage() {
             marginBottom: "40px",
           }}
         >
+          {impactNum && (
+            <div
+              style={{
+                fontFamily: "var(--display)",
+                fontSize: "clamp(40px, 6vw, 64px)",
+                fontWeight: 800,
+                color: "var(--accent)",
+                lineHeight: 1,
+              }}
+            >
+              {impactNum}
+            </div>
+          )}
           <div
-            style={{
-              fontFamily: "var(--display)",
-              fontSize: "clamp(40px, 6vw, 64px)",
-              fontWeight: 800,
-              color: "var(--accent)",
-              lineHeight: 1,
-            }}
-          >
-            {impactNum}
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--mono)",
-              fontSize: "12px",
-              letterSpacing: "1.5px",
-              textTransform: "uppercase",
-              color: "var(--text-dim)",
-            }}
+            style={
+              isFigure
+                ? {
+                    fontFamily: "var(--mono)",
+                    fontSize: "12px",
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+                    color: "var(--text-dim)",
+                  }
+                : {
+                    fontFamily: "var(--display)",
+                    fontSize: "clamp(22px, 3vw, 30px)",
+                    fontWeight: 700,
+                    letterSpacing: "-0.5px",
+                    color: "var(--accent)",
+                    lineHeight: 1.2,
+                  }
+            }
           >
             {impactLabel}
           </div>
