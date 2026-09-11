@@ -732,13 +732,16 @@ export default function ProjectPage() {
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
-              {project.sites.map((site) => (
-                <a
-                  key={site.url}
-                  href={site.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="clickable"
+              {project.sites.map((site) => {
+                // Some previews have no public URL to link to.
+                const Wrap = site.url ? "a" : "div";
+                const wrapProps = site.url
+                  ? { href: site.url, target: "_blank", rel: "noopener noreferrer", className: "clickable" }
+                  : {};
+                return (
+                <Wrap
+                  key={site.name}
+                  {...wrapProps}
                   style={{ textDecoration: "none", display: "block" }}
                 >
                   <div
@@ -789,21 +792,24 @@ export default function ProjectPage() {
                         {site.tagline}
                       </div>
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "var(--mono)",
-                        fontSize: "11px",
-                        letterSpacing: "1px",
-                        textTransform: "uppercase",
-                        color: "var(--accent)",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Visit &#8599;
-                    </span>
+                    {site.url && (
+                      <span
+                        style={{
+                          fontFamily: "var(--mono)",
+                          fontSize: "11px",
+                          letterSpacing: "1px",
+                          textTransform: "uppercase",
+                          color: "var(--accent)",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Visit &#8599;
+                      </span>
+                    )}
                   </div>
-                </a>
-              ))}
+                </Wrap>
+                );
+              })}
             </div>
           </div>
         )}

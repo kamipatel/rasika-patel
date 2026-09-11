@@ -35,6 +35,15 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Helpers
 // ---------------------------------------------------------------------------
 
+/**
+ * A Canva /edit URL grants edit access to anyone who opens it. Notion pages
+ * often hold the edit link because that is what gets copied from the address
+ * bar, so drop them here rather than publishing them.
+ */
+function isUnsafeShareUrl(url) {
+  return /canva\.com\/design\/[^?]*\/edit/.test(url);
+}
+
 /** Derive a URL-safe slug from a project title. */
 function slugify(title) {
   return title
