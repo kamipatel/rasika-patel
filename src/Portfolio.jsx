@@ -542,6 +542,14 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               <span style={{ color: "var(--accent)", fontWeight: 600, fontStyle: "italic" }}>storytelling</span> and{" "}
               <span style={{ color: "var(--accent)", fontWeight: 600, fontStyle: "italic" }}>systems</span>.
             </p>
+              <p style={{
+                fontFamily: "var(--mono)", fontSize: "clamp(11px, 1.1vw, 13px)", fontWeight: 400,
+                letterSpacing: "0.4px", color: "var(--text-dim)", lineHeight: 1.6,
+                textShadow: "0 2px 12px rgba(0,0,0,0.7)",
+                margin: "14px 0 0"
+              }}>
+                Seeking Summer 2027 marketing and product marketing internships.
+              </p>
           </div>
 
           {/* 6. CTAs */}

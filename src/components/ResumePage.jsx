@@ -153,11 +153,24 @@ export default function ResumePage() {
             border: "1px solid var(--accent-dim)",
             padding: "6px 16px",
             borderRadius: "100px",
-            marginBottom: "32px",
+            marginBottom: "14px",
           }}
         >
           Marketing &amp; Design · Austin, TX
         </div>
+
+        <p
+          style={{
+            fontFamily: "var(--mono)",
+            fontSize: "12px",
+            letterSpacing: "0.4px",
+            color: "var(--text-dim)",
+            lineHeight: 1.6,
+            margin: "0 0 32px",
+          }}
+        >
+          Seeking Summer 2027 marketing and product marketing internships.
+        </p>
 
         {/* Contact links */}
         <div
