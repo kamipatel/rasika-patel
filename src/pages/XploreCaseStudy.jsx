@@ -369,25 +369,47 @@ export default function XploreCaseStudy() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 300px) 1fr",
+                gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 380px) 1fr",
                 gap: isMobile ? "28px" : "48px",
                 alignItems: "center",
                 marginTop: "24px",
               }}
             >
               <Reveal reduced={reduced}>
-                <img
-                  src={matchaPost.image}
-                  alt={matchaPost.alt}
-                  loading="lazy"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    display: "block",
-                    borderRadius: "16px",
-                    border: "1px solid var(--border)",
-                  }}
-                />
+                <a
+                  href={matchaPost.image}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="clickable"
+                  aria-label={`${matchaPost.alt} — open full size`}
+                  style={{ display: "block", textDecoration: "none" }}
+                >
+                  <img
+                    src={matchaPost.image}
+                    alt={matchaPost.alt}
+                    loading="lazy"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      display: "block",
+                      borderRadius: "16px",
+                      border: "1px solid var(--border)",
+                    }}
+                  />
+                  <span
+                    style={{
+                      display: "block",
+                      marginTop: "10px",
+                      fontFamily: "var(--mono)",
+                      fontSize: "10px",
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color: "var(--text-dim)",
+                    }}
+                  >
+                    {isMobile ? "Tap to view full size" : "Click to view full size"} &#8599;
+                  </span>
+                </a>
               </Reveal>
 
               <div>
