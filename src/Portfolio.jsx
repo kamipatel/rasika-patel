@@ -46,6 +46,7 @@ import Seo from "./components/Seo";
 import { homeMeta } from "./lib/routeMeta";
 import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
+import CountUp from "./components/CountUp";
 import ProjectGrid from "./components/ProjectGrid";
 import SelectedWorkList from "./components/SelectedWorkList";
 import RadialOrbitalTimeline from "./components/RadialOrbitalTimeline";
@@ -415,7 +416,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           ref={heroRef}
           aria-label="Hero section"
           style={{
-            height: "100dvh",
+            height: "min(88dvh, 820px)",
             position: "relative",
             overflow: "hidden",
             background: "var(--bg)",
@@ -497,7 +498,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
           {/* 3. Interactive Portrait Masked inside an Arch */}
           <div style={{
-            width: "clamp(180px, 45vw, 320px)",
+            width: "clamp(150px, 34vw, 244px)",
             aspectRatio: "3/4",
             position: "relative",
             borderRadius: "200px 200px 0 0",
@@ -580,6 +581,43 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           }} />
         </section>
 
+        {/* ═══ PROOF BAND — first thing after the hero ═══ */}
+        <section
+          aria-label="Key results"
+          style={{
+            borderTop: "1px solid var(--border)",
+            borderBottom: "1px solid var(--border)",
+            background: "var(--card)",
+            padding: isMobile ? "34px 0" : "44px 0",
+            position: "relative",
+            zIndex: 12,
+          }}
+        >
+          <div style={{
+            maxWidth: "1100px", margin: "0 auto",
+            padding: `0 ${isMobile ? "24px" : "clamp(24px, 6vw, 80px)"}`,
+            display: "grid",
+            gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
+            gap: isMobile ? "26px 16px" : "24px",
+          }}>
+            {stats.map((s) => (
+              <div key={s.label}>
+                <CountUp value={s.val} style={{
+                  display: "block", fontFamily: "var(--display)",
+                  fontSize: isMobile ? "clamp(30px, 8.5vw, 38px)" : "clamp(38px, 4vw, 56px)",
+                  fontWeight: 800, letterSpacing: "-2px", lineHeight: 1,
+                  color: "var(--accent)", fontVariantNumeric: "tabular-nums",
+                }} />
+                <span style={{
+                  display: "block", marginTop: "10px", fontFamily: "var(--mono)",
+                  fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase",
+                  color: "var(--text-dim)", lineHeight: 1.5,
+                }}>{s.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ── HERO-ABOUT DIVIDER ── */}
         <Marquee items={projectMarqueeItems} speed={30} direction="left" separator="✦" />
 
@@ -609,7 +647,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
           <div className="about-grid" style={{ 
             display: "grid", 
-            gridTemplateColumns: isMobile ? "1fr" : "1fr 310px", 
+            gridTemplateColumns: "1fr", 
             gap: isMobile ? "40px" : "60px", 
             alignItems: "start", 
             marginTop: "32px" 
@@ -627,25 +665,6 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               </Reveal>
             </div>
 
-            {/* Stats column — 2x2 grid on mobile */}
-            <Reveal delay={0.2} reduced={reduced}>
-              <div style={{ 
-                display: "grid", 
-                gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
-                gap: "12px" 
-              }}>
-                {/* Hero stat */}
-                <div style={{ height: isMobile ? "140px" : "160px", gridColumn: isMobile ? "span 1" : "span 3" }}>
-                  <AnimatedStat val={stats[0].val} label={stats[0].label} reduced={reduced} variant="hero" />
-                </div>
-                {/* Secondary stats */}
-                {stats.slice(1).map((s) => (
-                  <div key={s.label} style={{ height: "120px" }}>
-                    <AnimatedStat val={s.val} label={s.label} reduced={reduced} />
-                  </div>
-                ))}
-              </div>
-            </Reveal>
           </div>
         </section>
 
