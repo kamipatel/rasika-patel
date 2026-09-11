@@ -51,6 +51,8 @@ export const projectMeta = (project) => ({
 });
 
 /** Every route the site can serve. Project routes follow src/data/projects.js. */
+// Xplore and ServiceNow live at /work/*; the compact tier has no page of its
+// own, so only featured projects with their own page are listed.
 const SUPERSEDED_SLUGS = new Set(["xplore-austin", "servicenow"]);
 
 export const ALL_ROUTES = [
@@ -58,7 +60,9 @@ export const ALL_ROUTES = [
   resumeMeta(),
   xploreMeta(),
   servicenowMeta(),
-  ...projects.filter((p) => !SUPERSEDED_SLUGS.has(p.slug)).map(projectMeta),
+  ...projects
+    .filter((p) => p.featured && !SUPERSEDED_SLUGS.has(p.slug))
+    .map(projectMeta),
 ];
 
 /** Routes needing their own static HTML file. "/" is already dist/index.html. */

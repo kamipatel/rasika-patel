@@ -36,6 +36,7 @@ export const experience = [
   {
     org: "ServiceNow",
     role: "Marketing Associate Intern",
+    href: "/work/servicenow",
     location: "New York, NY",
     dates: "Summer 2026",
     bullets: [
@@ -50,7 +51,6 @@ export const experience = [
     role: "Design & Marketing Assistant",
     location: "Austin, TX",
     dates: "Oct 2025 – May 2026",
-    slug: "center-for-integrated-design",
     bullets: [
       "Designed and executed digital marketing assets in Figma and Canva to promote CID programs, events, and partnerships across UT, driving a ~35% increase in program registration over two semesters",
       "Produced campus-wide collateral — posters, flyers, stickers, apparel, and Instagram content — for CID courses and events",
@@ -61,7 +61,6 @@ export const experience = [
     role: "Marketing Consultant",
     location: "Austin, TX",
     dates: "Fall 2024 – Spring 2025",
-    slug: "ama",
     bullets: [
       "Optimized Baya Systems' SEO strategy and designed a data-driven content roadmap, increasing organic traffic by 40% and improving Google ranking for 10+ key terms",
     ],
@@ -71,7 +70,6 @@ export const experience = [
     role: "UX Designer — Well Water Finders",
     location: "Austin, TX",
     dates: "Fall 2024",
-    slug: "well-water-finders",
     bullets: [
       "Built the full UI flow for a groundwater startup, reducing client testing costs by $9,000 per drill through clearer decision-making",
     ],
@@ -81,7 +79,6 @@ export const experience = [
     role: "Marketing Manager",
     location: "Austin, TX",
     dates: "2022 – 2025",
-    slug: "cultured-carrot",
     bullets: [
       "Ran a full rebrand and marketing strategy for an Austin small business, growing sales 121% with 200+ repeat customers",
     ],
@@ -120,7 +117,6 @@ export const leadership = [
     location: "Austin, TX",
     dates: "Jan 2025 – Present",
     current: true,
-    slug: "sell-fellowship",
     roleHistory: [
       "Fellow Development Lead · May 2026 – Present",
       "Creative Lead · Jan – May 2026",

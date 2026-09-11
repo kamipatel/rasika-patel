@@ -33,7 +33,7 @@ export default function ProjectGrid({ projects, reduced }) {
         className="project-card-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 440px), 1fr))",
           gap: "clamp(20px, 4vw, 32px)",
           marginTop: "32px",
         }}

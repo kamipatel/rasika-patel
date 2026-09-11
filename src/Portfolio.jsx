@@ -47,6 +47,7 @@ import { homeMeta } from "./lib/routeMeta";
 import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
 import ProjectGrid from "./components/ProjectGrid";
+import SelectedWorkList from "./components/SelectedWorkList";
 import RadialOrbitalTimeline from "./components/RadialOrbitalTimeline";
 import Vortex from "./components/Vortex";
 import IconCloud from "./components/IconCloud";
@@ -338,6 +339,9 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
   const prefersReduced = useReducedMotion();
   const reduced = !!prefersReduced;
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  const featuredProjects = useMemo(() => projects.filter((p) => p.featured), []);
+  const selectedProjects = useMemo(() => projects.filter((p) => !p.featured), []);
 
   const { scrollY: motionScrollY } = useScroll();
   const heroBlob1Y = useTransform(motionScrollY, [0, 800], [0, -120]);
@@ -672,8 +676,26 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             </h2>
           </Reveal>
 
-          {/* Unified Project Grid */}
-          <ProjectGrid projects={projects} reduced={reduced} />
+          {/* Featured — the four with a full case study behind them */}
+          <ProjectGrid projects={featuredProjects} reduced={reduced} />
+
+          {/* Selected work — compact, scannable, still shows the numbers */}
+          <div style={{ marginTop: isMobile ? "72px" : "96px" }}>
+            <Reveal reduced={reduced}>
+              <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Selected Work</span>
+            </Reveal>
+            <Reveal delay={0.08} reduced={reduced}>
+              <h3 style={{
+                fontFamily: "var(--display)",
+                fontSize: isMobile ? "clamp(24px, 7vw, 30px)" : "clamp(28px, 3vw, 38px)",
+                fontWeight: 800, letterSpacing: "-1px", lineHeight: 1.1,
+                marginTop: "14px", marginBottom: "28px", color: "var(--text-light)",
+              }}>
+                Also worth a look
+              </h3>
+            </Reveal>
+            <SelectedWorkList projects={selectedProjects} reduced={reduced} isMobile={isMobile} />
+          </div>
         </section>
 
         {/* ── WORK-TIMELINE DIVIDER ── */}
