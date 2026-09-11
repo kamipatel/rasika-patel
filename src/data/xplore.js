@@ -79,7 +79,7 @@ export const matchaPost = {
   eyebrow: "Highlight",
   title: "Every Matcha in Austin, Ranked",
   image: "/xplore-matcha-post.png",
-  alt: "Instagram post: Every Matcha in Austin, Ranked",
+  alt: "Xplore Austin post — Every Matcha in Austin, Ranked: 10 spots ranked from 20 tried, with pop-ups flagged",
   note: "Shares is the number that matters. It means someone sent it to a friend rather than just double-tapping.",
   stats: [
     { value: "92K", label: "Views" },
