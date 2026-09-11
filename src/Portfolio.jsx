@@ -108,7 +108,7 @@ const stats = [
 
 const skillsMarqueeItems = ["Figma", "Python", "Tableau", "AI Tools", "Canva", "Java", "SQL", "Supabase", "Illustrator", "Qualtrics"];
 const projectMarqueeItems = projects.map((p) => p.title);
-const HERO_ROLES = ["UX Designer", "Creative Strategist", "Brand Architect", "Marketing Lead", "App Founder"];
+const HERO_ROLES = ["Marketing Strategist", "Product Marketer"];
 
 /* ─── animation helpers ─── */
 const springConfig = { type: "spring", stiffness: 60, damping: 20 };
@@ -487,7 +487,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               letterSpacing: "0.03em",
               textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             }}>
-              Marketing & Campus Engagement Intern{"\u00A0@\u00A0Harkey Institute"}
+              Marketing Strategist{"\u00A0\u00B7\u00A0Harkey Institute"}
             </span>
           </div>
 
@@ -586,9 +586,10 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               fontWeight: 800, lineHeight: 1.1, letterSpacing: "-1px", 
               marginTop: "20px", marginBottom: "32px", maxWidth: "780px" 
             }}>
-              A <span style={{ color: "var(--accent)" }}>Marketing</span> student at McCombs
-              obsessed with <span style={{ fontStyle: "italic", color: "var(--text-light)" }}>building products</span>, creative strategy,
-              and shipping things that matter.
+              A <span style={{ color: "var(--accent)" }}>marketing strategist</span> and
+              <span style={{ color: "var(--accent)" }}> product marketer</span> at McCombs — I build
+              <span style={{ fontStyle: "italic", color: "var(--text-light)" }}> products</span> and the
+              campaigns that get people using them.
             </h2>
           </Reveal>
 
