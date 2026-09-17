@@ -498,8 +498,15 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
           {/* 3. Interactive Portrait Masked inside an Arch */}
           <div style={{
-            width: "clamp(150px, 34vw, 244px)",
+            // Height-driven so it tracks the hero's vertical budget; width
+            // follows from the ratio. flexShrink:0 is load-bearing — because
+            // overflow:hidden makes min-height:auto resolve to 0, flex was
+            // free to crush the 3:4 box into a landscape sliver once the hero
+            // got shorter, and that is what cropped the head.
+            height: "clamp(130px, 20vh, 220px)",
+            width: "auto",
             aspectRatio: "3/4",
+            flexShrink: 0,
             position: "relative",
             borderRadius: "200px 200px 0 0",
             overflow: "hidden",
@@ -518,7 +525,13 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                transform: "scale(1.2) translateY(5%)",
+                // Inert while the bitmap matches the box, but if a resize lands
+                // before updateCanvasSize() repaints, bias the crop to the top.
+                objectPosition: "50% 0%",
+                // Lands the top of the frame flush with the container so the ~8%
+                // of background above the hair survives as headroom;
+                // scale(1.2) translateY(5%) cut source rows 0-8 instead.
+                transform: "scale(1.1) translateY(4%)",
               }}
             />
           </div>
