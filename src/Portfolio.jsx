@@ -566,7 +566,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                 textShadow: "0 2px 12px rgba(0,0,0,0.7)",
                 margin: "14px 0 0"
               }}>
-                Seeking Summer 2027 marketing and product marketing internships.
+                Open to Summer 2027 internships in AI, marketing, product management, and UX.
               </p>
           </div>
 

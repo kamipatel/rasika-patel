@@ -169,7 +169,7 @@ export default function ResumePage() {
             margin: "0 0 32px",
           }}
         >
-          Seeking Summer 2027 marketing and product marketing internships.
+          Open to Summer 2027 internships in AI, marketing, product management, and UX.
         </p>
 
         {/* Contact links */}
