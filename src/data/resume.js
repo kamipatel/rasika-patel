@@ -24,12 +24,13 @@ export const experience = [
   {
     org: "Harkey Institute for Entrepreneurial Studies",
     sub: "McCombs School of Business",
-    role: "Marketing & Campus Engagement Intern",
+    role: "Communications & Campus Engagement Intern",
     location: "Austin, TX",
     dates: "Aug 2026 – Present",
     current: true,
     bullets: [
-      "Create social content and manage the content calendar for Institute programs, tracking post performance by format and channel",
+      "Create social content and manage the Institute's content calendar in Airtable, tracking post performance by format and channel",
+      "Build AI workflows in Claude on the Institute's Meta analytics, surfacing engagement patterns that guide content strategy",
       "Support the email newsletter and recruitment events, including tabling and the fall entrepreneurship expo",
     ],
   },
@@ -95,7 +96,8 @@ export const leadership = [
     slug: "xplore-austin",
     href: "/work/xplore",
     bullets: [
-      "Founded and shipped an App Store mobile app connecting UT Austin students to small and student-run businesses through curated lists, peer recommendations, and exclusive deals — 500+ downloads",
+      "Founded and shipped an App Store mobile app connecting UT Austin students to small and student-run businesses through curated lists, peer recommendations, and exclusive deals — 600+ downloads",
+      "Built the app solo with Claude Code; automated operations with Claude, the Instinct AI agent, and Supabase, Vercel, and PostHog MCPs",
       "Selected as a Kendra Scott WELI Spark Founder (Jan – May 2026) for mentorship and support to grow monetization and expansion",
     ],
   },
@@ -143,4 +145,4 @@ export const leadership = [
 
 /** Hosted PDF of the same résumé. */
 export const RESUME_PDF_URL =
-  "https://drive.google.com/file/d/1qkVpTgjdguEhu5UOeZfe-pXZFcu4ioxS/view?usp=sharing";
+  "/RasikaPatelResume.pdf";

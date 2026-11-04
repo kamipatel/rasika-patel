@@ -167,5 +167,35 @@
         ]
       }
     ]
+  },
+  "harkey": {
+    "cover": null,
+    "images": [],
+    "videos": [],
+    "embeds": [],
+    "links": [],
+    "sections": [
+      {
+        "title": "Longhorn Market Flyer",
+        "images": [
+          "/projects/harkey/longhorn-market-flyer.png"
+        ]
+      },
+      {
+        "title": "Longhorn Market Stickers",
+        "images": [
+          "/projects/harkey/longhorn-market-signpost-sticker.png",
+          "/projects/harkey/longhorn-market-booth-sticker.png",
+          "/projects/harkey/longhorn-market-ornaments-sticker.png"
+        ]
+      },
+      {
+        "title": "Harkey Stickers",
+        "images": [
+          "/projects/harkey/hello-founder-sticker.png",
+          "/projects/harkey/pennant-sticker.png"
+        ]
+      }
+    ]
   }
 }

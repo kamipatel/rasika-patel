@@ -1,6 +1,9 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { springConfig } from "../lib/animation";
+
+const MotionLink = motion.create(Link);
 
 /*
  * Compact tier: work without a full case study behind it. A scannable row
@@ -11,20 +14,31 @@ function Row({ project, index, reduced, isMobile }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.15 });
 
+  const rowStyle = {
+    display: "grid",
+    gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 170px",
+    gap: isMobile ? "10px" : "28px",
+    alignItems: isMobile ? "start" : "baseline",
+    padding: isMobile ? "22px 0" : "26px 0",
+    borderBottom: "1px solid var(--border)",
+  };
+
+  // Projects with a gallery page (`page: true`) link to it; the rest stay plain rows.
+  const Wrapper = project.page ? MotionLink : motion.div;
+  const wrapperProps = project.page
+    ? {
+        to: `/projects/${project.slug}`,
+        style: { ...rowStyle, textDecoration: "none", color: "inherit", cursor: "pointer" },
+      }
+    : { style: rowStyle };
+
   return (
-    <motion.div
+    <Wrapper
       ref={ref}
       initial={reduced ? { opacity: 0 } : { opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : undefined}
       transition={reduced ? { duration: 0.01 } : { ...springConfig, delay: index * 0.05 }}
-      style={{
-        display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 1fr) 170px",
-        gap: isMobile ? "10px" : "28px",
-        alignItems: isMobile ? "start" : "baseline",
-        padding: isMobile ? "22px 0" : "26px 0",
-        borderBottom: "1px solid var(--border)",
-      }}
+      {...wrapperProps}
     >
       <div>
         <div
@@ -87,8 +101,22 @@ function Row({ project, index, reduced, isMobile }) {
         }}
       >
         {project.impact}
+        {project.page && (
+          <span
+            style={{
+              display: "block",
+              marginTop: "6px",
+              fontFamily: "var(--mono)",
+              fontSize: "11px",
+              fontWeight: 400,
+              color: "var(--text-dim)",
+            }}
+          >
+            View work →
+          </span>
+        )}
       </span>
-    </motion.div>
+    </Wrapper>
   );
 }
 
