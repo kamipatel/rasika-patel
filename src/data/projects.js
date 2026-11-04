@@ -5,7 +5,7 @@
  * would be a stub.
  */
 export const projects = [
-  { title: "Xplore Austin", slug: "xplore-austin", featured: true, role: "Founder & UX Designer", tags: ["Startup", "UI/UX", "Branding", "App Store"], desc: "A student-driven mobile app connecting UT Austin students to small and student-run businesses through curated lists, peer recommendations, and exclusive deals. Available on the App Store, and selected as a Kendra Scott WELI Spark Founder venture.", link: "https://apps.apple.com/us/app/xplore-austin/id6758564187", impact: "600+ downloads", timeline: "Jan 2025 – Present", href: "/work/xplore" },
+  { title: "Xplore Austin", slug: "xplore-austin", featured: true, role: "Founder & UX Designer", tags: ["Startup", "UI/UX", "Branding", "App Store"], desc: "A student-driven mobile app connecting UT Austin students to small and student-run businesses through curated lists, peer recommendations, and exclusive deals. Available on the App Store, and selected as a Kendra Scott WELI Spark Founder venture.", link: "https://apps.apple.com/us/app/xplore-austin/id6758564187", impact: "700+ downloads", timeline: "Jan 2025 – Present", href: "/work/xplore" },
   { title: "Foundry", slug: "foundry", featured: true, role: "Founder", tags: ["Web Design", "Branding", "Small Business"], desc: "Custom websites for small business owners, end to end from branding and design through development and launch.", clients: ["Mithas", "Kake N Kream"], sites: [
     { name: "Mithas", tagline: "Handcrafted coffee syrups", url: "https://mithas-coffee-syrups.vercel.app/", image: "/projects/foundry/mithas.jpg" },
     { name: "Kake N Kream", tagline: "Bakery storefront with cart and custom-cake requests", url: "https://www.kakenkream.com/", image: "/projects/foundry/kakenkream.jpg" },

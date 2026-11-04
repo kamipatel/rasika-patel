@@ -96,7 +96,7 @@ export const leadership = [
     slug: "xplore-austin",
     href: "/work/xplore",
     bullets: [
-      "Founded and shipped an App Store mobile app connecting UT Austin students to small and student-run businesses through curated lists, peer recommendations, and exclusive deals — 600+ downloads",
+      "Founded and shipped an App Store mobile app connecting UT Austin students to small and student-run businesses through curated lists, peer recommendations, and exclusive deals — 700+ downloads",
       "Built the app solo with Claude Code; automated operations with Claude, the Instinct AI agent, and Supabase, Vercel, and PostHog MCPs",
       "Selected as a Kendra Scott WELI Spark Founder (Jan – May 2026) for mentorship and support to grow monetization and expansion",
     ],

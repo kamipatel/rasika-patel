@@ -71,7 +71,7 @@ export const gtm = {
 export const gtmStats = [
   { value: "200K+", label: "Organic views" },
   { value: "1K+", label: "Followers" },
-  { value: "600+", label: "App downloads" },
+  { value: "700+", label: "App downloads" },
   { value: "79%", label: "Reach from non-followers" },
 ];
 

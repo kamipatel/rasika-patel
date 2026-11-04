@@ -32,7 +32,7 @@ export const xploreMeta = () => ({
   path: "/work/xplore",
   title: "Xplore Austin — Case Study — Rasika Patel",
   description: truncate(
-    "How a discovery app for UT students grew through ranked local guides — 200K+ organic views, 500+ downloads, 79% reach from non-followers."
+    "How a discovery app for UT students grew through ranked local guides — 200K+ organic views, 700+ downloads, 79% reach from non-followers."
   ),
 });
 
