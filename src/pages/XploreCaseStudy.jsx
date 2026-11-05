@@ -134,7 +134,7 @@ const CSS = `
 .xp-more { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tone); }
 
 /* Timeline */
-.xp-timeline { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); overflow-x: auto; scroll-snap-type: x mandatory; margin: 28px calc(var(--xp-gutter) * -1) 0; padding: 0 var(--xp-gutter) 8px; scrollbar-width: none; }
+.xp-timeline { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--xp-gutter); margin: 28px calc(var(--xp-gutter) * -1) 0; padding: 0 var(--xp-gutter) 8px; scrollbar-width: none; }
 .xp-timeline::-webkit-scrollbar { display: none; }
 .xp-tl-item { position: relative; scroll-snap-align: start; padding: 26px 18px 0 0; border-top: 1px solid var(--border); }
 .xp-tl-item::before { content: ""; position: absolute; top: -5px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
@@ -149,7 +149,7 @@ const CSS = `
 /* Product */
 .xp-rule { display: grid; gap: 8px; margin-top: 36px; max-width: 760px; border-left: 3px solid var(--tone); }
 .xp-rule p { font-family: var(--body); font-size: clamp(18px, 1.8vw, 22px); line-height: 1.5; color: var(--text-light); margin: 0; }
-.xp-screens { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); gap: clamp(14px, 2vw, 24px); overflow-x: auto; scroll-snap-type: x mandatory; margin: 48px calc(var(--xp-gutter) * -1) 0; padding: 0 var(--xp-gutter) 12px; scrollbar-width: none; }
+.xp-screens { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); gap: clamp(14px, 2vw, 24px); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--xp-gutter); margin: 48px calc(var(--xp-gutter) * -1) 0; padding: 0 var(--xp-gutter) 12px; scrollbar-width: none; }
 .xp-screens::-webkit-scrollbar { display: none; }
 .xp-screens figure { margin: 0; scroll-snap-align: start; }
 .xp-screens .xp-phone { width: 100%; max-width: 230px; margin: 0 auto; }
