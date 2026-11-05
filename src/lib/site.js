@@ -9,11 +9,11 @@ export const SITE_URL = "https://rasika-patel.vercel.app";
  * existing tags are unchanged.
  */
 export const SITE_DEFAULTS = {
-  title: "Rasika Patel — Portfolio",
+  title: "Rasika Patel | Portfolio",
   description:
-    "Marketing, Design & Innovation. BBA Marketing at UT Austin's McCombs School of Business.",
+    "AI, marketing, product, and UX. BBA Marketing at UT Austin's McCombs School of Business.",
   metaDescription:
-    "Rasika Patel — Marketing, Design & Innovation. BBA Marketing at UT Austin's McCombs School of Business.",
+    "Rasika Patel: AI, marketing, product, and UX. BBA Marketing at UT Austin's McCombs School of Business.",
 };
 
 /** Build an absolute URL from a route path. */
@@ -29,5 +29,5 @@ export function truncate(text, max = 160) {
   if (clean.length <= max) return clean;
   const cut = clean.slice(0, max - 1);
   const lastSpace = cut.lastIndexOf(" ");
-  return `${(lastSpace > 0 ? cut.slice(0, lastSpace) : cut).replace(/[,;:.—-]$/, "")}…`;
+  return `${(lastSpace > 0 ? cut.slice(0, lastSpace) : cut).replace(/[,;:.\u2014-]$/, "")}…`;
 }

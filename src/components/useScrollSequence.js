@@ -15,19 +15,22 @@ export function useScrollSequence({
   const rafRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Preload all frames
+  // Preload all frames. When disabled (reduced motion or mobile) only frame 0
+  // is ever drawn, so skip the rest of the sequence and fetch just that one;
+  // isLoaded still flips so callers gating visibility on it keep working.
   useEffect(() => {
     let cancelled = false;
     let loadedCount = 0;
-    const images = new Array(frameCount);
+    const count = enabled ? frameCount : 1;
+    const images = new Array(count);
 
-    for (let i = 0; i < frameCount; i++) {
+    for (let i = 0; i < count; i++) {
       const img = new Image();
       img.src = framePath(i);
       img.onload = () => {
         if (cancelled) return;
         loadedCount++;
-        if (loadedCount === frameCount) {
+        if (loadedCount === count) {
           setIsLoaded(true);
         }
       };
@@ -39,7 +42,7 @@ export function useScrollSequence({
     return () => {
       cancelled = true;
     };
-  }, [frameCount, framePath]);
+  }, [frameCount, framePath, enabled]);
 
   // Draw a frame with cover-fit
   const drawFrame = useCallback((index) => {

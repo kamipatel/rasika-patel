@@ -69,9 +69,8 @@ const STABLE_ICON_SLUGS = [
   "python", 
   "openai", 
   "openjdk", 
-  "postgresql", 
-  "googlecloud",
-  "figma", 
+  "postgresql",
+  "figma",
   "canva",
   "html5",
   "css3",
@@ -84,12 +83,11 @@ const STABLE_ICON_SLUGS = [
   "vercel",
   "git",
   "huggingface",
-  "nodedotjs",
 ];
 
 /* ─── hooks ─── */
 const useMediaQuery = (query) => {
-  const [matches, setMatches] = useState(false);
+  const [matches, setMatches] = useState(() => typeof window !== "undefined" && window.matchMedia(query).matches);
   useEffect(() => {
     const mql = window.matchMedia(query);
     setMatches(mql.matches);
@@ -104,13 +102,13 @@ const useMediaQuery = (query) => {
 const stats = [
   { val: "11", label: "Projects" },
   { val: "121%", label: "Sales Growth" },
-  { val: "150K+", label: "Organic Views" },
+  { val: "300K+", label: "Organic Views" },
   { val: "700+", label: "Downloads" },
 ];
 
 const skillsMarqueeItems = ["Figma", "Python", "Tableau", "AI Tools", "Canva", "Java", "SQL", "Supabase", "Illustrator", "Qualtrics"];
 const projectMarqueeItems = projects.map((p) => p.title);
-const HERO_ROLES = ["Marketing Strategist", "Product Marketer"];
+const HERO_ROLES = ["Product Marketer", "AI Builder", "UX Designer", "Founder"];
 
 /* ─── animation helpers ─── */
 const springConfig = { type: "spring", stiffness: 60, damping: 20 };
@@ -430,7 +428,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           <Vortex baseHue={20} particleCount={400} />
 
           {/* 2. Monumental Title */}
-          <h1 style={{
+          <h1 aria-label="Rasika Patel" style={{
             fontFamily: "var(--display)",
             fontSize: isMobile ? "clamp(38px, 10vw, 56px)" : "clamp(46px, 11vw, 130px)",
             fontWeight: 800, lineHeight: 0.85, letterSpacing: "-0.04em",
@@ -439,12 +437,12 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             zIndex: 10,
             display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(8px, 2vw, 32px)"
           }}>
-            <span style={{ color: "var(--text-light)", textShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>
+            <span aria-hidden="true" style={{ color: "var(--text-light)", textShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>
               {reduced ? <span>Rasika</span> : (
                 <TextEffect per="char" as="span" preset="blur" delay={0.4} style={{ display: "inline-block" }}>Rasika</TextEffect>
               )}
             </span>
-            <span style={{ display: "flex", alignItems: "center" }}>
+            <span aria-hidden="true" style={{ display: "flex", alignItems: "center" }}>
               {reduced ? (
                 <span style={{
                   background: "linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C)",
@@ -492,7 +490,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               letterSpacing: "0.03em",
               textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             }}>
-              Marketing Strategist{"\u00A0\u00B7\u00A0Harkey Institute"}
+              Leading marketing{"\u00A0\u00B7\u00A0Harkey Institute"}
             </span>
           </div>
 
@@ -649,8 +647,8 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               fontWeight: 800, lineHeight: 1.1, letterSpacing: "-1px", 
               marginTop: "20px", marginBottom: "32px", maxWidth: "780px" 
             }}>
-              A <span style={{ color: "var(--accent)" }}>marketing strategist</span> and
-              <span style={{ color: "var(--accent)" }}> product marketer</span> at McCombs — I build
+              A <span style={{ color: "var(--accent)" }}>product marketer</span> at McCombs who
+              <span style={{ color: "var(--accent)" }}> builds with AI</span>. I make
               <span style={{ fontStyle: "italic", color: "var(--text-light)" }}> products</span> and the
               campaigns that get people using them.
             </h2>
@@ -668,12 +666,12 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             <div>
               <Reveal delay={0.2} reduced={reduced}>
                 <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
-                  I love finding the intersection between storytelling and systems — where a good idea turns into something people actually care about. From founding <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum to interning in marketing at <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong>, I'm drawn to building and shipping real things. Now I'm at the <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Harkey Institute</strong> at McCombs, running marketing for entrepreneurship programs on campus.
+                  I love finding the intersection between storytelling and systems, where a good idea turns into something people actually care about. From building <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> solo with Claude Code to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum to interning in marketing at <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong>, I'm drawn to building and shipping real things. Now I'm at the <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Harkey Institute</strong> at McCombs, running marketing for entrepreneurship programs on campus and building AI workflows in Claude that turn our Meta analytics into what to post next.
                 </p>
               </Reveal>
               <Reveal delay={0.25} reduced={reduced}>
                 <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75 }}>
-                  When I'm not designing in Figma, I'm sketching wireframes, curating playlists, exploring Austin's food scene, or hunting for the best matcha in the city — always happy to share my recs. I love brainstorming ways to connect Austin's creative community through local businesses, art, and tech.
+                  When I'm not designing in Figma, I'm sketching wireframes, curating playlists, exploring Austin's food scene, or hunting for the best matcha in the city. Always happy to share my recs. I love brainstorming ways to connect Austin's creative community through local businesses, art, and tech.
                 </p>
               </Reveal>
             </div>

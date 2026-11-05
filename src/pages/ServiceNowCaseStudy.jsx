@@ -74,7 +74,7 @@ function StatGroup({ label, note, stats, tone, isMobile, reduced }) {
         border: `1px solid ${isProjection ? "var(--border)" : "var(--accent-dim)"}`,
         borderRadius: "100px", padding: "5px 12px", marginBottom: "22px",
       }}>
-        {isProjection ? `${label} — not measured` : label}
+        {isProjection ? `${label} (not measured)` : label}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "22px" }}>

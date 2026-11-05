@@ -144,7 +144,7 @@ export default function ResumeEntry({ entry, index, reduced, isMobile }) {
                 color: "var(--text-mid)",
               }}
             >
-              <span style={{ color: "var(--accent)", flexShrink: 0, opacity: 0.7 }}>—</span>
+              <span style={{ color: "var(--accent)", flexShrink: 0, opacity: 0.7 }}>•</span>
               <span>{b}</span>
             </li>
           ))}

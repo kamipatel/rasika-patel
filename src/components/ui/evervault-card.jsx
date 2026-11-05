@@ -69,13 +69,13 @@ export function CardPattern({ mouseX, mouseY, randomString }) {
   let style = { maskImage, WebkitMaskImage: maskImage };
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* Hover reveal characters - ONLY SHOW ON HOVER MASK */}
       <motion.div
         className="absolute inset-0 opacity-0 group-hover/card:opacity-40 transition-opacity duration-300"
         style={style}
       >
-        <p className="absolute inset-x-0 text-xs h-full break-words whitespace-pre-wrap text-white font-mono font-bold">
+        <p aria-hidden="true" className="absolute inset-x-0 text-xs h-full break-words whitespace-pre-wrap text-white font-mono font-bold">
           {randomString}
         </p>
       </motion.div>

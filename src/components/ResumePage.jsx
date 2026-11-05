@@ -156,7 +156,7 @@ export default function ResumePage() {
             marginBottom: "14px",
           }}
         >
-          Marketing &amp; Design · Austin, TX
+          AI, Marketing, Product &amp; UX · Austin, TX
         </div>
 
         <p

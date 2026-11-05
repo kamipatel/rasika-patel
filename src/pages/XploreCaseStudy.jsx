@@ -381,7 +381,7 @@ export default function XploreCaseStudy() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="clickable"
-                  aria-label={`${matchaPost.alt} — open full size`}
+                  aria-label={`${matchaPost.alt} (open full size)`}
                   style={{ display: "block", textDecoration: "none" }}
                 >
                   <img

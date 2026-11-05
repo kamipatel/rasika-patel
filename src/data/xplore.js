@@ -7,7 +7,7 @@
 export const hero = {
   title: "Xplore Austin",
   deck: "A discovery app for UT students, and the content engine that grew it.",
-  meta: ["Founder & UX Designer", "Jan 2025 – Present", "Austin, TX"],
+  meta: ["Founder & UX Designer", "Feb 2025 – Present", "Austin, TX"],
   appStore: "https://apps.apple.com/us/app/xplore-austin/id6758564187",
 };
 
@@ -17,7 +17,7 @@ export const sections = [
     eyebrow: "The Problem",
     heading: "Discovery is fragmented, so students stop looking.",
     body: [
-      "UT students default to the same handful of places. Not for lack of options — because discovery is scattered across Google, TikTok, and word of mouth, and none of those three agree with each other.",
+      "UT students default to the same handful of places. Not for lack of options. Because discovery is scattered across Google, TikTok, and word of mouth, and none of those three agree with each other.",
       "The cost lands hardest on local and student-run businesses. They stay invisible to the students standing three blocks away.",
     ],
   },
@@ -27,7 +27,7 @@ export const sections = [
     heading: "Students don't want more reviews. They want a decision.",
     body: [
       "Every existing option hands you more input and leaves the judgment to you. That's the opposite of what someone deciding where to eat in ten minutes actually needs.",
-      "So Xplore isn't a review app. It's a decision engine — curated, ranked, and opinionated enough to end the scroll.",
+      "So Xplore isn't a review app. It's a decision engine: curated, ranked, and opinionated enough to end the scroll.",
     ],
     pull: "Curated, ranked, and opinionated enough to end the scroll.",
   },
@@ -37,7 +37,7 @@ export const sections = [
     heading: "The product was shaped before it was built.",
     body: [
       "Student interviews to find where discovery actually breaks. Usability testing on early flows. Surveys to size the pattern. Pricing validation with local owners to check the business side held up.",
-      "Figma prototypes went in front of students until the flows stopped confusing them. Research shaped the product — it didn't justify it after the fact.",
+      "Figma prototypes went in front of students until the flows stopped confusing them. Research shaped the product. It didn't justify it after the fact.",
     ],
     tags: [
       "Student interviews",
@@ -53,8 +53,9 @@ export const sections = [
     heading: "Shipped to the App Store, not to a prototype link.",
     body: [
       "Next.js and Supabase behind a native shell in Expo WebView, deployed on Vercel. Out through TestFlight for real student testing, then onto the App Store.",
+      "I built it solo with Claude Code. Day-to-day operations run on Claude and the Instinct AI agent, connected to Supabase, Vercel, and PostHog through MCPs.",
     ],
-    tags: ["Next.js", "Supabase", "Expo WebView", "Vercel", "TestFlight", "App Store"],
+    tags: ["Next.js", "Supabase", "Expo WebView", "Vercel", "TestFlight", "App Store", "Claude Code", "Instinct", "MCP", "PostHog"],
   },
 ];
 
@@ -63,14 +64,14 @@ export const gtm = {
   heading: "Distribution was the product decision.",
   body: [
     "I tested content formats against each other rather than guessing. One pattern broke away immediately: ranked local guides massively outperformed standard posts.",
-    "Not lifestyle shots. Not app screenshots. A ranked list that settles an argument — the kind of thing people send to a friend instead of just liking.",
+    "Not lifestyle shots. Not app screenshots. A ranked list that settles an argument, the kind of thing people send to a friend instead of just liking.",
   ],
 };
 
 /** Stat band under Go To Market. `value` drives the count-up animation. */
 export const gtmStats = [
-  { value: "200K+", label: "Organic views" },
-  { value: "1K+", label: "Followers" },
+  { value: "300K+", label: "Organic views" },
+  { value: "1.2K+", label: "Followers" },
   { value: "700+", label: "App downloads" },
   { value: "79%", label: "Reach from non-followers" },
 ];
@@ -79,11 +80,11 @@ export const matchaPost = {
   eyebrow: "Highlight",
   title: "Every Matcha in Austin, Ranked",
   image: "/xplore-matcha-post.png",
-  alt: "Xplore Austin post — Every Matcha in Austin, Ranked: 10 spots ranked from 20 tried, with pop-ups flagged",
+  alt: "Xplore Austin post titled \"Every Matcha in Austin, Ranked\": 10 spots ranked from 20 tried, with pop-ups flagged",
   note: "Shares is the number that matters. It means someone sent it to a friend rather than just double-tapping.",
   stats: [
-    { value: "92K", label: "Views" },
-    { value: "3.5K", label: "Shares" },
+    { value: "100K", label: "Views" },
+    { value: "3.7K", label: "Shares" },
     { value: "2.4K", label: "Likes" },
   ],
 };

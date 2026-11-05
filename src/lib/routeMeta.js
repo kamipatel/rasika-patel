@@ -21,7 +21,7 @@ export const resumeMeta = () => {
   const current = experience.find((e) => e.current) ?? experience[0];
   return {
     path: "/resume",
-    title: "Résumé — Rasika Patel",
+    title: "Résumé | Rasika Patel",
     description: truncate(
       `${current.role} at ${current.org}. ${education.degree}, ${education.minor}, at UT Austin.`
     ),
@@ -30,15 +30,15 @@ export const resumeMeta = () => {
 
 export const xploreMeta = () => ({
   path: "/work/xplore",
-  title: "Xplore Austin — Case Study — Rasika Patel",
+  title: "Xplore Austin Case Study | Rasika Patel",
   description: truncate(
-    "How a discovery app for UT students grew through ranked local guides — 200K+ organic views, 700+ downloads, 79% reach from non-followers."
+    "How a discovery app for UT students grew through ranked local guides: 300K+ organic views, 700+ downloads, 79% reach from non-followers."
   ),
 });
 
 export const servicenowMeta = () => ({
   path: "/work/servicenow",
-  title: "Rebuilding the Speakers Bureau — Rasika Patel",
+  title: "Rebuilding the Speakers Bureau | Rasika Patel",
   description: truncate(
     "How a Fortune 500 executive speaker programme was rebuilt: four root causes of underuse, an eight-step enrollment flow, and an AI-scored certification gate."
   ),
@@ -46,7 +46,7 @@ export const servicenowMeta = () => ({
 
 export const projectMeta = (project) => ({
   path: `/projects/${project.slug}`,
-  title: `${project.title} — Rasika Patel`,
+  title: `${project.title} | Rasika Patel`,
   description: truncate(`${project.role}. ${project.desc}`),
 });
 

@@ -91,7 +91,7 @@ export const impact = {
   },
   projected: {
     label: "Projected",
-    note: "Projected over the first months of rollout — not measured results.",
+    note: "Projected over the first months of rollout, not measured results.",
     stats: [
       { value: "30-50%", label: "Increase in platform use" },
       { value: "20-40%", label: "Faster speaker sourcing" },
