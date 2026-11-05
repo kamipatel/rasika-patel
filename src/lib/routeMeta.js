@@ -32,7 +32,7 @@ export const xploreMeta = () => ({
   path: "/work/xplore",
   title: "Xplore Austin Case Study | Rasika Patel",
   description: truncate(
-    "How a discovery app for UT students grew through ranked local guides: 300K+ organic views, 700+ downloads, 79% reach from non-followers."
+    "How I built and grew Xplore Austin solo with AI: Claude Code, an AI event pipeline, data-driven product calls, and Instagram growth with zero ad spend."
   ),
 });
 
