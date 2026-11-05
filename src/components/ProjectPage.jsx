@@ -109,6 +109,291 @@ function getLinkMeta(url, captionOrTitle) {
   }
 }
 
+/* ─── shared blocks, reused by the Texas Convergent page ─── */
+
+/** Numbered section heading ("01 Title"). */
+function SectionHeading({ index, children }) {
+  return (
+    <h2
+      style={{
+        fontFamily: "var(--display)",
+        fontSize: "20px",
+        fontWeight: 700,
+        color: "var(--text-light)",
+        marginBottom: "24px",
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
+      }}
+    >
+      <span style={{ color: "var(--accent)", opacity: 0.5 }}>0{index + 1}</span>
+      {children}
+    </h2>
+  );
+}
+
+/** Horizontal image strip; HerdUp gets its phone-screen sizing. */
+function ImageStrip({ slug, images, title, isMobile }) {
+  return (
+    <div
+      style={{
+        display: slug === "herdup" ? "flex" : "flex",
+        flexDirection: "row",
+        overflowX: "auto",
+        scrollSnapType: "x mandatory",
+        WebkitOverflowScrolling: "touch",
+        gap: slug === "herdup" ? "20px" : "16px",
+        paddingBottom: "16px",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+        alignItems: "start",
+        justifyContent: "flex-start"
+      }}
+      className="hide-scrollbar"
+    >
+      {images.map((src, i) => {
+        const herdupWidth = slug === "herdup"
+          ? src.includes("001") ? "100%"
+          : isMobile ? "260px" : "13.33%"
+          : isMobile ? "280px" : "320px";
+
+        return (
+          <div
+            key={src}
+            style={{
+              borderRadius: slug === "herdup" && !src.includes("001") ? "0px" : "16px",
+              overflow: "hidden",
+              border: slug === "herdup" ? "none" : "1px solid var(--border)",
+              width: herdupWidth,
+              minWidth: herdupWidth,
+              flexShrink: 0,
+              scrollSnapAlign: "start",
+            }}
+          >
+            <img
+              src={src}
+              alt={`${title} image ${i + 1}`}
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Well Water Finders video, swipe gallery, and swipe hint. */
+function WellWaterFindersMedia() {
+  return (
+    <>
+      {/* Video Hero */}
+      <div
+        style={{
+          borderRadius: "20px",
+          overflow: "hidden",
+          border: "1px solid var(--border)",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.3)",
+          background: "var(--card-bg)",
+          marginBottom: "20px",
+        }}
+      >
+        <video
+          src="/projects/well-water-finders/Untitled design (3).mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            width: "100%",
+            height: "auto",
+            display: "block",
+            objectFit: "cover",
+          }}
+        />
+      </div>
+
+      {/* Horizontal Scrollable Gallery */}
+      <div
+        style={{
+          display: "flex",
+          overflowX: "auto",
+          gap: "16px",
+          paddingBottom: "16px",
+          scrollSnapType: "x mandatory",
+          WebkitOverflowScrolling: "touch",
+          /* Hide scrollbar for a cleaner look */
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+        className="hide-scrollbar"
+      >
+        <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+        {["2.png", "3.png", "4.png", "5.png"].map((img) => (
+          <div
+            key={img}
+            style={{
+              flex: "0 0 auto",
+              width: "clamp(260px, 60vw, 320px)",
+              scrollSnapAlign: "start",
+              borderRadius: "16px",
+              overflow: "hidden",
+              border: "1px solid var(--border)",
+            }}
+          >
+            <motion.img
+              src={`/projects/well-water-finders/${img}`}
+              alt={`Well Water Finders ${img}`}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+                objectFit: "cover",
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Scroll Indicator */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          gap: "8px",
+          marginTop: "12px",
+          fontFamily: "var(--mono)",
+          fontSize: "11px",
+          color: "var(--text-dim)",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+        }}
+      >
+        <span>Swipe to explore</span>
+        <motion.div
+          animate={{ x: [0, 5, 0] }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{ fontSize: "14px", display: "inline-block" }}
+        >
+          →
+        </motion.div>
+      </div>
+    </>
+  );
+}
+
+/** Cover image shown at the bottom of a project page. */
+function CoverImage({ slug, src, alt, isMobile }) {
+  return (
+    <div
+      style={
+        slug === "xplore-austin"
+          ? {
+              borderRadius: "20px",
+              overflow: "hidden",
+              marginTop: "80px",
+              marginBottom: "40px",
+              border: "none",
+              height: isMobile ? "141px" : "375px",
+            }
+          : {
+              borderRadius: "20px",
+              overflow: "hidden",
+              marginTop: "80px",
+              marginBottom: "40px",
+              border: "1px solid var(--border)",
+            }
+      }
+    >
+      <img
+        src={src}
+        alt={alt}
+        style={{
+          width: "100%",
+          height: "auto",
+          display: "block",
+          marginTop: slug === "xplore-austin" ? (isMobile ? "-25%" : "-32%") : "0",
+        }}
+      />
+    </div>
+  );
+}
+
+/** Pill link from a Texas Convergent part to the full project page. */
+function OpenProjectLink({ to }) {
+  return (
+    <Link
+      to={to}
+      className="clickable"
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        textDecoration: "none",
+        fontFamily: "var(--mono)",
+        fontSize: "12px",
+        letterSpacing: "1.5px",
+        textTransform: "uppercase",
+        color: "var(--text-mid)",
+        marginTop: "24px",
+        padding: "10px 20px",
+        borderRadius: "100px",
+        border: "1px solid var(--border)",
+        transition: "all 0.3s ease",
+      }}
+    >
+      Open full project →
+    </Link>
+  );
+}
+
+/** /projects/texas-convergent: one part per client, reusing each page's media. */
+function TexasConvergentParts({ isMobile }) {
+  const herdup = allProjects.find((p) => p.slug === "herdup");
+  const wwf = allProjects.find((p) => p.slug === "well-water-finders");
+  const intro = {
+    fontFamily: "var(--body)",
+    fontSize: "16px",
+    color: "var(--text-mid)",
+    lineHeight: 1.75,
+    maxWidth: "700px",
+    marginBottom: "24px",
+  };
+
+  return (
+    <div style={{ marginTop: "80px" }}>
+      <div style={{ marginBottom: "48px" }}>
+        <SectionHeading index={0}>{herdup.title}</SectionHeading>
+        <p style={intro}>{herdup.oneLiner}</p>
+        <ImageStrip slug="herdup" images={projectImages.herdup.images} title={herdup.title} isMobile={isMobile} />
+        <OpenProjectLink to="/projects/herdup" />
+      </div>
+      <div style={{ marginBottom: "48px" }}>
+        <SectionHeading index={1}>{wwf.title}</SectionHeading>
+        <p style={intro}>{wwf.oneLiner}</p>
+        <WellWaterFindersMedia />
+        <CoverImage
+          slug="well-water-finders"
+          src={projectImages["well-water-finders"].cover}
+          alt={`${wwf.title} cover`}
+          isMobile={isMobile}
+        />
+        <OpenProjectLink to="/projects/well-water-finders" />
+      </div>
+    </div>
+  );
+}
+
 export default function ProjectPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -450,105 +735,7 @@ export default function ProjectPage() {
             >
               Project Details
             </div>
-            
-            {/* Video Hero */}
-            <div
-              style={{
-                borderRadius: "20px",
-                overflow: "hidden",
-                border: "1px solid var(--border)",
-                boxShadow: "0 20px 50px rgba(0,0,0,0.3)",
-                background: "var(--card-bg)",
-                marginBottom: "20px",
-              }}
-            >
-              <video
-                src="/projects/well-water-finders/Untitled design (3).mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  display: "block",
-                  objectFit: "cover",
-                }}
-              />
-            </div>
-            
-            {/* Horizontal Scrollable Gallery */}
-            <div
-              style={{
-                display: "flex",
-                overflowX: "auto",
-                gap: "16px",
-                paddingBottom: "16px",
-                scrollSnapType: "x mandatory",
-                WebkitOverflowScrolling: "touch",
-                /* Hide scrollbar for a cleaner look */
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-              }}
-              className="hide-scrollbar"
-            >
-              <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
-              {["2.png", "3.png", "4.png", "5.png"].map((img) => (
-                <div
-                  key={img}
-                  style={{
-                    flex: "0 0 auto",
-                    width: "clamp(260px, 60vw, 320px)",
-                    scrollSnapAlign: "start",
-                    borderRadius: "16px",
-                    overflow: "hidden",
-                    border: "1px solid var(--border)",
-                  }}
-                >
-                  <motion.img
-                    src={`/projects/well-water-finders/${img}`}
-                    alt={`Well Water Finders ${img}`}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.3 }}
-                    style={{
-                      width: "100%",
-                      height: "auto",
-                      display: "block",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Scroll Indicator */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                gap: "8px",
-                marginTop: "12px",
-                fontFamily: "var(--mono)",
-                fontSize: "11px",
-                color: "var(--text-dim)",
-                letterSpacing: "1px",
-                textTransform: "uppercase",
-              }}
-            >
-              <span>Swipe to explore</span>
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                style={{ fontSize: "14px", display: "inline-block" }}
-              >
-                →
-              </motion.div>
-            </div>
+            <WellWaterFindersMedia />
           </div>
         )}
 
@@ -567,56 +754,12 @@ export default function ProjectPage() {
             >
               {slug === "herdup" ? "User Interfaces" : "Project Gallery"}
             </div>
-            <div
-              style={{
-                display: slug === "herdup" ? "flex" : "flex",
-                flexDirection: "row",
-                overflowX: "auto",
-                scrollSnapType: "x mandatory",
-                WebkitOverflowScrolling: "touch",
-                gap: slug === "herdup" ? "20px" : "16px",
-                paddingBottom: "16px",
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-                alignItems: "start",
-                justifyContent: "flex-start"
-              }}
-              className="hide-scrollbar"
-            >
-              {projectImages[slug].images.map((src, i) => {
-                const herdupWidth = slug === "herdup"
-                  ? src.includes("001") ? "100%"
-                  : isMobile ? "260px" : "13.33%"
-                  : isMobile ? "280px" : "320px";
-
-                return (
-                  <div
-                    key={src}
-                    style={{
-                      borderRadius: slug === "herdup" && !src.includes("001") ? "0px" : "16px",
-                      overflow: "hidden",
-                      border: slug === "herdup" ? "none" : "1px solid var(--border)",
-                      width: herdupWidth,
-                      minWidth: herdupWidth,
-                      flexShrink: 0,
-                      scrollSnapAlign: "start",
-                    }}
-                  >
-                    <img
-                      src={src}
-                      alt={`${project.title} image ${i + 1}`}
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        display: "block",
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            </div>
+            <ImageStrip slug={slug} images={projectImages[slug].images} title={project.title} isMobile={isMobile} />
           </div>
         )}
+
+        {/* Texas Convergent: HerdUp and Well Water Finders, one part each */}
+        {slug === "texas-convergent" && <TexasConvergentParts isMobile={isMobile} />}
 
         {/* SELL Fellowship — Merch Showcase */}
         {slug === "sell-fellowship" && (
@@ -819,21 +962,7 @@ export default function ProjectPage() {
           <div style={{ marginTop: "80px" }}>
             {projectImages[slug].sections.map((section, idx) => (
               <div key={section.title} style={{ marginBottom: "48px" }}>
-                <h2
-                  style={{
-                    fontFamily: "var(--display)",
-                    fontSize: "20px",
-                    fontWeight: 700,
-                    color: "var(--text-light)",
-                    marginBottom: "24px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "12px",
-                  }}
-                >
-                  <span style={{ color: "var(--accent)", opacity: 0.5 }}>0{idx + 1}</span>
-                  {section.title}
-                </h2>
+                <SectionHeading index={idx}>{section.title}</SectionHeading>
                 <div
                   style={{
                     display: "grid",
@@ -873,37 +1002,7 @@ export default function ProjectPage() {
 
         {/* Cover image (Moved to bottom) */}
         {projectImages[slug]?.cover && (
-          <div
-            style={
-              slug === "xplore-austin"
-                ? {
-                    borderRadius: "20px",
-                    overflow: "hidden",
-                    marginTop: "80px",
-                    marginBottom: "40px",
-                    border: "none",
-                    height: isMobile ? "141px" : "375px",
-                  }
-                : {
-                    borderRadius: "20px",
-                    overflow: "hidden",
-                    marginTop: "80px",
-                    marginBottom: "40px",
-                    border: "1px solid var(--border)",
-                  }
-            }
-          >
-            <img
-              src={projectImages[slug].cover}
-              alt={`${project.title} cover`}
-              style={{
-                width: "100%",
-                height: "auto",
-                display: "block",
-                marginTop: slug === "xplore-austin" ? (isMobile ? "-25%" : "-32%") : "0",
-              }}
-            />
-          </div>
+          <CoverImage slug={slug} src={projectImages[slug].cover} alt={`${project.title} cover`} isMobile={isMobile} />
         )}
       </main>
     </motion.div>

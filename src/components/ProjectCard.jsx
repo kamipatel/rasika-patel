@@ -15,6 +15,23 @@ const PROJECT_META = {
   "well-water-finders":           { icon: "\u{1F4A7}", gradient: ["#2dd4bf", "#059669"] },
   "cultured-carrot":              { icon: "\u{1F955}", gradient: ["#f59e0b", "#f97316"] },
   "ama":                          { icon: "\u{1F4CA}", gradient: ["#10b981", "#059669"] },
+  "texas-convergent":             { icon: "\u{1F9E9}", gradient: ["#22d3ee", "#059669"] },
+};
+
+/*
+ * "large" is the original card. "small" keeps the same look, scaled down for
+ * the 4-column grid: tighter padding and type, two tags, a two-line desc.
+ */
+const SIZES = {
+  large: { padding: "20px", gap: "16px", icon: "32px", tags: 3, title: "24px", role: "15px", desc: "15px", footerGap: "12px" },
+  small: { padding: "16px", gap: "12px", icon: "24px", tags: 2, title: "18px", role: "13px", desc: "13px", footerGap: "8px" },
+};
+
+const DESC_CLAMP = {
+  display: "-webkit-box",
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: "vertical",
+  overflow: "hidden",
 };
 
 const DEFAULT_META = { icon: "\u2728", gradient: ["#6366f1", "#4338ca"] };
@@ -32,7 +49,9 @@ const useMediaQuery = (query) => {
   return matches;
 };
 
-export default function ProjectCard({ project, index, reduced, isActive, onActivate }) {
+export default function ProjectCard({ project, index, reduced, isActive, onActivate, size = "large" }) {
+  const isSmall = size === "small";
+  const s = SIZES[isSmall ? "small" : "large"];
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.06 });
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
@@ -80,7 +99,8 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
   }, []);
 
   const handleCardClick = () => {
-    onActivate(index);
+    // Only the big cards take part in the auto-rotating highlight
+    onActivate?.(index);
     // A project may point at a dedicated case study instead of the generic page
     navigate(project.href ?? `/projects/${project.slug}`);
   };
@@ -89,7 +109,8 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
     // Let it bubble to handleCardClick
   };
 
-  const truncatedDesc = project.desc && project.desc.length > 100
+  // Small cards clamp to two lines in CSS, so they get the full text
+  const truncatedDesc = !isSmall && project.desc && project.desc.length > 100
     ? project.desc.slice(0, 100) + "..."
     : project.desc;
 
@@ -116,7 +137,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
           position: "relative",
           height: "100%",
           borderRadius: "12px",
-          padding: "20px",
+          padding: s.padding,
           overflow: "hidden",
           background: "var(--card)",
           border: hovered
@@ -155,10 +176,10 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
         }} />
 
         {/* Content */}
-        <div style={{ position: "relative", zIndex: 2, flex: 1, display: "flex", flexDirection: "column", gap: "16px" }}>
+        <div style={{ position: "relative", zIndex: 2, flex: 1, display: "flex", flexDirection: "column", gap: s.gap }}>
           {/* Top: icon + tags */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-            <span style={{ fontSize: "32px", lineHeight: 1 }}>{meta.icon}</span>
+            <span style={{ fontSize: s.icon, lineHeight: 1 }}>{meta.icon}</span>
             <span style={{
               fontFamily: "var(--mono)",
               fontSize: "11px",
@@ -167,7 +188,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
               textTransform: "uppercase",
               color: "var(--text-mid)",
             }}>
-              {project.tags.slice(0, 3).join(" / ")}
+              {project.tags.slice(0, s.tags).join(" / ")}
             </span>
           </div>
 
@@ -175,7 +196,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
           <div>
             <h3 style={{
               fontFamily: "var(--display)",
-              fontSize: "24px",
+              fontSize: s.title,
               fontWeight: 800,
               color: "var(--text-light)",
               lineHeight: 1.2,
@@ -185,7 +206,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
             </h3>
             <p style={{
               fontFamily: "var(--body)",
-              fontSize: "15px",
+              fontSize: s.role,
               color: "var(--text-mid)",
               fontWeight: 500,
               marginBottom: "10px",
@@ -194,9 +215,10 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
             </p>
             <p style={{
               fontFamily: "var(--body)",
-              fontSize: "15px",
+              fontSize: s.desc,
               color: "var(--text-dim)",
               lineHeight: 1.5,
+              ...(isSmall ? DESC_CLAMP : {}),
             }}>
               {truncatedDesc}
             </p>
@@ -219,7 +241,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
 
 
           {/* Bottom: category + impact + view button */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap", marginTop: "auto", paddingTop: "4px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: s.footerGap, flexWrap: "wrap", marginTop: "auto", paddingTop: "4px" }}>
             {/* Category Badge */}
             <div style={{
               display: "flex",

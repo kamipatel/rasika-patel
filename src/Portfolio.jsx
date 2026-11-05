@@ -48,7 +48,6 @@ import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
 import CountUp from "./components/CountUp";
 import ProjectGrid from "./components/ProjectGrid";
-import SelectedWorkList from "./components/SelectedWorkList";
 import RadialOrbitalTimeline from "./components/RadialOrbitalTimeline";
 import Vortex from "./components/Vortex";
 import IconCloud from "./components/IconCloud";
@@ -107,7 +106,13 @@ const stats = [
 ];
 
 const skillsMarqueeItems = ["Figma", "Python", "Tableau", "AI Tools", "Canva", "Java", "SQL", "Supabase", "Illustrator", "Qualtrics"];
-const projectMarqueeItems = projects.map((p) => p.title);
+// The marquee keeps its own lineup and order, independent of the card grid's
+// order, and leaves out Texas Convergent (its two projects are listed instead).
+const MARQUEE_SLUGS = [
+  "xplore-austin", "foundry", "harkey", "servicenow", "center-for-integrated-design",
+  "texas-momentum", "herdup", "sell-fellowship", "well-water-finders", "ama", "cultured-carrot",
+];
+const projectMarqueeItems = MARQUEE_SLUGS.map((slug) => projects.find((p) => p.slug === slug).title);
 const HERO_ROLES = ["Product Marketer", "AI Builder", "UX Designer", "Founder"];
 
 /* ─── animation helpers ─── */
@@ -339,8 +344,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
   const reduced = !!prefersReduced;
   const isMobile = useMediaQuery("(max-width: 768px)");
 
-  const featuredProjects = useMemo(() => projects.filter((p) => p.featured), []);
-  const selectedProjects = useMemo(() => projects.filter((p) => !p.featured), []);
+  const featuredProjects = useMemo(() => projects.filter((p) => p.featured && !p.hideFromGrid), []);
 
   const { scrollY: motionScrollY } = useScroll();
   const heroBlob1Y = useTransform(motionScrollY, [0, 800], [0, -120]);
@@ -709,26 +713,8 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             </h2>
           </Reveal>
 
-          {/* Featured — the four with a full case study behind them */}
+          {/* Every project is a card: 2 big case studies, then 8 small cards */}
           <ProjectGrid projects={featuredProjects} reduced={reduced} />
-
-          {/* Selected work — compact, scannable, still shows the numbers */}
-          <div style={{ marginTop: isMobile ? "72px" : "96px" }}>
-            <Reveal reduced={reduced}>
-              <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Selected Work</span>
-            </Reveal>
-            <Reveal delay={0.08} reduced={reduced}>
-              <h3 style={{
-                fontFamily: "var(--display)",
-                fontSize: isMobile ? "clamp(24px, 7vw, 30px)" : "clamp(28px, 3vw, 38px)",
-                fontWeight: 800, letterSpacing: "-1px", lineHeight: 1.1,
-                marginTop: "14px", marginBottom: "28px", color: "var(--text-light)",
-              }}>
-                Also worth a look
-              </h3>
-            </Reveal>
-            <SelectedWorkList projects={selectedProjects} reduced={reduced} isMobile={isMobile} />
-          </div>
         </section>
 
         {/* ── WORK-TIMELINE DIVIDER ── */}
