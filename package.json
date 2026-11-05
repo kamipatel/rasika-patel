@@ -8,7 +8,8 @@
     "build": "vite build && node scripts/prerender.js",
     "preview": "vite preview",
     "fetch-images": "node scripts/fetch-notion-images.js",
-    "prerender": "node scripts/prerender.js"
+    "prerender": "node scripts/prerender.js",
+    "resume-pdf": "node scripts/resume-pdf.js"
   },
   "dependencies": {
     "clsx": "^2.1.1",

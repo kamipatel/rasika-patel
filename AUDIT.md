@@ -168,7 +168,7 @@ Every string changed, with why it read as AI and the rewrite. Line numbers are f
 | 4 | Non-numbers in the impact slot | Harkey, SELL, and HerdUp had no real number, so the slot is removed on the card and the page. |
 | 5 | Tags and categories | CID tags are now Figma and Canva. ServiceNow category is now Marketing. CID stays Design. The other 8 cards fit their work. |
 | 6 | Xplore "What's next" | Punctuation fixed. |
-| 7 | Resume PDF | **Skipped. See Needs Rasika.** |
+| 7 | Resume PDF | No source existed, so `scripts/resume-pdf.js` now builds it from `src/data/resume.js` with headless Chrome. Run `npm run resume-pdf` after changing the resume data. Text confirmed with a PDF reader, since `pdftotext` isn't installed. |
 
 Also needed for your grep: em dashes removed from code comments in `src/`, and the `leverage` export in `src/data/servicenow.js` renamed to `acceptance`.
 
@@ -187,15 +187,13 @@ Hits left after the final grep of `src/`, `index.html`, and `dist/`, and why eac
 
 Nothing below was changed.
 
-1. **Resume PDF is still wrong.** `public/RasikaPatelResume.pdf` still says "Reactivated 500+", "450 expertise notes", "300K+", "1.2K+", "127K", "100K", "3.7K", and "79%". There's no .docx, .odt, or generator script in the repo, and LibreOffice and pdftotext aren't installed. `~/Downloads/RasikaPatelResume.pdf` is the Nov 2025 version and doesn't contain "Rewrote 438 expertise notes", so I didn't copy it. The resume page's Download PDF button still serves the old file.
-2. **Yoodli is in the resume PDF.** It's listed under AI Tools. Worth removing when you re-export, since it's on your ServiceNow never-write list.
-3. **"400K+ organic views" on the home stats band.** It isn't in your fact list. Xplore's 246K plus Texas Momentum's 150K+ is about 396K, so it may be rounded up.
-4. **"11 projects" on the home stats band.** The grid shows 10 cards, `projects.js` has 12 entries, and the marquee lists 11.
-5. **Harkey job title.** `index.html` structured data says "Marketing & Campus Engagement Intern". The resume and card say "Communications & Campus Engagement Intern".
-6. **CID number.** The card says "35% registration lift". The resume and project page say "~35%".
-7. **Xplore start date.** The dates say "Feb 2025 – Present", but the case study timeline starts in Jan 2025.
-8. **"Showcase Presenter" on /work/servicenow.** "Showcase" is banned, but this is the speaker type name from your form spec, so I left it (3 uses plus one fake review note).
-9. **ServiceNow onboarding order.** The mockup shows Certification done before Profile setup, but the new flow puts Profile completion (step 4) before Certification (step 7). Both follow your spec.
-10. **ServiceNow workarounds.** The copy says "7+ informal workarounds". The diagram shows six plus the official platform.
-11. **ServiceNow ratings mockup.** The breakdown bars reuse 4.5 and 4.1 so no new numbers were added, which makes both bars identical.
-12. **ServiceNow card color.** The green gradient on the home card could read as ServiceNow green. It's from before the redesign.
+1. **"400K+ organic views" on the home stats band.** It isn't in your fact list. Xplore's 246K plus Texas Momentum's 150K+ is about 396K, so it may be rounded up.
+2. **"11 projects" on the home stats band.** The grid shows 10 cards, `projects.js` has 12 entries, and the marquee lists 11.
+3. **Harkey job title.** `index.html` structured data says "Marketing & Campus Engagement Intern". The resume and card say "Communications & Campus Engagement Intern".
+4. **CID number.** The card says "35% registration lift". The resume and project page say "~35%".
+5. **Xplore start date.** The dates say "Feb 2025 – Present", but the case study timeline starts in Jan 2025.
+6. **"Showcase Presenter" on /work/servicenow.** "Showcase" is banned, but this is the speaker type name from your form spec, so I left it (3 uses plus one fake review note).
+7. **ServiceNow onboarding order.** The mockup shows Certification done before Profile setup, but the new flow puts Profile completion (step 4) before Certification (step 7). Both follow your spec.
+8. **ServiceNow workarounds.** The copy says "7+ informal workarounds". The diagram shows six plus the official platform.
+9. **ServiceNow ratings mockup.** The breakdown bars reuse 4.5 and 4.1 so no new numbers were added, which makes both bars identical.
+10. **ServiceNow card color.** The green gradient on the home card could read as ServiceNow green. It's from before the redesign.
