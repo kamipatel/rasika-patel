@@ -156,7 +156,7 @@ export default function ResumePage() {
             marginBottom: "14px",
           }}
         >
-          AI, Marketing, Product &amp; UX · Austin, TX
+          AI, Marketing &amp; Product · Austin, TX
         </div>
 
         <p
@@ -169,7 +169,10 @@ export default function ResumePage() {
             margin: "0 0 32px",
           }}
         >
-          Open to Summer 2027 internships in AI, marketing, product management, and UX.
+          Open to Summer 2027 internships in{" "}
+          <strong style={{ fontWeight: 700, color: "var(--hl-ai)" }}>AI</strong>,{" "}
+          <strong style={{ fontWeight: 700, color: "var(--accent)" }}>marketing</strong>, and{" "}
+          <strong style={{ fontWeight: 700, color: "var(--hl-product)" }}>product management</strong>.
         </p>
 
         {/* Contact links */}

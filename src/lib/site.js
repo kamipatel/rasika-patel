@@ -11,9 +11,9 @@ export const SITE_URL = "https://rasika-patel.vercel.app";
 export const SITE_DEFAULTS = {
   title: "Rasika Patel | Portfolio",
   description:
-    "AI, marketing, product, and UX. BBA Marketing at UT Austin's McCombs School of Business.",
+    "AI, marketing, and product. BBA Marketing at UT Austin's McCombs School of Business.",
   metaDescription:
-    "Rasika Patel: AI, marketing, product, and UX. BBA Marketing at UT Austin's McCombs School of Business.",
+    "Rasika Patel: AI, marketing, and product. BBA Marketing at UT Austin's McCombs School of Business.",
 };
 
 /** Build an absolute URL from a route path. */

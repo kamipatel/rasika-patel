@@ -9,6 +9,8 @@
   --accent-bg: rgba(255, 107, 53, 0.1);
   --accent-glow: rgba(255, 107, 53, 0.25);
   --secondary: #4D8BFF;
+  --hl-ai: #A78BFA;
+  --hl-product: #34D399;
   --text-light: rgba(237, 232, 245, 0.92);
   --text-mid: rgba(237, 232, 245, 0.6);
   --text-dim: rgba(237, 232, 245, 0.38);
@@ -28,6 +30,8 @@
   --text-dim: rgba(23, 15, 46, 0.4);
   --text-faint: rgba(23, 15, 46, 0.06);
   --surface-hover: rgba(23, 15, 46, 0.05);
+  --hl-ai: #7C3AED;
+  --hl-product: #059669;
 }
 
 *,

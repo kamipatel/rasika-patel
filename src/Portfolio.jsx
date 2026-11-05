@@ -102,7 +102,7 @@ const useMediaQuery = (query) => {
 const stats = [
   { val: "11", label: "Projects" },
   { val: "121%", label: "Sales Growth" },
-  { val: "300K+", label: "Organic Views" },
+  { val: "400K+", label: "Organic Views" },
   { val: "700+", label: "Downloads" },
 ];
 
@@ -490,7 +490,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               letterSpacing: "0.03em",
               textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             }}>
-              Leading marketing{"\u00A0\u00B7\u00A0Harkey Institute"}
+              Marketing{"\u00A0\u00B7\u00A0Harkey Institute"}
             </span>
           </div>
 
@@ -564,7 +564,10 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                 textShadow: "0 2px 12px rgba(0,0,0,0.7)",
                 margin: "14px 0 0"
               }}>
-                Open to Summer 2027 internships in AI, marketing, product management, and UX.
+                Open to Summer 2027 internships in{" "}
+                <strong style={{ fontWeight: 700, color: "var(--hl-ai)" }}>AI</strong>,{" "}
+                <strong style={{ fontWeight: 700, color: "var(--accent)" }}>marketing</strong>, and{" "}
+                <strong style={{ fontWeight: 700, color: "var(--hl-product)" }}>product management</strong>.
               </p>
           </div>
 
