@@ -40,7 +40,7 @@ export const servicenowMeta = () => ({
   path: "/work/servicenow",
   title: "Rebuilding the Speakers Bureau | Rasika Patel",
   description: truncate(
-    "How a Fortune 500 executive speaker programme was rebuilt: four root causes of underuse, an eight-step enrollment flow, and an AI-scored certification gate."
+    "How I rebuilt ServiceNow's executive Speakers Bureau: 15+ interviews, a new application-based model, and 438 rewritten expertise notes."
   ),
 });
 

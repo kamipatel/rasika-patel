@@ -109,8 +109,9 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
     // Let it bubble to handleCardClick
   };
 
-  // Small cards clamp to two lines in CSS, so they get the full text
-  const truncatedDesc = !isSmall && project.desc && project.desc.length > 100
+  // Small cards clamp to two lines in CSS, so they get the full text. The
+  // slack past the cut point keeps a line that only just runs over intact.
+  const truncatedDesc = !isSmall && project.desc && project.desc.length > 110
     ? project.desc.slice(0, 100) + "..."
     : project.desc;
 

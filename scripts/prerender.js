@@ -19,9 +19,17 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { ALL_ROUTES, PRERENDER_ROUTES } from "../src/lib/routeMeta.js";
 import { absoluteUrl } from "../src/lib/site.js";
+import { servicenowStaticBody } from "../src/lib/servicenowStatic.js";
 
 const DIST = path.resolve("dist");
 const SHELL = path.join(DIST, "index.html");
+
+/*
+ * No-JS fallback bodies, keyed by route path. Each is written as a <noscript>
+ * after the React root, so visitors with JS never see it and every route not
+ * listed here stays byte-identical to the shell apart from its head tags.
+ */
+const STATIC_BODIES = { "/work/servicenow": servicenowStaticBody };
 
 /** Escape a value for use inside a double-quoted HTML attribute. */
 const attr = (value) =>
@@ -112,6 +120,17 @@ function buildHead(shell, route) {
   return html;
 }
 
+function withStaticBody(html, route) {
+  const build = STATIC_BODIES[route.path];
+  if (!build) return html;
+  return replaceOne(
+    html,
+    /<div id="root"><\/div>/g,
+    `<div id="root"></div>\n    <noscript>${build()}</noscript>`,
+    "root"
+  );
+}
+
 /**
  * The sitemap is generated from the same route list, so adding a project can
  * never leave it behind the way a hand-maintained public/sitemap.xml did.
@@ -135,7 +154,7 @@ const shell = readFileSync(SHELL, "utf8");
 for (const route of PRERENDER_ROUTES) {
   const outDir = path.join(DIST, route.path.replace(/^\//, ""));
   mkdirSync(outDir, { recursive: true });
-  writeFileSync(path.join(outDir, "index.html"), buildHead(shell, route), "utf8");
+  writeFileSync(path.join(outDir, "index.html"), withStaticBody(buildHead(shell, route), route), "utf8");
   console.log(`  prerendered ${route.path}`);
 }
 
