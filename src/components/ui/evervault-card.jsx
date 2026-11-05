@@ -75,9 +75,12 @@ export function CardPattern({ mouseX, mouseY, randomString }) {
         className="absolute inset-0 opacity-0 group-hover/card:opacity-40 transition-opacity duration-300"
         style={style}
       >
-        <p aria-hidden="true" className="absolute inset-x-0 text-xs h-full break-words whitespace-pre-wrap text-white font-mono font-bold">
-          {randomString}
-        </p>
+        {/* Drawn from an attribute so the characters never count as page text. */}
+        <p
+          aria-hidden="true"
+          data-chars={randomString}
+          className="absolute inset-x-0 text-xs h-full break-words whitespace-pre-wrap text-white font-mono font-bold before:content-[attr(data-chars)]"
+        />
       </motion.div>
     </div>
   );

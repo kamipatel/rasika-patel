@@ -950,7 +950,7 @@ export default function XploreCaseStudy() {
             ))}
           </div>
           <p className="xp-next">
-            <strong>What's next. </strong>
+            <strong>What's next: </strong>
             {lessons.next.replace(/^Next: /, "")}
           </p>
         </Chapter>
@@ -961,7 +961,7 @@ export default function XploreCaseStudy() {
             <div className="xp-cta">
               <h2 id="cta-title" className="xp-h2" style={{ marginTop: 0 }}>See it for yourself.</h2>
               <p className="xp-lead" style={{ marginLeft: "auto", marginRight: "auto" }}>
-                Download the app, scroll the feed, or ask me how any of it works.
+                Get the app, or ask me how any of it works.
               </p>
               <div className="xp-ctas">
                 <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="xp-btn xp-btn-primary clickable">

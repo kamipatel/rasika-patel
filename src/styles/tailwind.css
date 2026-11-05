@@ -6,7 +6,7 @@
 @source "../lib/**/*.ts";
 
 @theme {
-  /* shadcn semantic color tokens — mapped to existing CSS variables */
+  /* shadcn semantic color tokens: mapped to existing CSS variables */
   --color-background: var(--bg);
   --color-foreground: var(--text-light);
   --color-primary: var(--accent);

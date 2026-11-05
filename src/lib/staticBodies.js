@@ -1,8 +1,9 @@
 /*
- * No-JS fallback for /work/servicenow, injected by scripts/prerender.js as a
- * <noscript> block. Built from the same data file as the React page, so the
- * numbers in the static HTML cannot drift from the page.
+ * No-JS fallbacks, injected by scripts/prerender.js as <noscript> blocks. Built
+ * from the same data files as the React pages, so the numbers in the static
+ * HTML cannot drift from the page.
  */
+import { stats } from "../data/homeStats.js";
 import { hero, impact } from "../data/servicenow.js";
 
 const escapeHtml = (value) =>
@@ -13,13 +14,27 @@ const escapeHtml = (value) =>
 
 const list = (items) => `<ul>${items.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>`;
 
+/* index.css hides the cursor for the custom one, which needs JS, and the text
+   color is set inside the React app. */
+const OPEN = [
+  "<style>*{cursor:auto!important}</style>",
+  '<main style="color:#EDE8F5;font-family:sans-serif;line-height:1.6;max-width:680px;margin:0 auto;padding:48px 24px">',
+].join("");
+
+export function homeStaticBody() {
+  return [
+    OPEN,
+    "<h1>Rasika Patel</h1>",
+    "<p>I build apps, then I get people to use them.</p>",
+    list(stats.map((s) => `${s.val} ${s.label.toLowerCase()}`)),
+    "</main>",
+  ].join("");
+}
+
 export function servicenowStaticBody() {
   const { delivered, projected } = impact;
   return [
-    /* index.css hides the cursor for the custom one, which needs JS, and the
-       text color is set inside the React app. */
-    "<style>*{cursor:auto!important}</style>",
-    '<main style="color:#EDE8F5;font-family:sans-serif;line-height:1.6;max-width:680px;margin:0 auto;padding:48px 24px">',
+    OPEN,
     `<h1>${escapeHtml(hero.title)}</h1>`,
     `<p>${escapeHtml(hero.deck)}</p>`,
     `<p>${hero.meta.map(escapeHtml).join(" · ")}</p>`,

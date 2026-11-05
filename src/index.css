@@ -69,14 +69,14 @@ body {
   border-radius: 10px;
 }
 
-/* Theme transition — scoped to avoid breaking animations */
+/* Theme transition: scoped to avoid breaking animations */
 [data-theme] *,
 [data-theme] *::before,
 [data-theme] *::after {
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-/* Custom cursor — only on devices with fine pointer (not touch) */
+/* Custom cursor: only on devices with fine pointer (not touch) */
 @media (pointer: fine) {
   * {
     cursor: none !important;
@@ -367,7 +367,7 @@ body {
   display: none;
 }
 
-/* Navigation dots removed — using inline line indicators instead */
+/* Navigation dots removed: using inline line indicators instead */
 
 /* ── Project card grid responsive ── */
 @media (min-width: 769px) and (max-width: 1024px) {

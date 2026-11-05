@@ -20,7 +20,7 @@ import ImpactStats from "../components/servicenow/ImpactStats";
 import DocTiles from "../components/servicenow/DocTiles";
 import {
   alsoThisSummer, application, breaking, context, dataWork, discovery, flow,
-  handoff, hero, impact, lessons, leverage, onboarding, paths, reframe,
+  handoff, hero, impact, lessons, acceptance, onboarding, paths, reframe,
   timeline, trust,
 } from "../data/servicenow";
 
@@ -196,11 +196,11 @@ export default function ServiceNowCaseStudy() {
           <CertificationGate gate={onboarding.gate} reduced={reduced} />
         </Section>
 
-        <Section id="leverage" label={leverage.label} heading={leverage.heading} reduced={reduced}>
-          <EmailCompare before={leverage.before} after={leverage.after} reduced={reduced} />
-          {leverage.closing.map((p) => <Lead key={p} reduced={reduced}>{p}</Lead>)}
-          <ManagerNote manager={leverage.manager} reduced={reduced} />
-          <Lead reduced={reduced}>{leverage.templates}</Lead>
+        <Section id="acceptance" label={acceptance.label} heading={acceptance.heading} reduced={reduced}>
+          <EmailCompare before={acceptance.before} after={acceptance.after} reduced={reduced} />
+          {acceptance.closing.map((p) => <Lead key={p} reduced={reduced}>{p}</Lead>)}
+          <ManagerNote manager={acceptance.manager} reduced={reduced} />
+          <Lead reduced={reduced}>{acceptance.templates}</Lead>
         </Section>
 
         <Section id="trust" label={trust.label} heading={trust.heading} reduced={reduced}>
@@ -233,8 +233,8 @@ export default function ServiceNowCaseStudy() {
           <AlsoThisSummer reduced={reduced} />
           <Reveal delay={0.1} reduced={reduced}>
             <div className="sn-footer">
-              <Link to="/#work" className="clickable is-primary">More Work</Link>
-              <Link to="/#contact" className="clickable is-ghost">Get in Touch</Link>
+              <Link to="/#work" className="clickable is-primary">More work</Link>
+              <Link to="/#contact" className="clickable is-ghost">Get in touch</Link>
             </div>
           </Reveal>
         </Section>

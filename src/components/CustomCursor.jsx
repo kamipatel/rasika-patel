@@ -54,7 +54,7 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Inner dot — follows exactly */}
+      {/* Inner dot: follows exactly */}
       <div
         style={{
           position: "fixed",
@@ -69,7 +69,7 @@ export default function CustomCursor() {
           transition: "background 0.3s",
         }}
       />
-      {/* Outer circle — follows with spring delay */}
+      {/* Outer circle: follows with spring delay */}
       <motion.div
         style={{
           position: "fixed",

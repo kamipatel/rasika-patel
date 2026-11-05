@@ -31,20 +31,22 @@ const CONTACT_LINKS = [
 function SectionHead({ eyebrow, title, reduced }) {
   return (
     <>
-      <Reveal reduced={reduced}>
-        <span
-          style={{
-            display: "block",
-            fontFamily: "var(--mono)",
-            fontSize: "13px",
-            letterSpacing: "3px",
-            textTransform: "uppercase",
-            color: "var(--accent)",
-          }}
-        >
-          {eyebrow}
-        </span>
-      </Reveal>
+      {eyebrow && (
+        <Reveal reduced={reduced}>
+          <span
+            style={{
+              display: "block",
+              fontFamily: "var(--mono)",
+              fontSize: "13px",
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+              color: "var(--accent)",
+            }}
+          >
+            {eyebrow}
+          </span>
+        </Reveal>
+      )}
       <Reveal delay={0.08} reduced={reduced}>
         <h2
           style={{
@@ -354,7 +356,7 @@ export default function ResumePage() {
         </Reveal>
 
         {/* ─── Experience ─── */}
-        <SectionHead eyebrow="Experience" title="Where I've Worked" reduced={reduced} />
+        <SectionHead title="Experience" reduced={reduced} />
         <div style={{ marginTop: "24px", marginBottom: "80px", borderTop: "1px solid var(--border)" }}>
           {experience.map((entry, i) => (
             <ResumeEntry
@@ -368,7 +370,7 @@ export default function ResumePage() {
         </div>
 
         {/* ─── Leadership & Ventures ─── */}
-        <SectionHead eyebrow="Leadership" title="Things I've Started & Led" reduced={reduced} />
+        <SectionHead title="Leadership" reduced={reduced} />
         <div style={{ marginTop: "24px", marginBottom: "80px", borderTop: "1px solid var(--border)" }}>
           {leadership.map((entry, i) => (
             <ResumeEntry
@@ -382,7 +384,7 @@ export default function ResumePage() {
         </div>
 
         {/* ─── Skills ─── */}
-        <SectionHead eyebrow="Skills & Tools" title="What I Work With" reduced={reduced} />
+        <SectionHead title="Tools" reduced={reduced} />
         <div style={{ marginTop: "24px", borderTop: "1px solid var(--border)" }}>
           {skillGroups.map((group) => (
             <div

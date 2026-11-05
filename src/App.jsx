@@ -70,7 +70,7 @@ export default function App() {
   return (
     <div style={{ background: "var(--bg)", color: "var(--text-light)", minHeight: "100vh", overflowX: "clip" }}>
 
-      {/* Custom cursor — desktop only */}
+      {/* Custom cursor: desktop only */}
       {!isMobile && <CustomCursor />}
 
       {/* Nav */}

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { springConfig } from "../lib/animation";
 
 /*
- * One résumé role. Layout derives from the SkillRow pattern in Portfolio.jsx —
+ * One résumé role. Layout derives from the SkillRow pattern in Portfolio.jsx,
  * a [meta | content] split on desktop that collapses to a single column on
  * mobile, separated by hairlines rather than a dotted timeline.
  */
@@ -27,7 +27,7 @@ export default function ResumeEntry({ entry, index, reduced, isMobile }) {
         borderBottom: "1px solid var(--border)",
       }}
     >
-      {/* Meta column — dates, location, current marker */}
+      {/* Meta column: dates, location, current marker */}
       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
         <span
           style={{

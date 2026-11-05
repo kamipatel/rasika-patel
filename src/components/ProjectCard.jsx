@@ -4,18 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { springConfig } from "../lib/animation";
 
 const PROJECT_META = {
-  "xplore-austin":                { icon: "\u{1F5FA}\uFE0F", gradient: ["#f97316", "#ef4444"] },
-  "texas-momentum":               { icon: "\u{1F680}", gradient: ["#a855f7", "#4f46e5"] },
-  "herdup":                       { icon: "\u{1F402}", gradient: ["#22d3ee", "#3b82f6"] },
-  "sell-fellowship":              { icon: "\u{1F4A1}", gradient: ["#f43f5e", "#ec4899"] },
-  "foundry":                      { icon: "\u{1F528}", gradient: ["#fb923c", "#c2410c"] },
-  "harkey":                       { icon: "\u{1F3DB}\uFE0F", gradient: ["#fbbf24", "#b45309"] },
-  "servicenow":                   { icon: "\u{1F3A4}", gradient: ["#4ade80", "#15803d"] },
-  "center-for-integrated-design": { icon: "\u{1F3A8}", gradient: ["#38bdf8", "#2563eb"] },
-  "well-water-finders":           { icon: "\u{1F4A7}", gradient: ["#2dd4bf", "#059669"] },
-  "cultured-carrot":              { icon: "\u{1F955}", gradient: ["#f59e0b", "#f97316"] },
-  "ama":                          { icon: "\u{1F4CA}", gradient: ["#10b981", "#059669"] },
-  "texas-convergent":             { icon: "\u{1F9E9}", gradient: ["#22d3ee", "#059669"] },
+  "xplore-austin":                { gradient: ["#f97316", "#ef4444"] },
+  "texas-momentum":               { gradient: ["#a855f7", "#4f46e5"] },
+  "herdup":                       { gradient: ["#22d3ee", "#3b82f6"] },
+  "sell-fellowship":              { gradient: ["#f43f5e", "#ec4899"] },
+  "foundry":                      { gradient: ["#fb923c", "#c2410c"] },
+  "harkey":                       { gradient: ["#fbbf24", "#b45309"] },
+  "servicenow":                   { gradient: ["#4ade80", "#15803d"] },
+  "center-for-integrated-design": { gradient: ["#38bdf8", "#2563eb"] },
+  "well-water-finders":           { gradient: ["#2dd4bf", "#059669"] },
+  "cultured-carrot":              { gradient: ["#f59e0b", "#f97316"] },
+  "ama":                          { gradient: ["#10b981", "#059669"] },
+  "texas-convergent":             { gradient: ["#22d3ee", "#059669"] },
 };
 
 /*
@@ -23,9 +23,11 @@ const PROJECT_META = {
  * the 4-column grid: tighter padding and type, two tags, a two-line desc.
  */
 const SIZES = {
-  large: { padding: "20px", gap: "16px", icon: "32px", tags: 3, title: "24px", role: "15px", desc: "15px", footerGap: "12px" },
-  small: { padding: "16px", gap: "12px", icon: "24px", tags: 2, title: "18px", role: "13px", desc: "13px", footerGap: "8px" },
+  large: { padding: "20px", gap: "16px", tags: 3, title: "24px", role: "15px", desc: "15px", footerGap: "12px" },
+  small: { padding: "16px", gap: "12px", tags: 2, title: "18px", role: "13px", desc: "13px", footerGap: "8px" },
 };
+
+const CATEGORY_COLORS = { Marketing: "#3B82F6", "UI/UX": "#A78BFA", Design: "#FF6B35" };
 
 const DESC_CLAMP = {
   display: "-webkit-box",
@@ -34,7 +36,7 @@ const DESC_CLAMP = {
   overflow: "hidden",
 };
 
-const DEFAULT_META = { icon: "\u2728", gradient: ["#6366f1", "#4338ca"] };
+const DEFAULT_META = { gradient: ["#6366f1", "#4338ca"] };
 
 /* ─── hooks ─── */
 const useMediaQuery = (query) => {
@@ -61,21 +63,23 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
 
   // Skill category mapping
   const category = useMemo(() => {
+    // An explicit category wins when the tags alone would mislabel the work
+    if (project.category) return { label: project.category, color: CATEGORY_COLORS[project.category] };
     const tags = project.tags.map(t => t.toLowerCase());
     if (tags.some(t => t.includes("marketing") || t.includes("strategy") || t.includes("growth") || t.includes("startup"))) {
-      return { label: "Marketing", color: "#3B82F6" }; // Blue
+      return { label: "Marketing", color: CATEGORY_COLORS.Marketing }; // Blue
     }
     if (tags.some(t => t.includes("ui/ux") || t.includes("figma") || t.includes("wireframes") || t.includes("mobile"))) {
-      return { label: "UI/UX", color: "#A78BFA" }; // Purple
+      return { label: "UI/UX", color: CATEGORY_COLORS["UI/UX"] }; // Purple
     }
     if (tags.some(t => t.includes("design") || t.includes("adobe") || t.includes("creative"))) {
-      return { label: "Design", color: "#FF6B35" }; // Orange
+      return { label: "Design", color: CATEGORY_COLORS.Design }; // Orange
     }
     if (tags.some(t => t.includes("data") || t.includes("science") || t.includes("viz") || t.includes("softwaredesign"))) {
       return { label: "Data & Systems", color: "#10B981" }; // Green
     }
     return { label: "Project", color: "var(--accent)" };
-  }, [project.tags]);
+  }, [project.tags, project.category]);
 
   const meta = PROJECT_META[project.slug] || DEFAULT_META;
   const [g1, g2] = meta.gradient;
@@ -109,11 +113,13 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
     // Let it bubble to handleCardClick
   };
 
+  // The card line is `oneLiner` when a project has a longer page description.
   // Small cards clamp to two lines in CSS, so they get the full text. The
   // slack past the cut point keeps a line that only just runs over intact.
-  const truncatedDesc = !isSmall && project.desc && project.desc.length > 110
-    ? project.desc.slice(0, 100) + "..."
-    : project.desc;
+  const cardLine = project.oneLiner ?? project.desc;
+  const truncatedDesc = !isSmall && cardLine && cardLine.length > 110
+    ? cardLine.slice(0, 100) + "..."
+    : cardLine;
 
   const g1Rgb = hexToRgb(g1);
   const inactiveShadow = `0 4px 24px rgba(${g1Rgb}, 0.12)`;
@@ -178,9 +184,8 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
 
         {/* Content */}
         <div style={{ position: "relative", zIndex: 2, flex: 1, display: "flex", flexDirection: "column", gap: s.gap }}>
-          {/* Top: icon + tags */}
+          {/* Top: tags */}
           <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-            <span style={{ fontSize: s.icon, lineHeight: 1 }}>{meta.icon}</span>
             <span style={{
               fontFamily: "var(--mono)",
               fontSize: "11px",
@@ -212,7 +217,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
               fontWeight: 500,
               marginBottom: "10px",
             }}>
-              {project.role.split("\u2014")[0].trim()}
+              {project.role}
             </p>
             <p style={{
               fontFamily: "var(--body)",
@@ -278,17 +283,19 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
               </span>
             </div>
 
-            <span style={{
-              fontFamily: "var(--mono)",
-              fontSize: "12px",
-              fontWeight: 700,
-              color: g1,
-              letterSpacing: "0.3px",
-              borderLeft: `2px solid ${g1}`,
-              paddingLeft: "8px",
-            }}>
-              {project.impact}
-            </span>
+            {project.impact && (
+              <span style={{
+                fontFamily: "var(--mono)",
+                fontSize: "12px",
+                fontWeight: 700,
+                color: g1,
+                letterSpacing: "0.3px",
+                borderLeft: `2px solid ${g1}`,
+                paddingLeft: "8px",
+              }}>
+                {project.impact}
+              </span>
+            )}
 
             <div style={{ flex: 1 }} />
 
@@ -314,7 +321,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
                 e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
               }}
             >
-              View Project &rarr;
+              View project &rarr;
             </button>
           </div>
         </div>

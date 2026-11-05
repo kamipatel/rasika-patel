@@ -1,5 +1,5 @@
 /*
- * DESIGN RULES — DO NOT:
+ * DESIGN RULES: DO NOT:
  * - Use "Hello, I'm" or "Hi, I'm" intros
  * - Use numbered sections (01, 02, 03)
  * - Use left-text right-portrait hero splits
@@ -12,15 +12,15 @@
  * - Use cookie-cutter hover effects (scale 1.05 + shadow)
  *
  * INSTEAD:
- * - Break the grid — overlap elements, use asymmetry
- * - Mix scales dramatically — one huge element next to tiny details
- * - Use editorial typography — vary weights, sizes, and spacing
+ * - Break the grid: overlap elements, use asymmetry
+ * - Mix scales dramatically: one huge element next to tiny details
+ * - Use editorial typography: vary weights, sizes, and spacing
  *   within the same section
  * - Make each project feel different, not templated
  * - Use whitespace as a design element, not just padding
  * - Let the content dictate the layout, not a repeating pattern
  * - Reference magazine layouts, fashion sites, and agency portfolios
- *   — not developer templates
+ *   not developer templates
  */
 import { 
   useEffect, 
@@ -47,6 +47,7 @@ import { homeMeta } from "./lib/routeMeta";
 import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
 import CountUp from "./components/CountUp";
+import { stats } from "./data/homeStats";
 import ProjectGrid from "./components/ProjectGrid";
 import RadialOrbitalTimeline from "./components/RadialOrbitalTimeline";
 import Vortex from "./components/Vortex";
@@ -98,13 +99,6 @@ const useMediaQuery = (query) => {
 };
 
 /* ─── data ─── */
-const stats = [
-  { val: "11", label: "Projects" },
-  { val: "121%", label: "Sales Growth" },
-  { val: "400K+", label: "Organic Views" },
-  { val: "700+", label: "Downloads" },
-];
-
 const skillsMarqueeItems = ["Figma", "Python", "Tableau", "AI Tools", "Canva", "Java", "SQL", "Supabase", "Illustrator", "Qualtrics"];
 // The marquee keeps its own lineup and order, independent of the card grid's
 // order, and leaves out Texas Convergent (its two projects are listed instead).
@@ -387,7 +381,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
       {/* Scroll progress bar */}
       {!reduced && <ScrollProgressBar />}
 
-      {/* grain overlay — hidden on mobile, reduced in light mode */}
+      {/* grain overlay: hidden on mobile, reduced in light mode */}
       {!isMobile && (
         <div style={{
           position: "fixed", inset: "-50%", width: "200%", height: "200%",
@@ -397,7 +391,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         }} />
       )}
 
-      {/* subtle cursor glow — hidden on mobile */}
+      {/* subtle cursor glow: hidden on mobile */}
       {!isMobile && (
         <div style={{
           position: "fixed", left: mouse.x - 250, top: mouse.y - 250,
@@ -500,8 +494,8 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
 
           {/* 3. Interactive Portrait Masked inside an Arch */}
           <div style={{
-            // Height-driven so it tracks the hero's vertical budget; width
-            // follows from the ratio. flexShrink:0 is load-bearing — because
+            // Sized by height so it tracks the hero's vertical budget; width
+            // follows from the ratio. flexShrink:0 is load-bearing: because
             // overflow:hidden makes min-height:auto resolve to 0, flex was
             // free to crush the 3:4 box into a landscape sliver once the hero
             // got shorter, and that is what cropped the head.
@@ -558,9 +552,8 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               textShadow: "0 4px 20px rgba(0,0,0,0.8)",
               margin: 0
             }}>
-              Building at the intersection of{" "}
-              <span style={{ color: "var(--accent)", fontWeight: 600, fontStyle: "italic" }}>storytelling</span> and{" "}
-              <span style={{ color: "var(--accent)", fontWeight: 600, fontStyle: "italic" }}>systems</span>.
+              I build apps, then I get people to{" "}
+              <span style={{ color: "var(--accent)", fontWeight: 600, fontStyle: "italic" }}>use them</span>.
             </p>
               <p style={{
                 fontFamily: "var(--mono)", fontSize: "clamp(11px, 1.1vw, 13px)", fontWeight: 400,
@@ -587,8 +580,8 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             marginTop: "8px", width: isMobile ? "100%" : "auto", 
             maxWidth: isMobile ? "300px" : "none"
           }}>
-            <MagButton href="#work" filled style={{ width: "100%" }}>View My Work</MagButton>
-            <MagButton href="#contact" style={{ width: "100%" }}>Get in Touch</MagButton>
+            <MagButton href="#work" filled style={{ width: "100%" }}>View my work</MagButton>
+            <MagButton href="#contact" style={{ width: "100%" }}>Get in touch</MagButton>
           </div>
 
           {/* Smooth blend to next section */}
@@ -599,7 +592,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           }} />
         </section>
 
-        {/* ═══ PROOF BAND — first thing after the hero ═══ */}
+        {/* ═══ PROOF BAND: first thing after the hero ═══ */}
         <section
           aria-label="Key results"
           style={{
@@ -637,7 +630,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         </section>
 
         {/* ── HERO-ABOUT DIVIDER ── */}
-        <Marquee items={projectMarqueeItems} speed={30} direction="left" separator="✦" />
+        <Marquee items={projectMarqueeItems} speed={30} direction="left" separator="·" />
 
         {/* ═══════════════════════════════════
            ABOUT
@@ -655,9 +648,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               marginTop: "20px", marginBottom: "32px", maxWidth: "780px" 
             }}>
               A <span style={{ color: "var(--accent)" }}>product marketer</span> at McCombs who
-              <span style={{ color: "var(--accent)" }}> builds with AI</span>. I make
-              <span style={{ fontStyle: "italic", color: "var(--text-light)" }}> products</span> and the
-              campaigns that get people using them.
+              <span style={{ color: "var(--accent)" }}> builds with AI</span>.
             </h2>
           </Reveal>
 
@@ -673,12 +664,12 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             <div>
               <Reveal delay={0.2} reduced={reduced}>
                 <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
-                  I love finding the intersection between storytelling and systems, where a good idea turns into something people actually care about. From building <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> solo with Claude Code to driving <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong> at Texas Momentum to interning in marketing at <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong>, I'm drawn to building and shipping real things. Now I'm at the <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Harkey Institute</strong> at McCombs, running marketing for entrepreneurship programs on campus and building AI workflows in Claude that turn our Meta analytics into what to post next.
+                  I built <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> solo with Claude Code. I ran marketing at Texas Momentum, where our content hit <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong>. This summer I interned in marketing at <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong> in New York. Now I'm at the <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Harkey Institute</strong> at McCombs, running marketing for the entrepreneurship programs and building Claude workflows that turn our Meta analytics into what to post next.
                 </p>
               </Reveal>
               <Reveal delay={0.25} reduced={reduced}>
                 <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75 }}>
-                  When I'm not designing in Figma, I'm sketching wireframes, curating playlists, exploring Austin's food scene, or hunting for the best matcha in the city. Always happy to share my recs. I love brainstorming ways to connect Austin's creative community through local businesses, art, and tech.
+                  When I'm not in Figma, I'm making playlists, trying food around Austin, or hunting for the best matcha in the city. Always happy to share my recs.
                 </p>
               </Reveal>
             </div>
@@ -689,8 +680,8 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         {/* ── TRANSITION / VELOCITY SCROLL divider ── */}
         {!isMobile && (
           <VelocityScroll 
-            text1="Design & Data • Strategy & Vision • Brand & Product •" 
-            text2="Digital Experiences • Human Centric • Creative Direction •" 
+            text1="Figma • Claude Code • Canva • Airtable •" 
+            text2="Apps • Websites • Instagram • Flyers •" 
           />
         )}
 
@@ -699,17 +690,13 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
            ═══════════════════════════════════ */}
         <section id="work" aria-label="Work section" style={{ padding: "clamp(60px, 8vw, 80px) clamp(24px, 6vw, 80px)", maxWidth: "1100px", margin: "0 auto", background: "var(--bg)", position: "relative", zIndex: 20, overflow: "hidden" }}>
           <Reveal reduced={reduced}>
-            <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Selected Work</span>
-          </Reveal>
-          <Reveal delay={0.08} reduced={reduced}>
             <h2 style={{ fontFamily: "var(--display)", fontSize: isMobile ? "clamp(32px, 9vw, 44px)" : "clamp(40px, 7vw, 80px)", fontWeight: 800, letterSpacing: isMobile ? "-1px" : "-3px", lineHeight: 0.95, marginTop: "16px", marginBottom: "48px" }}>
-              Things I've Built{" "}
-              <span style={{ color: "var(--text-dim)", fontWeight: 400 }}>&</span>{" "}
+              Selected{" "}
               <span style={{
                 background: "linear-gradient(135deg, var(--accent), #E8453C)",
                 backgroundSize: "200% 200%", animation: "gradShift 5s ease infinite",
                 WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-              }}>Designed</span>
+              }}>work</span>
             </h2>
           </Reveal>
 
@@ -718,7 +705,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         </section>
 
         {/* ── WORK-TIMELINE DIVIDER ── */}
-        <Marquee items={projectMarqueeItems} speed={25} direction="right" separator="✦" />
+        <Marquee items={projectMarqueeItems} speed={25} direction="right" separator="·" />
 
         {/* ═══════════════════════════════════
            TIMELINE
@@ -726,7 +713,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         <RadialOrbitalTimeline reduced={reduced} />
 
         {/* ── TIMELINE-SKILLS DIVIDER ── */}
-        <Marquee items={projectMarqueeItems} speed={35} direction="left" separator="✦" />
+        <Marquee items={projectMarqueeItems} speed={35} direction="left" separator="·" />
 
         {/* ═══════════════════════════════════
            SKILLS
@@ -734,17 +721,14 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         <section id="skills" aria-label="Skills section" style={{ padding: "clamp(60px, 8vw, 80px) 0", margin: "0", position: "relative" }}>
           <div style={{ position: "relative", zIndex: 1, padding: "0 clamp(24px, 6vw, 80px)", maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
               <Reveal reduced={reduced}>
-                <span style={{ fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--accent)" }}>Skills & Tools</span>
-              </Reveal>
-              <Reveal delay={0.08} reduced={reduced}>
                 <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(26px, 3.5vw, 42px)", fontWeight: 400, letterSpacing: "-0.5px", lineHeight: 1.2, marginTop: "16px", marginBottom: "16px", color: "var(--text-light)" }}>
-                  What I Work With
+                  Tools
                 </h2>
               </Reveal>
 
               <DrawLine reduced={reduced} />
 
-              {/* Hub-and-spoke beam diagram — desktop only */}
+              {/* Hub-and-spoke beam diagram: desktop only */}
               {!isMobile && (
                 <div
                   ref={beamContainerRef}
@@ -833,7 +817,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                       borderLeft: "3px solid var(--accent)", backdropFilter: "blur(10px)",
                       pointerEvents: "auto", position: "relative", zIndex: 1
                     }}>
-                      <span style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-dim)", display: "block", marginBottom: "12px" }}>Relevant Coursework</span>
+                      <span style={{ fontFamily: "var(--mono)", fontSize: "9px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--text-dim)", display: "block", marginBottom: "12px" }}>Relevant coursework</span>
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                         {["Software Design", "Decision Science", "MIS", "Design Thinking", "Business Stats"].map((c) => (
                           <span key={c} style={{ fontFamily: "var(--body)", fontSize: "12px", color: "var(--text-dim)", background: "rgba(255,255,255,0.03)", padding: "4px 10px", borderRadius: "4px", border: "1px solid var(--border)" }}>{c}</span>
@@ -847,7 +831,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
         </section>
 
         {/* ── SKILLS-CONTACT DIVIDER ── */}
-        <Marquee items={projectMarqueeItems} speed={30} direction="right" separator="✦" />
+        <Marquee items={projectMarqueeItems} speed={30} direction="right" separator="·" />
 
         {/* ═══════════════════════════════════
            CONTACT
@@ -867,7 +851,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               
               <Reveal reduced={reduced}>
                 <span style={{ fontFamily: "var(--mono)", fontSize: "14px", letterSpacing: "3px", textTransform: "uppercase", color: "var(--text-dim)", marginBottom: "16px", display: "inline-block" }}>
-                  Let's <span style={{ color: "var(--accent)", fontStyle: "italic" }}>build</span> something together
+                  Get in <span style={{ color: "var(--accent)", fontStyle: "italic" }}>touch</span>
                 </span>
               </Reveal>
 
@@ -929,8 +913,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                       boxShadow: "0 0 30px var(--accent-glow)"
                     }}
                   >
-                    <span style={{ fontSize: "24px", display: "block", marginBottom: "8px" }}>✨</span>
-                    Message sent! Thanks for reaching out.
+                    Message sent. Thanks for reaching out.
                   </motion.div>
                 ) : (
                   <form
@@ -982,7 +965,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
                       onMouseEnter={(e) => { if (formStatus !== "submitting") e.currentTarget.style.boxShadow = "0 0 30px var(--accent-dim)"; }}
                       onMouseLeave={(e) => { if (formStatus !== "submitting") e.currentTarget.style.boxShadow = "0 0 20px var(--accent-glow)"; }}
                     >
-                      {formStatus === "submitting" ? "Sending..." : "Send Message"}
+                      {formStatus === "submitting" ? "Sending..." : "Send message"}
                     </button>
                     {formStatus === "error" && (
                       <span className="text-[#E8453C] text-[14px] text-center font-[var(--body)] mt-2">
@@ -998,7 +981,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
       </main>
       
       {/* ── FOOTER DIVIDER ── */}
-      <Marquee items={projectMarqueeItems} speed={40} direction="left" separator="✦" />
+      <Marquee items={projectMarqueeItems} speed={40} direction="left" separator="·" />
 
       {/* FOOTER */}
       <Reveal reduced={reduced}>
@@ -1009,9 +992,6 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             </span>
             <span style={{ fontFamily: "var(--mono)", fontSize: "10px", color: "var(--text-dim)" }}>© 2026 Rasika Patel</span>
           </div>
-          <span style={{ fontFamily: "var(--body)", fontSize: "13px", color: "var(--text-dim)", opacity: 0.5 }}>
-            Made with big ideas and too much coffee
-          </span>
         </footer>
       </Reveal>
     </motion.div>

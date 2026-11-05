@@ -2,9 +2,9 @@
 export const SITE_URL = "https://rasika-patel.vercel.app";
 
 /**
- * Defaults mirrored by the static tags in index.html — keep the two in sync.
+ * Defaults mirrored by the static tags in index.html: keep the two in sync.
  * `metaDescription` differs from `description` only on the homepage, where
- * index.html has always carried the "Rasika Patel — " prefix on <meta
+ * index.html has always carried the "Rasika Patel: " prefix on <meta
  * name="description"> but not on og:description. Preserved so the homepage's
  * existing tags are unchanged.
  */
@@ -29,5 +29,5 @@ export function truncate(text, max = 160) {
   if (clean.length <= max) return clean;
   const cut = clean.slice(0, max - 1);
   const lastSpace = cut.lastIndexOf(" ");
-  return `${(lastSpace > 0 ? cut.slice(0, lastSpace) : cut).replace(/[,;:.\u2014-]$/, "")}…`;
+  return `${(lastSpace > 0 ? cut.slice(0, lastSpace) : cut).replace(/[,;:.-]$/, "")}…`;
 }

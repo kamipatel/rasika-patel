@@ -1,6 +1,6 @@
 import { CircleCheck } from "lucide-react";
 import Reveal from "../Reveal";
-import StatCount from "./StatCount";
+import CountUp from "../CountUp";
 
 /*
  * Impact: delivered results on top and large, projections below, smaller
@@ -39,7 +39,7 @@ export default function ImpactStats({ delivered, projected, reduced }) {
           <ul className="sn-delivered-grid">
             {delivered.stats.map((s) => (
               <li key={s.label}>
-                <StatCount value={s.value} className="sn-delivered-num" />
+                <CountUp value={s.value} className="sn-delivered-num" />
                 <span className="sn-delivered-label">{s.label}</span>
               </li>
             ))}

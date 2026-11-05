@@ -7,7 +7,7 @@ const MotionLink = motion.create(Link);
 
 /*
  * Compact tier: work without a full case study behind it. A scannable row
- * per project — title, role, one line, outcome — rather than a card that
+ * per project: title, role, one line, outcome: rather than a card that
  * promises a page it cannot deliver.
  */
 function Row({ project, index, reduced, isMobile }) {

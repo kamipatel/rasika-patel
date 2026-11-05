@@ -17,7 +17,7 @@ export const applicant = {
 };
 
 export const hero = {
-  label: "Case Study",
+  label: "Case study",
   title: "Rebuilding the Speakers Bureau",
   deck: "Redesigning how a Fortune 500 company finds, vets, and keeps the experts who speak to its biggest customers.",
   meta: [
@@ -35,7 +35,7 @@ export const hero = {
 };
 
 export const context = {
-  label: "The Context",
+  label: "The context",
   heading: "High-stakes meetings, sourced by hand.",
   body: "ServiceNow's Executive Briefing Centers host meetings with C-suite and VP-level customers, and every one needs internal experts in the room. The Speakers Bureau was supposed to be where coordinators found them. In practice, 90 to 95% of profiles were dormant, and coordinators had given up on the official platform for 7+ informal workarounds.",
   channels: {
@@ -54,14 +54,14 @@ export const context = {
 };
 
 export const discovery = {
-  label: "How I Found the Real Problem",
+  label: "How I found the real problem",
   heading: "I didn't send a survey.",
   body: "Week one, I got a walkthrough of the manual process and shadowed a live briefing. Then I ran 15+ interviews in two rounds, first to diagnose and then to co-design the fix, with briefing coordinators in New York and London, content and creative leads, the insights analyst, field marketing, and the platform's owner.",
-  pull: "The biggest find was that speakers were being sourced by word of mouth, not by the platform built to source them.",
+  pull: "Speakers were coming from word of mouth. The platform built to find them sat unused.",
   insights: [
     { title: "The platform only knew what someone typed in.", detail: "Bios held the good detail, but nobody could search them." },
     { title: "Topic isn't enough.", detail: "A showcase presenter and a deep-dive expert are different jobs, so matching has to start from the agenda." },
-    { title: "Expertise isn't presence.", detail: "Great presenters are prepared and comfortable, not just smart." },
+    { title: "Expertise isn't presence.", detail: "Great presenters are also prepared and comfortable." },
     { title: "Coordinators won't book someone they can't vouch for.", detail: "Trust had to be built into the system." },
   ],
   quickWin: {
@@ -71,9 +71,9 @@ export const discovery = {
 };
 
 export const breaking = {
-  label: "What Was Breaking",
-  heading: "Four root causes, not one.",
-  lead: "The root cause was the model, not the technology. Open nomination let anyone in, so nobody valued being in.",
+  label: "What was breaking",
+  heading: "Four root causes.",
+  lead: "The real problem was the model. Open nomination let anyone in, so nobody valued being in.",
   columns: [
     { name: "Trust", detail: "No quality vetting, stale profiles, onboarding friction" },
     { name: "Discovery", detail: "Niche expertise was unsearchable, profiles incomplete" },
@@ -83,7 +83,7 @@ export const breaking = {
 };
 
 export const reframe = {
-  label: "The Reframe",
+  label: "The reframe",
   statement: "Membership should be something you earn, not a form you fill out.",
   points: [
     "Vetting and certification so only qualified speakers enroll",
@@ -94,7 +94,7 @@ export const reframe = {
 };
 
 export const paths = {
-  label: "Two Ways In",
+  label: "Two ways in",
   heading: "Two ways in, one bar.",
   lanes: [
     { name: "Nominated", steps: ["A senior leader nominates", "Skips the application", "Straight to onboarding"] },
@@ -105,7 +105,7 @@ export const paths = {
 };
 
 export const flow = {
-  label: "The New Flow",
+  label: "The new flow",
   heading: "From six leaky steps to one clear path.",
   before: {
     steps: [
@@ -134,7 +134,7 @@ export const flow = {
 };
 
 export const application = {
-  label: "The Application",
+  label: "The application",
   heading: "Short enough that strong speakers actually finish it.",
   form: {
     title: "Speaker Application",
@@ -157,7 +157,7 @@ export const application = {
   annotations: [
     "5 to 10 minutes, so busy experts finish it.",
     "Speaker type is captured up front, so showcase presenters and deep-dive experts never get mixed up.",
-    "Pay it forward: every applicant surfaces one or two more.",
+    "Pay it forward: every applicant names one or two more.",
   ],
 };
 
@@ -188,14 +188,14 @@ export const onboarding = {
   },
 };
 
-export const leverage = {
-  label: "The Highest-Leverage Change",
+export const acceptance = {
+  label: "The biggest change",
   heading: "One email did most of the work.",
-  before: { label: "Before", subject: "Please complete your enrollment", note: "Long, dense, ignored." },
-  after: { label: "After", subject: "Congratulations, you've been selected", cta: "Set up your profile", note: "Short, warm, one action." },
+  before: { label: "Before", subject: "Please complete your enrollment", note: "Long and ignored." },
+  after: { label: "After", subject: "Congratulations, you've been selected", cta: "Set up your profile", note: "Short, with one button." },
   closing: [
-    "The acceptance email was the single highest-leverage moment in the flow. Turning a yes into a feeling of being chosen is what got people to finish their profile.",
-    "I worded it to signal progression, not final acceptance, so nobody gets false hope if they don't pass certification.",
+    "The acceptance email mattered more than any other step. Feeling chosen is what got people to finish their profile.",
+    "I worded it as a step forward, so nobody gets false hope if they don't pass certification.",
   ],
   manager: {
     title: "The note to a speaker's manager",
@@ -206,7 +206,7 @@ export const leverage = {
 };
 
 export const trust = {
-  label: "Building Trust",
+  label: "Building trust",
   heading: "Give coordinators a reason to trust the pick.",
   body: "Ratings from post-briefing surveys plus who-said-what review notes, visible only to coordinators.",
   ratings: {
@@ -226,7 +226,7 @@ export const trust = {
 };
 
 export const dataWork = {
-  label: "The Data Work",
+  label: "The data work",
   heading: "The unglamorous part.",
   before: "IT, AI, cloud stuff. Did a few briefings.",
   after: [
@@ -245,7 +245,7 @@ export const dataWork = {
 };
 
 export const timeline = {
-  label: "Twelve Weeks",
+  label: "Twelve weeks",
   phases: [
     { weeks: "Weeks 1 to 2", work: "Process audit, walkthrough, shadowed a live briefing" },
     { weeks: "Weeks 3 to 5", work: "15+ interviews, intake form audit" },
@@ -277,7 +277,7 @@ export const impact = {
 };
 
 export const handoff = {
-  label: "What I Left Behind",
+  label: "What I left behind",
   heading: "Documented for handoff.",
   body: [
     "I documented the whole system for handoff: a master log, a handoff guide, a workflow playbook, an applicant guide, and a community survey to track completion and training gaps.",
@@ -294,16 +294,16 @@ export const handoff = {
 };
 
 export const lessons = {
-  label: "What I Took From It",
+  label: "What I took from it",
   items: [
     { title: "Fix the model before the tool." },
-    { title: "The acceptance moment is load-bearing.", detail: "It turns a yes into commitment right where the old process lost people." },
-    { title: "Announcements don't drive adoption.", detail: "Emails and channel posts barely moved anyone. What worked was live, in-person enablement, and that changed how I plan every rollout since." },
+    { title: "The acceptance email mattered most.", detail: "It turns a yes into commitment right where the old process lost people." },
+    { title: "Announcements don't work.", detail: "Emails and channel posts barely moved anyone. What worked was live, in-person enablement, and that changed how I plan every rollout since." },
   ],
 };
 
 export const alsoThisSummer = {
-  label: "Also This Summer",
+  label: "Also this summer",
   items: [
     {
       kind: "Team pitch",

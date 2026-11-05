@@ -1,5 +1,5 @@
 /*
- * Résumé content — single source of truth for /resume.
+ * Résumé content: single source of truth for /resume.
  * Ordered most-recent first within each group.
  * `slug` links an entry to its case study in src/data/projects.js.
  */
@@ -30,7 +30,7 @@ export const experience = [
     current: true,
     bullets: [
       "Create social content and manage the Institute's content calendar in Airtable, tracking post performance by format and channel",
-      "Build AI workflows in Claude on the Institute's Meta analytics, surfacing engagement patterns that guide content strategy",
+      "Build Claude workflows that read our Meta analytics and show what's working",
       "Support the email newsletter and recruitment events, including tabling and the fall entrepreneurship expo",
     ],
   },
@@ -41,9 +41,9 @@ export const experience = [
     location: "New York, NY",
     dates: "Summer 2026",
     bullets: [
-      "Led rebuild of the Executive Briefing Center Speakers Bureau; diagnosed 4 root causes of underuse via stakeholder interviews",
-      "Reactivated 500+ dormant speaker profiles and updated 450 expertise notes, making participation trackable for the first time",
-      "Built an 8-step self-serve onboarding flow and AI roleplay-scored certification (75% pass threshold), replacing manual intake",
+      "Led the rebuild of the Executive Briefing Center Speakers Bureau, with 15+ stakeholder interviews and 4 root causes found",
+      "Rewrote 438 expertise notes, standardized 443 bios, and set 300 enrollment dates so participation is trackable",
+      "Designed an application-based model with an AI roleplay certification (80% pass mark) and presented it to ~10 directors",
     ],
   },
   {
@@ -53,8 +53,8 @@ export const experience = [
     location: "Austin, TX",
     dates: "Oct 2025 – May 2026",
     bullets: [
-      "Designed and executed digital marketing assets in Figma and Canva to promote CID programs, events, and partnerships across UT, driving a ~35% increase in program registration over two semesters",
-      "Produced campus-wide collateral (posters, flyers, stickers, apparel, and Instagram content) for CID courses and events",
+      "Designed marketing assets in Figma and Canva for CID programs and events; registration rose ~35% over two semesters",
+      "Made posters, flyers, stickers, apparel, and Instagram content for CID courses and events",
     ],
   },
   {
@@ -64,7 +64,7 @@ export const experience = [
     dates: "Fall 2024 – Spring 2025",
     bullets: [
       "Optimized Baya Systems' SEO strategy, increasing organic traffic by 40% and improving Google ranking for 10+ key terms",
-      "Designed a data-driven content roadmap and analytics dashboard, boosting client engagement rates by 25% and CTR by 18%",
+      "Built a content roadmap and analytics dashboard that raised client engagement 25% and CTR 18%",
     ],
   },
   {
@@ -73,7 +73,7 @@ export const experience = [
     location: "Austin, TX",
     dates: "Fall 2024 – Fall 2025",
     bullets: [
-      "Designed the UI in Figma for HerdUp, a student organization platform improving accessibility and engagement for 24K+ UT users",
+      "Designed the UI in Figma for HerdUp, a student organization platform for 24K+ UT users",
       "Streamlined the user flow for Well Water Finders in Figma, saving the client $9,000 per groundwater drill test",
     ],
   },
@@ -93,7 +93,7 @@ export const experience = [
     location: "Remote",
     dates: "Mar 2023 – Dec 2023",
     bullets: [
-      "Built and scaled a print-on-demand Etsy shop to $6K+/month in revenue through social and SEO-driven marketing",
+      "Built and scaled a print-on-demand Etsy shop to $6K+/month in revenue through social and SEO",
     ],
   },
 ];
@@ -108,11 +108,11 @@ export const leadership = [
     slug: "xplore-austin",
     href: "/work/xplore",
     bullets: [
-      "Founded and shipped an App Store mobile app connecting UT Austin students to small and student-run businesses through curated lists, peer recommendations, and exclusive deals, reaching 700+ downloads",
+      "Shipped the App Store app UT students open to see what's on near campus today, with 700+ downloads and 300+ student accounts",
       "Built the app solo with Claude Code; automated operations with Claude, the Instinct AI agent, and Supabase, Vercel, and PostHog MCPs",
-      "Grew a campus content engine to 300K+ organic views and 1.2K+ followers with zero paid spend, including 127K views in a 30-day period",
-      "Developed a ranked local-guide content format that drove 100K views and 3.7K shares on a single post, 79% from non-followers",
-      "Selected as a Kendra Scott WELI Spark Founder (Jan – May 2026) for mentorship and support to grow monetization and expansion",
+      "Grew Instagram to 246K views in the last 90 days and 1.3K+ followers with $0 ad spend",
+      "Made a ranked list that hit 118,946 views and 4,269 shares, 96% from non-followers",
+      "Selected as a Kendra Scott WELI Spark Founder (Jan – May 2026)",
     ],
   },
   {
@@ -123,7 +123,7 @@ export const leadership = [
     current: true,
     slug: "foundry",
     bullets: [
-      "Build and deploy custom websites for small business owners end to end, from branding and design to development and launch",
+      "Design and build websites for small businesses, from branding to launch",
       "Delivered 2 client sites, Mithas and Kake N Kream, on a React and Vercel stack",
     ],
   },

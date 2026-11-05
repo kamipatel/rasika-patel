@@ -19,7 +19,7 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { ALL_ROUTES, PRERENDER_ROUTES } from "../src/lib/routeMeta.js";
 import { absoluteUrl } from "../src/lib/site.js";
-import { servicenowStaticBody } from "../src/lib/servicenowStatic.js";
+import { homeStaticBody, servicenowStaticBody } from "../src/lib/staticBodies.js";
 
 const DIST = path.resolve("dist");
 const SHELL = path.join(DIST, "index.html");
@@ -29,7 +29,7 @@ const SHELL = path.join(DIST, "index.html");
  * after the React root, so visitors with JS never see it and every route not
  * listed here stays byte-identical to the shell apart from its head tags.
  */
-const STATIC_BODIES = { "/work/servicenow": servicenowStaticBody };
+const STATIC_BODIES = { "/": homeStaticBody, "/work/servicenow": servicenowStaticBody };
 
 /** Escape a value for use inside a double-quoted HTML attribute. */
 const attr = (value) =>
@@ -157,6 +157,10 @@ for (const route of PRERENDER_ROUTES) {
   writeFileSync(path.join(outDir, "index.html"), withStaticBody(buildHead(shell, route), route), "utf8");
   console.log(`  prerendered ${route.path}`);
 }
+
+// "/" is the shell itself, so it is rewritten last, after every route has been
+// built from the untouched shell.
+writeFileSync(SHELL, withStaticBody(shell, { path: "/" }), "utf8");
 
 writeSitemap();
 

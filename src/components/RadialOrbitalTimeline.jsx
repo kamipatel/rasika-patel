@@ -254,16 +254,6 @@ export default function RadialOrbitalTimeline({ reduced }) {
       }}
     >
       <Reveal reduced={reduced}>
-        <span
-          style={{
-            fontFamily: "var(--mono)", fontSize: "13px", letterSpacing: "3px",
-            textTransform: "uppercase", color: "var(--accent)",
-          }}
-        >
-          Timeline
-        </span>
-      </Reveal>
-      <Reveal delay={0.08} reduced={reduced}>
         <h2
           style={{
             fontFamily: "var(--display)",
@@ -275,7 +265,7 @@ export default function RadialOrbitalTimeline({ reduced }) {
             marginBottom: "24px",
           }}
         >
-          Project Orbit
+          Timeline
         </h2>
       </Reveal>
 

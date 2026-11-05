@@ -85,7 +85,7 @@ export const chapters = [
 ];
 
 export const problem = {
-  headline: "Students don't need more reviews. They need a decision.",
+  headline: "Students need a decision.",
   quote:
     "Reviews assume you already have a shortlist. Students don't have a shortlist. They have twenty minutes and a vague craving.",
   body: "So they default to the same five places, and the local and student-run spots three blocks from campus stay invisible.",
@@ -94,7 +94,7 @@ export const problem = {
 export const product = {
   headline: "A decision engine, not a review app.",
   principle:
-    "Every feature had to pass one test: can a UT student decide where to go in under 10 seconds?",
+    "Every feature had to help a UT student decide where to go in under 10 seconds.",
   screens: [
     { src: "/projects/xplore-austin/screens/app-home.jpg", label: "Home", alt: "Home screen with live deals and pop-ups this week" },
     { src: "/projects/xplore-austin/screens/app-events.jpg", label: "Events", alt: "Events list with add to calendar, notify, and share buttons" },
@@ -114,7 +114,7 @@ export const product = {
 
 export const ai = {
   headline: "I built it solo with AI. Then I taught AI to run it.",
-  intro: "I'm a marketing major, so I learned to run AI like an engineering team. Here's what that looks like day to day.",
+  intro: "I'm a marketing major, so I learned to run AI like an engineering team.",
   shipSteps: [
     { title: "One sentence", text: "I describe the feature the way a user would." },
     { title: "Spec from real data", text: "Claude checks the live database and analytics, then writes a scoped prompt." },
@@ -132,7 +132,7 @@ export const ai = {
     title: "AI search that can't make things up",
     query: "somewhere quiet to study that's open now",
     filters: ["Study spot", "Quiet", "Open now", "Near campus"],
-    note: "AI picks the filters. The database picks the places. So every result is a real listing.",
+    note: "AI only picks the filters, so every result is a real listing.",
     meta: "Claude Haiku 4.5 · about 1/8 of a cent per search",
   },
   pipeline: {
@@ -150,7 +150,7 @@ export const ai = {
         { label: "Sept 2026", value: 73, note: "Mostly by hand" },
         { label: "Oct 2026", value: 222, note: "AI pipeline on" },
       ],
-      takeaway: "3x the events. I stopped typing them.",
+      takeaway: "3x the events with no typing.",
     },
   },
   scheduled: [
@@ -191,7 +191,7 @@ export const decisions = {
 };
 
 export const growth = {
-  headline: "Instagram did the marketing. Zero ad spend.",
+  headline: "I grew it on Instagram with $0 in ads.",
   stats: [
     { value: "246,609", label: "Views in the last 90 days" },
     { value: "118,946", label: "Views on one ranked list" },
@@ -253,7 +253,7 @@ export const growth = {
 };
 
 export const traction = {
-  headline: "Usage follows the calendar, not the feature list.",
+  headline: "Usage follows the campus calendar.",
   body: "When there's something happening near campus, students open the app. So the job became keeping the calendar full, which is exactly what the AI pipeline does.",
   chart: {
     title: "People who opened Xplore each month, 2026",
@@ -282,7 +282,7 @@ export const traction = {
 };
 
 export const business = {
-  headline: "Businesses pay. Students never do.",
+  headline: "Only businesses pay.",
   cards: [
     { value: "$41.25", text: "What owners I surveyed said they'd pay each month, on average." },
     { value: "$20/mo", text: "Featured placement, live since Nov 2026, plus a $10 one-week boost." },
@@ -294,8 +294,8 @@ export const lessons = {
   headline: "Three things I'd tell myself in January.",
   items: [
     { title: "Broken looks like boring.", text: "Three times, a feature \"nobody wanted\" was actually just broken. Check the plumbing before you kill the idea." },
-    { title: "Downloads are noise. Coming back is the signal.", text: "Getting people in was never the hard part. What happens after day one is." },
-    { title: "Students follow taste, not crowds.", text: "They won't write reviews. They will follow one person's ranked list." },
+    { title: "Coming back matters more than downloads.", text: "The hard part is what happens after day one." },
+    { title: "Students follow taste.", text: "They won't write reviews. They will follow one person's ranked list." },
   ],
   next: "Next: hand daily operations to interns before I study abroad, land the first paying business, and connect Instagram so posting runs itself.",
 };

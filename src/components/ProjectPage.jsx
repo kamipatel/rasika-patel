@@ -92,11 +92,11 @@ function getLinkMeta(url, captionOrTitle) {
   try {
     const hostname = new URL(url).hostname;
     if (hostname.includes("vercel.app"))
-      return { label: captionOrTitle || "Live Demo", description: "View the live app", icon: Globe, color: "#00C4B4" };
+      return { label: captionOrTitle || "Live demo", description: "View the live app", icon: Globe, color: "#00C4B4" };
     if (hostname.includes("instagram.com"))
       return { label: captionOrTitle || "Instagram", description: "View on Instagram", icon: Instagram, color: "#E1306C" };
     if (hostname.includes("canva.com"))
-      return { label: captionOrTitle || "Canva Design", description: "View design deck", icon: Palette, color: "#7D2AE8" };
+      return { label: captionOrTitle || "Canva design", description: "View design deck", icon: Palette, color: "#7D2AE8" };
     if (hostname.includes("apps.apple.com"))
       return { label: captionOrTitle || "App Store", description: "Download on iOS", icon: Smartphone, color: "#007AFF" };
     if (hostname.includes("drive.google.com"))
@@ -275,7 +275,7 @@ function WellWaterFindersMedia() {
           textTransform: "uppercase",
         }}
       >
-        <span>Swipe to explore</span>
+        <span>Swipe</span>
         <motion.div
           animate={{ x: [0, 5, 0] }}
           transition={{
@@ -409,10 +409,10 @@ export default function ProjectPage() {
     return null;
   }
 
-  // Impacts are either a figure plus a label ("500+ downloads") or a plain
-  // phrase ("Full prototype"). Splitting a phrase on the first space renders
-  // a giant "Full" over "PROTOTYPE", so only split when it starts with a figure.
-  const isFigure = /^[\d$]/.test(project.impact);
+  // Impacts are optional, and are either a figure plus a label ("700+ downloads")
+  // or a plain phrase. Splitting a phrase on the first space renders its first
+  // word as a giant figure, so only split when it starts with a figure.
+  const isFigure = /^[\d$]/.test(project.impact ?? "");
   const impactNum = isFigure ? project.impact.split(" ")[0] : null;
   const impactLabel = isFigure
     ? project.impact.split(" ").slice(1).join(" ")
@@ -541,55 +541,57 @@ export default function ProjectPage() {
         )}
 
         {/* Impact stat */}
-        <div
-          style={{
-            background: "var(--card)",
-            border: "1px solid var(--border)",
-            borderRadius: "20px",
-            padding: isMobile ? "24px" : "40px",
-            display: "flex",
-            flexDirection: isMobile ? "column" : "row",
-            alignItems: isMobile ? "flex-start" : "baseline",
-            gap: isMobile ? "8px" : "16px",
-            marginBottom: "40px",
-          }}
-        >
-          {impactNum && (
-            <div
-              style={{
-                fontFamily: "var(--display)",
-                fontSize: "clamp(40px, 6vw, 64px)",
-                fontWeight: 800,
-                color: "var(--accent)",
-                lineHeight: 1,
-              }}
-            >
-              {impactNum}
-            </div>
-          )}
+        {project.impact && (
           <div
-            style={
-              isFigure
-                ? {
-                    fontFamily: "var(--mono)",
-                    fontSize: "12px",
-                    letterSpacing: "1.5px",
-                    textTransform: "uppercase",
-                    color: "var(--text-dim)",
-                  }
-                : {
-                    fontFamily: "var(--display)",
-                    fontSize: "clamp(22px, 3vw, 30px)",
-                    fontWeight: 700,
-                    letterSpacing: "-0.5px",
-                    color: "var(--accent)",
-                    lineHeight: 1.2,
-                  }
-            }
+            style={{
+              background: "var(--card)",
+              border: "1px solid var(--border)",
+              borderRadius: "20px",
+              padding: isMobile ? "24px" : "40px",
+              display: "flex",
+              flexDirection: isMobile ? "column" : "row",
+              alignItems: isMobile ? "flex-start" : "baseline",
+              gap: isMobile ? "8px" : "16px",
+              marginBottom: "40px",
+            }}
           >
-            {impactLabel}
+            {impactNum && (
+              <div
+                style={{
+                  fontFamily: "var(--display)",
+                  fontSize: "clamp(40px, 6vw, 64px)",
+                  fontWeight: 800,
+                  color: "var(--accent)",
+                  lineHeight: 1,
+                }}
+              >
+                {impactNum}
+              </div>
+            )}
+            <div
+              style={
+                isFigure
+                  ? {
+                      fontFamily: "var(--mono)",
+                      fontSize: "12px",
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color: "var(--text-dim)",
+                    }
+                  : {
+                      fontFamily: "var(--display)",
+                      fontSize: "clamp(22px, 3vw, 30px)",
+                      fontWeight: 700,
+                      letterSpacing: "-0.5px",
+                      color: "var(--accent)",
+                      lineHeight: 1.2,
+                    }
+              }
+            >
+              {impactLabel}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Tags */}
         <div
@@ -752,7 +754,7 @@ export default function ProjectPage() {
                 marginBottom: "24px",
               }}
             >
-              {slug === "herdup" ? "User Interfaces" : "Project Gallery"}
+              {slug === "herdup" ? "User interfaces" : "Project gallery"}
             </div>
             <ImageStrip slug={slug} images={projectImages[slug].images} title={project.title} isMobile={isMobile} />
           </div>
@@ -761,7 +763,7 @@ export default function ProjectPage() {
         {/* Texas Convergent: HerdUp and Well Water Finders, one part each */}
         {slug === "texas-convergent" && <TexasConvergentParts isMobile={isMobile} />}
 
-        {/* SELL Fellowship — Merch Showcase */}
+        {/* SELL Fellowship: merch */}
         {slug === "sell-fellowship" && (
           <div style={{ marginTop: "80px" }}>
             <div
@@ -812,7 +814,7 @@ export default function ProjectPage() {
           </div>
         )}
 
-        {/* SELL Fellowship — Retreat Carousel */}
+        {/* SELL Fellowship: Retreat Carousel */}
         {slug === "sell-fellowship" && (
           <div style={{ marginTop: "80px" }}>
             <div
@@ -842,7 +844,7 @@ export default function ProjectPage() {
                 textTransform: "uppercase",
               }}
             >
-              <span>Swipe to explore</span>
+              <span>Swipe</span>
               <motion.div
                 animate={{ x: [0, 5, 0] }}
                 transition={{
@@ -858,7 +860,7 @@ export default function ProjectPage() {
           </div>
         )}
 
-        {/* Shipped sites — live client work with a preview of each */}
+        {/* Shipped sites: live client work with a preview of each */}
         {project.sites?.length > 0 && (
           <div style={{ marginTop: "80px" }}>
             <div
