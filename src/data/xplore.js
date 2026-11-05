@@ -15,20 +15,20 @@ export const hero = {
   roles: ["Founder", "Product", "Design", "Code with Claude Code", "Growth"],
   dates: "Feb 2025 – Present",
   screens: [
-    { src: "/projects/xplore-austin/screens/home.png", alt: "Xplore Austin home screen with search, Pick For Me, recent reviews, and trending places near campus" },
-    { src: "/projects/xplore-austin/screens/pick-for-me.png", alt: "Pick For Me screen asking where to go for a lunch break, with coffee, food, dessert, and retail options" },
+    { src: "/projects/xplore-austin/screens/app-list.jpg", alt: "Every Matcha in Austin, Ranked: a ranked list in the Xplore app with what to order at each spot" },
+    { src: "/projects/xplore-austin/screens/app-home.jpg", alt: "Xplore home screen: what's on near campus today, with live deals and pop-ups this week" },
   ],
 };
 
 export const proof = [
   { value: "700+", label: "App Store downloads" },
   { value: "300+", label: "UT student accounts" },
-  { value: "400+", label: "Places, pop-ups and vendors" },
+  { value: "246K", label: "Instagram views in the last 90 days" },
   { value: "1.3K+", label: "Instagram followers" },
 ];
 
 export const SOURCES_NOTE =
-  "Numbers as of Nov 4 2026, from the App Store, Supabase, PostHog, GitHub, and Instagram. People counts are unique devices with test traffic removed.";
+  "Numbers as of Nov 4 to 5 2026, from the App Store, Supabase, PostHog, GitHub, and Instagram Insights. People counts are unique devices with test traffic removed.";
 
 /* The three things a recruiter should leave with. Tones map to the site-wide
    highlight colors: ai = violet, product = green, growth = orange. */
@@ -56,8 +56,8 @@ export const tldr = [
     target: "growth",
     title: "Grown on Instagram, no ads",
     points: [
-      "1.3K+ followers, more than 3x since March.",
-      "One ranked list got 3,004 likes. Ad spend: $0.",
+      "246K Instagram views in the last 90 days, 76% from people who don't follow us.",
+      "One ranked list hit 118,946 views and 4,269 shares. Ad spend: $0.",
     ],
   },
 ];
@@ -96,12 +96,12 @@ export const product = {
   principle:
     "Every feature had to pass one test: can a UT student decide where to go in under 10 seconds?",
   screens: [
-    { src: "/projects/xplore-austin/screens/home.png", label: "Home", alt: "Xplore Austin home screen" },
-    { src: "/projects/xplore-austin/screens/pick-for-me.png", label: "Pick For Me", alt: "Pick For Me screen" },
-    { src: "/projects/xplore-austin/screens/discover.png", label: "Discover", alt: "Discover screen with student-run businesses" },
-    { src: "/projects/xplore-austin/screens/map.png", label: "Map", alt: "Map of places around the UT campus" },
+    { src: "/projects/xplore-austin/screens/app-home.jpg", label: "Home", alt: "Home screen with live deals and pop-ups this week" },
+    { src: "/projects/xplore-austin/screens/app-events.jpg", label: "Events", alt: "Events list with add to calendar, notify, and share buttons" },
+    { src: "/projects/xplore-austin/screens/app-list.jpg", label: "Ranked lists", alt: "Every Matcha in Austin, Ranked list" },
+    { src: "/projects/xplore-austin/screens/app-map.jpg", label: "Map", alt: "Map of happy hours, deals, and places around the UT campus" },
   ],
-  screensCaption: "Launch version, Feb 2026",
+  screensCaption: "Screenshots of the live app, Nov 2026",
   features: [
     { icon: "zap", title: "Right now", text: "Live deals, happy hours, and events starting soon sit at the top of Home." },
     { icon: "dice", title: "Pick For Me", text: "One tap, one place, scored on reviews, distance, polls, and what's active." },
@@ -183,7 +183,7 @@ export const decisions = {
     },
     {
       metric: "11",
-      saw: "reviews written a month. But one ranked list got 3,004 likes.",
+      saw: "reviews written a month. But one ranked list got 118,946 views.",
       did: "Bet on ranked lists over crowd reviews. Paid spots sit beside a list, never inside it.",
     },
   ],
@@ -193,9 +193,9 @@ export const decisions = {
 export const growth = {
   headline: "Instagram did the marketing. Zero ad spend.",
   stats: [
-    { value: "1,378", label: "Followers, up from 440 in March" },
-    { value: "3,004", label: "Likes on one ranked list" },
-    { value: "13.2K", label: "Views on a collab with a local cafe" },
+    { value: "246,609", label: "Views in the last 90 days" },
+    { value: "118,946", label: "Views on one ranked list" },
+    { value: "96%", label: "Of that post's views from non-followers" },
     { value: "$0", label: "Spent on ads" },
   ],
   followers: {
@@ -204,44 +204,51 @@ export const growth = {
       { label: "Mar", value: 440 },
       { label: "Apr", value: 700 },
       { label: "Aug", value: 1000, approx: true },
-      { label: "Nov", value: 1378 },
+      { label: "Nov", value: 1379 },
     ],
     annotation: "Summer in NYC, no posts. Still grew.",
   },
-  posts: [
+  formatTest: {
+    title: "Same topic, two formats: views per post",
+    bars: [
+      { label: "Mar 31", value: 6407, note: "First version" },
+      { label: "Aug 31", value: 118946, note: "Full ranking on slide one" },
+    ],
+    takeaway: "Same topic, full list on slide one: 18x the views.",
+  },
+  insights: [
     {
+      image: "/projects/xplore-austin/insights/insights-matcha.jpg",
       url: "https://www.instagram.com/p/DctuGyyEc6x/",
-      title: "The best matcha in Austin, ranked",
       date: "Aug 31 2026",
+      title: "The best matcha in Austin, ranked",
       lesson: "Put the whole ranked list on slide one.",
-      stats: "3,004 likes · 114 comments · 100K views · 3.7K shares",
+      stats: "118,946 views · 4,269 shares · 2,096 saves",
+      alt: "Instagram Insights for the matcha ranking post: 118,946 views, 96.3% from non-followers, 59,573 viewers",
     },
     {
+      image: "/projects/xplore-austin/insights/insights-dine-in-dollars.jpg",
       url: "https://www.instagram.com/p/Dd1r4jYkdHo/",
-      title: "Everywhere you can use your Dine In Dollars",
       date: "Sept 28 2026",
-      lesson: "Solve a real student problem: 25 spots, most people use 4.",
-      stats: "1,051 likes",
+      title: "Everywhere you can use your Dine In Dollars",
+      lesson: "Solve a real student problem. 25 spots, most people use 4.",
+      stats: "51,483 views · 873 shares · 433 saves",
+      alt: "Instagram Insights for the Dine In Dollars post: 51,483 views, 93.7% from non-followers, 22,979 viewers",
     },
     {
-      url: "https://www.instagram.com/p/DbFG1UKAO8f/",
-      title: "Collab with a local matcha cafe",
-      date: "Jul 21 2026",
-      lesson: "Collabs reach people who don't follow you yet.",
-      stats: "13.2K views · 130 shares",
-    },
-    {
-      url: "https://www.instagram.com/p/DUzRYfZDNl2/",
-      title: "Launch week giveaway",
-      date: "Feb 15 2026",
-      lesson: "Comment-to-enter turned launch week into a conversation.",
-      stats: "557 comments",
+      image: "/projects/xplore-austin/insights/insights-account-90d.jpg",
+      url: "https://www.instagram.com/xplore.austin/",
+      date: "Aug 7 to Nov 4 2026",
+      title: "The whole account, last 90 days",
+      lesson: "Three out of four views came from people who didn't follow us yet.",
+      stats: "246,609 views · 75,916 viewers · 75.8% non-followers",
+      alt: "Instagram account insights for the last 90 days: 246,609 views, 75.8% from non-followers, 75,916 viewers, top posts 118K, 51.4K, and 7.9K views",
     },
   ],
   learnings: [
-    "Ranked lists win. Put the full list on slide one.",
-    "Collabs reach people who don't follow you yet.",
-    "Giveaways spike for a day. Lists keep paying off.",
+    "Put the full ranking on slide one. Same topic got 18x the views.",
+    "Lists travel. 96% of the matcha post's views came from people who didn't follow us.",
+    "Solve a real student problem. The Dine In Dollars list hit 51K views.",
   ],
 };
 

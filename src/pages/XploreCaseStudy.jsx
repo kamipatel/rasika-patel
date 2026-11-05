@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import {
@@ -216,11 +216,10 @@ const CSS = `
 .xp-post-head { padding: 18px; display: grid; gap: 8px; align-content: start; min-height: 150px; }
 .xp-post-head strong { font-family: var(--display); font-weight: 700; font-size: 17px; line-height: 1.3; color: var(--text-light); }
 .xp-post-stats { font-family: var(--mono); font-size: 12px; color: var(--accent); }
-.xp-ig { margin: 0 !important; min-width: 0 !important; width: 100% !important; max-width: 100% !important; border-radius: 16px !important; overflow: hidden; border: 1px solid var(--border) !important; background: var(--card) !important; box-shadow: none !important; }
-.xp-ig-fallback { display: block; text-decoration: none; color: inherit; }
-.xp-ig-fallback img { display: block; width: 100%; height: auto; }
-.xp-ig-fallback span { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 14px 16px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mid); }
-.xp-ig-placeholder { aspect-ratio: 4 / 5; display: grid; place-items: center; padding: 24px; text-align: center; font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.25; color: var(--text-light); background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%); }
+.xp-insight { display: block; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #0d1014; text-decoration: none; transition: transform 0.2s ease; }
+.xp-insight:hover { transform: translateY(-3px); }
+.xp-insight img { display: block; width: 100%; height: auto; }
+.xp-insight span { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 14px 16px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: rgba(237,232,245,0.75); border-top: 1px solid rgba(237,232,245,0.08); }
 
 /* Charts */
 .xp-chart { margin: 0; }
@@ -281,6 +280,7 @@ const CSS = `
   .xp-pipeline { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
   .xp-growth-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); }
   .xp-screens { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; margin: 48px 0 0; padding: 0; }
+  .xp-posts { grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; margin: 24px 0 0; padding: 0; -webkit-mask-image: none; mask-image: none; }
 }
 @media (min-width: 960px) {
   .xp-hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 32px; }
@@ -305,7 +305,7 @@ const CSS = `
 @media (prefers-reduced-motion: reduce) {
   .xp-caret { animation: none; }
   .xp-btn, .xp-tldr-card { transition: none; }
-  .xp-btn:hover, .xp-tldr-card:hover { transform: none; }
+  .xp-btn:hover, .xp-tldr-card:hover, .xp-insight:hover { transform: none; }
 }
 `;
 
@@ -423,7 +423,7 @@ function HorizontalBars({ title, bars, tone }) {
                   className="xp-num"
                   style={{ fontSize: last ? 34 : 24, color: last ? tone : "var(--text-mid)" }}
                 >
-                  {b.value}
+                  {b.value.toLocaleString()}
                 </span>
               </div>
               <div className="xp-hbar-track">
@@ -497,63 +497,21 @@ function FollowerLine({ data }) {
   );
 }
 
-/* Instagram embeds load only when the section is close, so the page stays
-   fast. If the embed script is blocked, the styled fallback still links out. */
-function useInstagramEmbeds(ref) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-    const load = () => {
-      if (window.instgrm?.Embeds) {
-        window.instgrm.Embeds.process();
-        return;
-      }
-      if (document.getElementById("ig-embed-js")) return;
-      const s = document.createElement("script");
-      s.id = "ig-embed-js";
-      s.async = true;
-      s.src = "https://www.instagram.com/embed.js";
-      s.onload = () => window.instgrm?.Embeds?.process();
-      document.body.appendChild(s);
-    };
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          load();
-          io.disconnect();
-        }
-      },
-      { rootMargin: "600px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [ref]);
-}
-
-function InstagramPost({ post }) {
+/* A real Instagram Insights screenshot with the lesson it proves. */
+function InsightCard({ item }) {
   return (
     <article className="xp-post">
       <div className="xp-card xp-post-head">
-        <span className="xp-label">{post.date}</span>
-        <strong>{post.lesson}</strong>
-        <span className="xp-post-stats">{post.stats}</span>
+        <span className="xp-label">{item.date}</span>
+        <strong>{item.lesson}</strong>
+        <span className="xp-post-stats">{item.stats}</span>
       </div>
-      <blockquote
-        className="instagram-media xp-ig"
-        data-instgrm-permalink={`${post.url}?utm_source=ig_embed&utm_campaign=loading`}
-        data-instgrm-version="14"
-      >
-        <a className="xp-ig-fallback clickable" href={post.url} target="_blank" rel="noopener noreferrer">
-          {post.image ? (
-            <img src={post.image} alt={`Instagram post: ${post.title}`} loading="lazy" />
-          ) : (
-            <div className="xp-ig-placeholder">{post.title}</div>
-          )}
-          <span>
-            View on Instagram <ArrowUpRight size={16} aria-hidden="true" />
-          </span>
-        </a>
-      </blockquote>
+      <a className="xp-insight clickable" href={item.url} target="_blank" rel="noopener noreferrer">
+        <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
+        <span>
+          {item.title} <ArrowUpRight size={16} aria-hidden="true" />
+        </span>
+      </a>
     </article>
   );
 }
@@ -619,9 +577,6 @@ function ProgressBar() {
 
 export default function XploreCaseStudy() {
   const reduced = !!useReducedMotion();
-  const postsRef = useRef(null);
-  useInstagramEmbeds(postsRef);
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -915,18 +870,34 @@ export default function XploreCaseStudy() {
             </div>
           </div>
 
-          <div className="xp-sub" ref={postsRef}>
+          <div className="xp-card xp-sub">
+            <div className="xp-pipeline">
+              <div>
+                <h3 className="xp-h3">The format test</h3>
+                <p className="xp-body" style={{ marginTop: 12 }}>
+                  I posted a matcha ranking twice. The August version put the whole list on slide one, so people got the answer without swiping, and it's the format I've used since.
+                </p>
+              </div>
+              <div>
+                <HorizontalBars title={growth.formatTest.title} bars={growth.formatTest.bars} tone="var(--accent)" />
+                <p className="xp-takeaway">{growth.formatTest.takeaway}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="xp-sub">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-              <h3 className="xp-h3">The posts</h3>
+              <h3 className="xp-h3">Straight from Instagram Insights</h3>
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="xp-more clickable" style={{ "--tone": "var(--accent)", textDecoration: "none" }}>
-                All posts on Instagram <ArrowUpRight size={14} aria-hidden="true" />
+                @xplore.austin <ArrowUpRight size={14} aria-hidden="true" />
               </a>
             </div>
             <div className="xp-posts">
-              {growth.posts.map((p) => (
-                <InstagramPost key={p.url} post={p} />
+              {growth.insights.map((item) => (
+                <InsightCard key={item.image} item={item} />
               ))}
             </div>
+            <p className="xp-sources">Screenshots of Instagram Insights for @xplore.austin, taken Nov 5 2026.</p>
           </div>
         </Chapter>
 
