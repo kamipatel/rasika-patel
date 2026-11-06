@@ -27,7 +27,8 @@ import {
   useState, 
   useMemo, 
   useRef, 
-  useCallback 
+  useCallback,
+  useLayoutEffect
 } from "react";
 import {
   motion,
@@ -37,6 +38,7 @@ import {
   useSpring,
   useReducedMotion,
 } from "framer-motion";
+import { Link } from "react-router-dom";
 import Marquee from "./components/Marquee";
 import RotatingTitle from "./components/RotatingTitle";
 import { useScrollSequence } from "./components/useScrollSequence";
@@ -326,6 +328,26 @@ function ScrollProgressBar() {
         zIndex: 200,
       }}
     />
+  );
+}
+
+/*
+ * html has scroll-behavior: smooth, so a page's scrollTo(0, 0) on mount glides
+ * up from the About section. Jumping in the commit that swaps the route puts
+ * the linked page at the top before its first paint, and leaves the homepage
+ * in place while it fades out.
+ */
+function AboutLink({ to, children }) {
+  const clicked = useRef(false);
+
+  useLayoutEffect(() => () => {
+    if (clicked.current) window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
+  return (
+    <Link to={to} className="about-link" onClick={() => { clicked.current = true; }}>
+      {children}
+    </Link>
   );
 }
 
@@ -664,7 +686,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             <div>
               <Reveal delay={0.2} reduced={reduced}>
                 <p style={{ fontFamily: "var(--body)", fontSize: "clamp(17px, 2vw, 19px)", color: "var(--text-dim)", lineHeight: 1.75, marginBottom: "18px" }}>
-                  I built <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Xplore Austin</strong> solo with Claude Code. I ran marketing at Texas Momentum, where our content hit <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong>. This summer I interned in marketing at <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>ServiceNow</strong> in New York. Now I'm at the <strong style={{ color: "var(--text-light)", fontWeight: "600" }}>Harkey Institute</strong> at McCombs, running marketing for the entrepreneurship programs and building Claude workflows that turn our Meta analytics into what to post next.
+                  I built <strong style={{ color: "var(--text-light)", fontWeight: "600" }}><AboutLink to="/work/xplore">Xplore Austin</AboutLink></strong> solo with Claude Code. I ran marketing at Texas Momentum, where our content hit <strong style={{ color: "var(--accent)", fontWeight: "600" }}>150K+ organic views</strong>. This summer I interned in marketing at <strong style={{ color: "var(--text-light)", fontWeight: "600" }}><AboutLink to="/work/servicenow">ServiceNow</AboutLink></strong> in New York. Now I'm at the <strong style={{ color: "var(--text-light)", fontWeight: "600" }}><AboutLink to="/projects/harkey">Harkey Institute</AboutLink></strong> at McCombs, running marketing for the entrepreneurship programs and building Claude workflows that turn our Meta analytics into what to post next.
                 </p>
               </Reveal>
               <Reveal delay={0.25} reduced={reduced}>

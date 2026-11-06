@@ -358,6 +358,23 @@ body {
   color: var(--accent);
 }
 
+/* ── About section links ── */
+.about-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.about-link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+.about-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .hide-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
