@@ -63,7 +63,7 @@ export const tldr = [
 ];
 
 export const timeline = [
-  { date: "Jan 2025", text: "Starts as my SELL Fellowship project" },
+  { date: "Feb 2025", text: "Starts as my SELL Fellowship project" },
   { date: "Dec 2025", text: "First usability test with a student" },
   { date: "Jan 2026", text: "First code, written with Claude" },
   { date: "Feb 2026", text: "Fixes 5 App Store review issues, then launches" },

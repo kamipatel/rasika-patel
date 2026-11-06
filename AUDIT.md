@@ -193,7 +193,7 @@ Nothing open.
 2. **"11 projects" on the home stats band.** Now "10 / Projects", matching the grid.
 3. **Harkey job title.** `index.html` structured data now says "Communications & Campus Engagement Intern".
 4. **CID number.** "~35%" everywhere, including the card's impact slot.
-5. **Xplore start date.** Closed with no change: the follow-ups had no edit for this. The dates still say "Feb 2025 – Present", and the case study timeline still starts in Jan 2025.
+5. **Xplore start date.** Feb 2025 is correct. The case study timeline now starts in Feb 2025, matching the "Feb 2025 – Present" dates on the resume, the project card and the case study.
 6. **"Showcase Presenter" on /work/servicenow.** Closed with no change: the follow-ups had no edit for this. It stays as the speaker type name from your form spec.
 7. **ServiceNow onboarding order.** The mockup now shows Application ✓, Profile setup (current), Certification, Enrolled, which matches the new flow.
 8. **ServiceNow workarounds.** The diagram now has 7 informal chips, with "An internal AI tool" added, plus the greyed-out official platform. The "7+ informal workarounds" copy stays.
