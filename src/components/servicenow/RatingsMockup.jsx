@@ -50,7 +50,7 @@ function Bar({ value, tone }) {
   return (
     <div className="sn-rate-bar">
       <span className="sn-rate-track"><span className={`sn-rate-fill ${tone}`} style={{ width: `${(value / SCALE_MAX) * 100}%` }} /></span>
-      <b>{value}</b>
+      <b>{value.toFixed(1)}</b>
     </div>
   );
 }

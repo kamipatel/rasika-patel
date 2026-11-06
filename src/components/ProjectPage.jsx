@@ -412,7 +412,7 @@ export default function ProjectPage() {
   // Impacts are optional, and are either a figure plus a label ("700+ downloads")
   // or a plain phrase. Splitting a phrase on the first space renders its first
   // word as a giant figure, so only split when it starts with a figure.
-  const isFigure = /^[\d$]/.test(project.impact ?? "");
+  const isFigure = /^[~\d$]/.test(project.impact ?? "");
   const impactNum = isFigure ? project.impact.split(" ")[0] : null;
   const impactLabel = isFigure
     ? project.impact.split(" ").slice(1).join(" ")

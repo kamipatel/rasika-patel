@@ -26,7 +26,7 @@ export function homeStaticBody() {
     OPEN,
     "<h1>Rasika Patel</h1>",
     "<p>I build apps, then I get people to use them.</p>",
-    list(stats.map((s) => `${s.val} ${s.label.toLowerCase()}`)),
+    list(stats.map((s) => `${s.val} ${s.label}`)),
     "</main>",
   ].join("");
 }

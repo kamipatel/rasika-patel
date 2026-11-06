@@ -47,6 +47,7 @@ export const context = {
       { label: "Org chart searches" },
       { label: "Other request tools" },
       { label: "Customer advocate recs" },
+      { label: "An internal AI tool" },
       { label: "The official platform", ignored: true },
     ],
     target: "One application-based Bureau",
@@ -167,8 +168,8 @@ export const onboarding = {
   body: "Onboarding pre-fills everything from the application. AI drafts the bio and expertise notes, and the speaker just approves.",
   progress: [
     { label: "Application", state: "done" },
-    { label: "Certification", state: "done" },
     { label: "Profile setup", state: "current" },
+    { label: "Certification", state: "todo" },
     { label: "Enrolled", state: "todo" },
   ],
   prefilled: [
@@ -213,10 +214,10 @@ export const trust = {
     external: { score: "4.5", count: "6 evals" },
     internal: { score: "4.1", count: "3 reviews" },
     briefings: "6",
-    /* Breakdown reuses the overall scores so the mockup adds no new numbers. */
+    /* Fake per-topic scores that average out near the overall ones. */
     breakdown: [
-      { label: "Presenter quality", external: 4.5, internal: 4.1 },
-      { label: "Content delivery", external: 4.5, internal: 4.1 },
+      { label: "Presenter quality", external: 4.5, internal: 4.2 },
+      { label: "Content delivery", external: 4.6, internal: 4.0 },
     ],
     notes: [
       { who: "Briefing lead", date: "Jun 12", text: "Great with healthcare execs. Keep for focus topics." },

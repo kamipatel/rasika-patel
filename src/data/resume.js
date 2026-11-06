@@ -30,7 +30,7 @@ export const experience = [
     current: true,
     bullets: [
       "Create social content and manage the Institute's content calendar in Airtable, tracking post performance by format and channel",
-      "Build Claude workflows that read our Meta analytics and show what's working",
+      "Built Claude workflows that analyze the Institute's Meta analytics to decide what to post next",
       "Support the email newsletter and recruitment events, including tabling and the fall entrepreneurship expo",
     ],
   },
@@ -108,10 +108,10 @@ export const leadership = [
     slug: "xplore-austin",
     href: "/work/xplore",
     bullets: [
-      "Shipped the App Store app UT students open to see what's on near campus today, with 700+ downloads and 300+ student accounts",
-      "Built the app solo with Claude Code; automated operations with Claude, the Instinct AI agent, and Supabase, Vercel, and PostHog MCPs",
+      "Launched a UT-only App Store app for what's on near campus today; 700+ downloads and 300+ student accounts",
+      "Built the app solo with Claude Code; automated operations with Claude, Instinct, and Supabase, Vercel, and PostHog MCPs",
       "Grew Instagram to 246K views in the last 90 days and 1.3K+ followers with $0 ad spend",
-      "Made a ranked list that hit 118,946 views and 4,269 shares, 96% from non-followers",
+      "Created a ranked-list post format; one post hit 118,946 views and 4,269 shares, 96% from non-followers",
       "Selected as a Kendra Scott WELI Spark Founder (Jan – May 2026)",
     ],
   },

@@ -10,7 +10,7 @@ const PROJECT_META = {
   "sell-fellowship":              { gradient: ["#f43f5e", "#ec4899"] },
   "foundry":                      { gradient: ["#fb923c", "#c2410c"] },
   "harkey":                       { gradient: ["#fbbf24", "#b45309"] },
-  "servicenow":                   { gradient: ["#4ade80", "#15803d"] },
+  "servicenow":                   { gradient: ["#FF9F1C", "#E8453C"] },
   "center-for-integrated-design": { gradient: ["#38bdf8", "#2563eb"] },
   "well-water-finders":           { gradient: ["#2dd4bf", "#059669"] },
   "cultured-carrot":              { gradient: ["#f59e0b", "#f97316"] },

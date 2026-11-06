@@ -18,6 +18,7 @@ const CSS = `
 .sn-ch-source { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: ${CHIP_H}px; padding: 8px 14px; border: 1px solid var(--accent-dim); border-radius: 12px; background: var(--accent-bg); color: var(--text-light); font-family: var(--body); font-size: 15px; line-height: 1.25; }
 .sn-ch-source.is-ignored { grid-column: 1 / -1; border-style: dashed; border-color: var(--text-dim); background: transparent; color: var(--text-dim); }
 .sn-ch-source.is-ignored span:first-child { text-decoration: line-through; text-decoration-thickness: 1px; }
+.sn-ch-source:nth-child(odd):nth-last-child(2) { grid-column: 1 / -1; }
 .sn-ch-tag { font-family: var(--mono); font-size: var(--sn-small); letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid currentColor; border-radius: 99px; padding: 2px 8px; white-space: nowrap; }
 .sn-ch-wires { display: block; width: 100%; height: auto; color: var(--accent); overflow: visible; }
 .sn-ch-wires.is-h { display: none; }
@@ -58,7 +59,8 @@ export default function ChannelsDiagram({ data, reduced }) {
   const height = sources.length * CHIP_H + (sources.length - 1) * CHIP_GAP;
   const midY = height / 2;
   const lowerFirst = (text) => text.charAt(0).toLowerCase() + text.slice(1);
-  const label = `${title}. Diagram: ${sources.length} channels coordinators used to find speakers (${sources
+  const informal = sources.filter((s) => !s.ignored).length;
+  const label = `${title}. Diagram: ${informal} informal channels coordinators used to find speakers, plus the one they ignored (${sources
     .map((s) => (s.ignored ? `${lowerFirst(s.label)}, which was ignored` : lowerFirst(s.label)))
     .join(", ")}) converge into ${lowerFirst(target)}.`;
 

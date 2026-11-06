@@ -27,7 +27,7 @@ Every string changed, with why it read as AI and the rewrite. Line numbers are f
 | `src/Portfolio.jsx:1012` | Made with big ideas and too much coffee | Template footer joke. Cut. | (cut) |
 | `src/Portfolio.jsx:640` | ✦ between marquee items (5 marquees) | Decorative ✦ in text people read. | · between marquee items |
 | `src/Portfolio.jsx:103` | Sales Growth | Sentence case. | Sales growth |
-| `src/Portfolio.jsx:104` | Organic Views | Sentence case. The number is under Needs Rasika. | Organic views |
+| `src/Portfolio.jsx:104` | Organic Views | Sentence case. The number is under Resolved. | Organic views |
 | `src/components/ProjectCard.jsx:317` | View Project → | Sentence case. | View project → |
 
 ## Project cards and /projects/* pages
@@ -177,7 +177,7 @@ Also needed for your grep: em dashes removed from code comments in `src/`, and t
 Hits left after the final grep of `src/`, `index.html`, and `dist/`, and why each stayed:
 
 - **"not a review app"**: the one you allowed.
-- **"showcase" (4 in `src/data/servicenow.js`)**: the speaker type name. See Needs Rasika.
+- **"showcase" (4 in `src/data/servicenow.js`)**: the speaker type name. See Resolved.
 - **"driving" (2 in `src/data/resume.js`)**: both have real numbers (121% and 60%), which your rule allows.
 - **✦ in the favicon**: an icon, not text people read. It's in every built HTML file.
 - **`--surface-hover`, `drive.google.com`, "Google Drive"**: a CSS variable, a URL, and a product name.
@@ -185,15 +185,17 @@ Hits left after the final grep of `src/`, `index.html`, and `dist/`, and why eac
 
 ## Needs Rasika
 
-Nothing below was changed.
+Nothing open.
 
-1. **"400K+ organic views" on the home stats band.** It isn't in your fact list. Xplore's 246K plus Texas Momentum's 150K+ is about 396K, so it may be rounded up.
-2. **"11 projects" on the home stats band.** The grid shows 10 cards, `projects.js` has 12 entries, and the marquee lists 11.
-3. **Harkey job title.** `index.html` structured data says "Marketing & Campus Engagement Intern". The resume and card say "Communications & Campus Engagement Intern".
-4. **CID number.** The card says "35% registration lift". The resume and project page say "~35%".
-5. **Xplore start date.** The dates say "Feb 2025 – Present", but the case study timeline starts in Jan 2025.
-6. **"Showcase Presenter" on /work/servicenow.** "Showcase" is banned, but this is the speaker type name from your form spec, so I left it (3 uses plus one fake review note).
-7. **ServiceNow onboarding order.** The mockup shows Certification done before Profile setup, but the new flow puts Profile completion (step 4) before Certification (step 7). Both follow your spec.
-8. **ServiceNow workarounds.** The copy says "7+ informal workarounds". The diagram shows six plus the official platform.
-9. **ServiceNow ratings mockup.** The breakdown bars reuse 4.5 and 4.1 so no new numbers were added, which makes both bars identical.
-10. **ServiceNow card color.** The green gradient on the home card could read as ServiceNow green. It's from before the redesign.
+## Resolved
+
+1. **"400K+ organic views" on the home stats band.** Now "246K / Instagram views in 90 days". The real value is in the DOM and the prerendered HTML.
+2. **"11 projects" on the home stats band.** Now "10 / Projects", matching the grid.
+3. **Harkey job title.** `index.html` structured data now says "Communications & Campus Engagement Intern".
+4. **CID number.** "~35%" everywhere, including the card's impact slot.
+5. **Xplore start date.** Closed with no change: the follow-ups had no edit for this. The dates still say "Feb 2025 – Present", and the case study timeline still starts in Jan 2025.
+6. **"Showcase Presenter" on /work/servicenow.** Closed with no change: the follow-ups had no edit for this. It stays as the speaker type name from your form spec.
+7. **ServiceNow onboarding order.** The mockup now shows Application ✓, Profile setup (current), Certification, Enrolled, which matches the new flow.
+8. **ServiceNow workarounds.** The diagram now has 7 informal chips, with "An internal AI tool" added, plus the greyed-out official platform. The "7+ informal workarounds" copy stays.
+9. **ServiceNow ratings mockup.** Presenter quality is now external 4.5 / internal 4.2, and Content delivery is external 4.6 / internal 4.0.
+10. **ServiceNow card color.** The home card now runs amber to coral (`#FF9F1C` to `#E8453C`), both from the site's hero gradient.
