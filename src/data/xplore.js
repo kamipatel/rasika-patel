@@ -187,7 +187,7 @@ export const decisions = {
       did: "Bet on ranked lists over crowd reviews. Paid spots sit beside a list, never inside it.",
     },
   ],
-  cut: "Also cut: DMs, a friend feed, and leaderboards. Almost nobody used them.",
+  cut: "Also cut: DMs, a friend feed, and leaderboards. Almost no one used them.",
 };
 
 export const growth = {

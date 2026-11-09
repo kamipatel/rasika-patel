@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import ProjectCard from "./ProjectCard";
+import SelectedWorkList from "./SelectedWorkList";
 
-/** The first LARGE_COUNT projects render as big cards; the rest are small. */
+/** Tiers follow array order: big cards, then small cards, then compact rows. */
 const LARGE_COUNT = 2;
+const SMALL_COUNT = 4;
 
 // Big row: 2 columns, 1 below 900px. Small grid: 4 columns, 2 from 600 to
 // 1100px, 1 below 600px.
@@ -14,9 +16,10 @@ const GRID_CSS = `
 @media (max-width: 599.98px) { .work-grid-small { grid-template-columns: minmax(0, 1fr); } }
 `;
 
-export default function ProjectGrid({ projects, reduced }) {
+export default function ProjectGrid({ projects, reduced, isMobile }) {
   const large = projects.slice(0, LARGE_COUNT);
-  const small = projects.slice(LARGE_COUNT);
+  const small = projects.slice(LARGE_COUNT, LARGE_COUNT + SMALL_COUNT);
+  const compact = projects.slice(LARGE_COUNT + SMALL_COUNT);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -106,6 +109,26 @@ export default function ProjectGrid({ projects, reduced }) {
               size="small"
             />
           ))}
+        </div>
+      )}
+
+      {/* Compact rows: one line of proof per project */}
+      {compact.length > 0 && (
+        <div style={{ marginTop: "clamp(40px, 6vw, 56px)" }}>
+          <p
+            style={{
+              fontFamily: "var(--mono)",
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: "2.5px",
+              textTransform: "uppercase",
+              color: "var(--accent)",
+              marginBottom: "16px",
+            }}
+          >
+            More work
+          </p>
+          <SelectedWorkList projects={compact} reduced={reduced} isMobile={isMobile} />
         </div>
       )}
     </div>

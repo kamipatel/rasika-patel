@@ -315,10 +315,23 @@ export default function ResumePage() {
                 textTransform: "uppercase",
                 fontWeight: 700,
                 color: "var(--text-mid)",
-                marginBottom: "22px",
+                marginBottom: "8px",
               }}
             >
               {education.dates}
+            </div>
+
+            <div
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: "11px",
+                letterSpacing: "2px",
+                textTransform: "uppercase",
+                color: "var(--text-mid)",
+                marginBottom: "22px",
+              }}
+            >
+              {education.abroad}
             </div>
 
             <span

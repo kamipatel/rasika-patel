@@ -843,7 +843,7 @@ export default function XploreCaseStudy() {
             <s>DMs</s>
             <s>Friend feed</s>
             <s>Leaderboards</s>
-            <span className="xp-body">Almost nobody used them.</span>
+            <span className="xp-body">Almost no one used them.</span>
           </div>
         </Chapter>
 

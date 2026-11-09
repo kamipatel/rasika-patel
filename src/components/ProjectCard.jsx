@@ -5,7 +5,7 @@ import { springConfig } from "../lib/animation";
 
 const PROJECT_META = {
   "xplore-austin":                { gradient: ["#f97316", "#ef4444"] },
-  "texas-momentum":               { gradient: ["#a855f7", "#4f46e5"] },
+  "texas-momentum":               { gradient: ["#a855f7", "#4f46e5"], ink: "var(--hl-ai)" },
   "herdup":                       { gradient: ["#22d3ee", "#3b82f6"] },
   "sell-fellowship":              { gradient: ["#f43f5e", "#ec4899"] },
   "foundry":                      { gradient: ["#fb923c", "#c2410c"] },
@@ -288,7 +288,8 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
                 fontFamily: "var(--mono)",
                 fontSize: "12px",
                 fontWeight: 700,
-                color: g1,
+                // `ink` overrides g1 where the gradient color is under 4.5:1 as text
+                color: meta.ink ?? g1,
                 letterSpacing: "0.3px",
                 borderLeft: `2px solid ${g1}`,
                 paddingLeft: "8px",

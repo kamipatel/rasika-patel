@@ -11,6 +11,7 @@ export const education = {
   minor: "Minor in Entrepreneurship",
   dates: "Expected May 2028",
   location: "Austin, TX",
+  abroad: "IAU Madrid (study abroad) · Spring 2027",
   coursework: [
     "Software Design",
     "Decision Science",
@@ -30,7 +31,7 @@ export const experience = [
     current: true,
     bullets: [
       "Create social content and manage the Institute's content calendar in Airtable, tracking post performance by format and channel",
-      "Built Claude workflows that analyze the Institute's Meta analytics to decide what to post next",
+      "Build Claude workflows that analyze the Institute's Meta analytics to decide what to post next",
       "Support the email newsletter and recruitment events, including tabling and the fall entrepreneurship expo",
     ],
   },
@@ -43,7 +44,7 @@ export const experience = [
     bullets: [
       "Led the rebuild of the Executive Briefing Center Speakers Bureau, with 15+ stakeholder interviews and 4 root causes found",
       "Rewrote 438 expertise notes, standardized 443 bios, and set 300 enrollment dates so participation is trackable",
-      "Designed an application-based model with an AI roleplay certification (80% pass mark) and presented it to ~10 directors",
+      "Designed an application-based model with an AI roleplay certification (80% pass mark); ~10 directors endorsed it",
     ],
   },
   {

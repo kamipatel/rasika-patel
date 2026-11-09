@@ -37,7 +37,7 @@ export const hero = {
 export const context = {
   label: "The context",
   heading: "High-stakes meetings, sourced by hand.",
-  body: "ServiceNow's Executive Briefing Centers host meetings with C-suite and VP-level customers, and every one needs internal experts in the room. The Speakers Bureau was supposed to be where coordinators found them. In practice, 90 to 95% of profiles were dormant, and coordinators had given up on the official platform for 7+ informal workarounds.",
+  body: "ServiceNow's Executive Briefing Centers host meetings with C-suite and VP-level customers, and every one needs internal experts in the room. The Speakers Bureau was supposed to be where coordinators found them. In practice, 90 to 95% of profiles were dormant, and coordinators mostly worked around the official platform, using 7+ informal channels.",
   channels: {
     title: "Seven channels, one system",
     sources: [
@@ -58,7 +58,7 @@ export const discovery = {
   label: "How I found the real problem",
   heading: "I didn't send a survey.",
   body: "Week one, I got a walkthrough of the manual process and shadowed a live briefing. Then I ran 15+ interviews in two rounds, first to diagnose and then to co-design the fix, with briefing coordinators in New York and London, content and creative leads, the insights analyst, field marketing, and the platform's owner.",
-  pull: "Speakers were coming from word of mouth. The platform built to find them sat unused.",
+  pull: "Most speakers were found through word of mouth, not the platform built to find them.",
   insights: [
     { title: "The platform only knew what someone typed in.", detail: "Bios held the good detail, but nobody could search them." },
     { title: "Topic isn't enough.", detail: "A showcase presenter and a deep-dive expert are different jobs, so matching has to start from the agenda." },
@@ -91,7 +91,7 @@ export const reframe = {
     "Messaging that frames acceptance as recognition",
     "Tracking that makes participation visible and rewardable",
   ],
-  pull: "The old system let anyone in and no one cared. The new system makes you earn it, and that's what makes people actually show up.",
+  pull: "Interviews showed that when anyone could get in, being in didn't mean much. The new model asks people to earn it, to give them a reason to show up.",
 };
 
 export const paths = {
@@ -107,7 +107,7 @@ export const paths = {
 
 export const flow = {
   label: "The new flow",
-  heading: "From six leaky steps to one clear path.",
+  heading: "Six untracked handoffs became one tracked path.",
   before: {
     steps: [
       "Nomination form",
@@ -136,7 +136,7 @@ export const flow = {
 
 export const application = {
   label: "The application",
-  heading: "Short enough that strong speakers actually finish it.",
+  heading: "Designed to be short enough for strong speakers to finish.",
   form: {
     title: "Speaker Application",
     meta: "4 sections · 5 to 10 minutes",
@@ -156,9 +156,9 @@ export const application = {
     referralPrompt: "Know 1 to 2 colleagues who'd be great speakers?",
   },
   annotations: [
-    "5 to 10 minutes, so busy experts finish it.",
-    "Speaker type is captured up front, so showcase presenters and deep-dive experts never get mixed up.",
-    "Pay it forward: every applicant names one or two more.",
+    "Designed to take 5 to 10 minutes, so busy experts can finish it.",
+    "Speaker type is captured up front, so coordinators can tell showcase presenters from deep-dive experts.",
+    "Pay it forward: the form asks each applicant to name one or two more.",
   ],
 };
 
@@ -191,12 +191,12 @@ export const onboarding = {
 
 export const acceptance = {
   label: "The biggest change",
-  heading: "One email did most of the work.",
+  heading: "Designing the moment people say yes.",
   before: { label: "Before", subject: "Please complete your enrollment", note: "Long and ignored." },
   after: { label: "After", subject: "Congratulations, you've been selected", cta: "Set up your profile", note: "Short, with one button." },
   closing: [
-    "The acceptance email mattered more than any other step. Feeling chosen is what got people to finish their profile.",
-    "I worded it as a step forward, so nobody gets false hope if they don't pass certification.",
+    "Interviews showed the old process lost people right after they said yes. So I rewrote the acceptance email to feel like being chosen, with one clear next step.",
+    "I worded it as a step forward, to avoid false hope if someone doesn't pass certification.",
   ],
   manager: {
     title: "The note to a speaker's manager",
@@ -298,8 +298,8 @@ export const lessons = {
   label: "What I took from it",
   items: [
     { title: "Fix the model before the tool." },
-    { title: "The acceptance email mattered most.", detail: "It turns a yes into commitment right where the old process lost people." },
-    { title: "Announcements don't work.", detail: "Emails and channel posts barely moved anyone. What worked was live, in-person enablement, and that changed how I plan every rollout since." },
+    { title: "Design the moment people say yes.", detail: "It's meant to turn a yes into commitment, right where interviews showed the old process lost people." },
+    { title: "Announcements alone don't drive adoption.", detail: "Emails and channel posts barely moved anyone. What worked was live, in-person enablement, and I plan rollouts around that now." },
   ],
 };
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence, useReducedMotion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import Portfolio from "./Portfolio";
 import ProjectPage from "./components/ProjectPage";
 import ResumePage from "./components/ResumePage";
@@ -24,12 +24,10 @@ const useMediaQuery = (query) => {
 
 export default function App() {
   const [theme, setTheme] = useState("dark");
-  const [preloaderDone, setPreloaderDone] = useState(true);
   const [scrollY, setScrollY] = useState(0);
   const [activeNav, setActiveNav] = useState("hero");
   const location = useLocation();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const prefersReduced = useReducedMotion();
 
   useHashScroll(location.hash);
 
@@ -64,7 +62,7 @@ export default function App() {
       if (el) obs.observe(el);
     });
     return () => obs.disconnect();
-  }, [location, preloaderDone]);
+  }, [location]);
 
 
   return (
@@ -81,12 +79,7 @@ export default function App() {
         <Routes location={location} key={location.pathname}>
           <Route
             path="/"
-            element={
-              <Portfolio
-                loaded={preloaderDone || !!prefersReduced}
-                theme={theme}
-              />
-            }
+            element={<Portfolio theme={theme} />}
           />
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/work/xplore" element={<XploreCaseStudy />} />

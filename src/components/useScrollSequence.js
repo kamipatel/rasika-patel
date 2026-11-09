@@ -15,35 +15,6 @@ export function useScrollSequence({
   const rafRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Preload all frames. When disabled (reduced motion or mobile) only frame 0
-  // is ever drawn, so skip the rest of the sequence and fetch just that one;
-  // isLoaded still flips so callers gating visibility on it keep working.
-  useEffect(() => {
-    let cancelled = false;
-    let loadedCount = 0;
-    const count = enabled ? frameCount : 1;
-    const images = new Array(count);
-
-    for (let i = 0; i < count; i++) {
-      const img = new Image();
-      img.src = framePath(i);
-      img.onload = () => {
-        if (cancelled) return;
-        loadedCount++;
-        if (loadedCount === count) {
-          setIsLoaded(true);
-        }
-      };
-      images[i] = img;
-    }
-
-    imagesRef.current = images;
-
-    return () => {
-      cancelled = true;
-    };
-  }, [frameCount, framePath, enabled]);
-
   // Draw a frame with cover-fit
   const drawFrame = useCallback((index) => {
     const canvas = canvasRef.current;
@@ -68,6 +39,40 @@ export function useScrollSequence({
     ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cw, ch);
   }, []);
 
+  // Frame 0 is all the first paint needs, so it loads alone and flips isLoaded.
+  // The other frames only matter once the visitor scrolls, so they start after
+  // it and never hold up the hero. When disabled (reduced motion or mobile)
+  // only frame 0 is ever drawn, so the rest are skipped.
+  useEffect(() => {
+    let cancelled = false;
+    const count = enabled ? frameCount : 1;
+    const images = new Array(count);
+
+    const first = new Image();
+    first.onload = () => {
+      if (cancelled) return;
+      for (let i = 1; i < count; i++) {
+        const img = new Image();
+        // A visitor can stop on a frame before it arrives; paint it when it does.
+        img.onload = () => {
+          if (!cancelled && i === frameIndexRef.current) drawFrame(i);
+        };
+        img.src = framePath(i);
+        images[i] = img;
+      }
+      drawFrame(0);
+      setIsLoaded(true);
+    };
+    first.src = framePath(0);
+    images[0] = first;
+
+    imagesRef.current = images;
+
+    return () => {
+      cancelled = true;
+    };
+  }, [frameCount, framePath, enabled, drawFrame]);
+
   // Resize canvas for retina
   const updateCanvasSize = useCallback(() => {
     const canvas = canvasRef.current;
@@ -76,7 +81,9 @@ export function useScrollSequence({
     const dpr = window.devicePixelRatio || 1;
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
-    drawFrame(frameIndexRef.current);
+    // Resizing clears the canvas; if the current frame hasn't arrived, show frame 0.
+    const current = imagesRef.current[frameIndexRef.current];
+    drawFrame(current?.complete && current.naturalWidth ? frameIndexRef.current : 0);
   }, [drawFrame]);
 
   // Autoplay mode

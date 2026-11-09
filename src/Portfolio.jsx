@@ -40,7 +40,6 @@ import {
 } from "framer-motion";
 import { Link } from "react-router-dom";
 import Marquee from "./components/Marquee";
-import RotatingTitle from "./components/RotatingTitle";
 import { useScrollSequence } from "./components/useScrollSequence";
 import { projects } from "./data/projects";
 import { skillGroups } from "./data/skills";
@@ -48,21 +47,16 @@ import Seo from "./components/Seo";
 import { homeMeta } from "./lib/routeMeta";
 import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
-import CountUp from "./components/CountUp";
 import { stats } from "./data/homeStats";
 import ProjectGrid from "./components/ProjectGrid";
-import RadialOrbitalTimeline from "./components/RadialOrbitalTimeline";
 import Vortex from "./components/Vortex";
 import IconCloud from "./components/IconCloud";
-import VelocityScroll from "./components/VelocityScroll";
 import { Icon, EvervaultCard } from "./components/ui/evervault-card";
 import { Spotlight } from "./components/ui/spotlight";
 import { DotPattern } from "./components/ui/dot-pattern";
 import { Meteors } from "./components/ui/meteors";
 import MagneticButton from "./components/ui/magnetic-button";
 import { FloatingDock } from "./components/ui/floating-dock";
-import { ShineBorder } from "./components/ui/shine-border";
-import { TextEffect } from "./components/ui/text-effect";
 import { AnimatedBeam } from "./components/ui/animated-beam";
 
 const STABLE_ICON_SLUGS = [
@@ -84,7 +78,6 @@ const STABLE_ICON_SLUGS = [
   "nextdotjs",
   "vercel",
   "git",
-  "huggingface",
 ];
 
 /* ─── hooks ─── */
@@ -101,7 +94,6 @@ const useMediaQuery = (query) => {
 };
 
 /* ─── data ─── */
-const skillsMarqueeItems = ["Figma", "Python", "Tableau", "AI Tools", "Canva", "Java", "SQL", "Supabase", "Illustrator", "Qualtrics"];
 // The marquee keeps its own lineup and order, independent of the card grid's
 // order, and leaves out Texas Convergent (its two projects are listed instead).
 const MARQUEE_SLUGS = [
@@ -109,7 +101,11 @@ const MARQUEE_SLUGS = [
   "texas-momentum", "herdup", "sell-fellowship", "well-water-finders", "ama", "cultured-carrot",
 ];
 const projectMarqueeItems = MARQUEE_SLUGS.map((slug) => projects.find((p) => p.slug === slug).title);
-const HERO_ROLES = ["Product Marketer", "AI Builder", "UX Designer", "Founder"];
+const HERO_NAME_GRADIENT = {
+  background: "linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C)",
+  backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite",
+  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+};
 
 /* ─── animation helpers ─── */
 const springConfig = { type: "spring", stiffness: 60, damping: 20 };
@@ -244,79 +240,6 @@ function DrawLine({ reduced }) {
   );
 }
 
-function AnimatedStat({ val, label, reduced, variant = "secondary" }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
-  const [display, setDisplay] = useState("0");
-  const isHero = variant === "hero";
-
-  useEffect(() => {
-    if (!isInView) return;
-    if (reduced) {
-      setDisplay(val);
-      return;
-    }
-
-    const numMatch = val.match(/[\d.]+/);
-    if (!numMatch) { setDisplay(val); return; }
-    const target = parseFloat(numMatch[0]);
-    const prefix = val.slice(0, val.indexOf(numMatch[0]));
-    const suffix = val.slice(val.indexOf(numMatch[0]) + numMatch[0].length);
-    const isFloat = numMatch[0].includes(".");
-    const duration = 1200;
-    const start = performance.now();
-
-    const tick = (now) => {
-      const t = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - t, 3);
-      const current = target * ease;
-      setDisplay(prefix + (isFloat ? current.toFixed(1) : Math.round(current)) + suffix);
-      if (t < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [isInView, val, reduced]);
-
-  return (
-    <motion.div
-      ref={ref}
-      whileHover={reduced ? {} : { scale: 1.03, y: -4 }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      style={{ width: "100%", height: "100%" }}
-    >
-      <ShineBorder
-        borderRadius={isHero ? 40 : 20}
-        borderWidth={1}
-        duration={isHero ? 14 : 20}
-        color={["#FF6B35", "transparent", "#FF6B35"]}
-        className="flex flex-col items-center justify-center h-full w-full bg-[var(--card)]/60 backdrop-blur-xl"
-      >
-        <div style={{ textAlign: "center", padding: isHero ? "10px 0" : "2px 0", width: "100%" }}>
-          <div style={{
-            fontFamily: "var(--display)", 
-            fontSize: isHero ? "68px" : "clamp(24px, 6vw, 32px)", 
-            fontWeight: 800,
-            color: "var(--accent)", lineHeight: 0.9, 
-            marginBottom: isHero ? "10px" : "6px",
-            letterSpacing: isHero ? "-2.5px" : "-1px",
-            whiteSpace: "nowrap"
-          }}>{display}</div>
-          {isHero && (
-            <div style={{
-              width: "30px", height: "3px", background: "var(--accent)",
-              opacity: 0.4, margin: "0 auto 10px", borderRadius: "100px"
-            }} />
-          )}
-          <div style={{
-            fontFamily: "var(--mono)", fontSize: isHero ? "9px" : "8px", 
-            letterSpacing: isHero ? "3px" : "1.5px",
-            textTransform: "uppercase", color: "var(--text-dim)", fontWeight: 700
-          }}>{label}</div>
-        </div>
-      </ShineBorder>
-    </motion.div>
-  );
-}
-
 function ScrollProgressBar() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
@@ -352,7 +275,7 @@ function AboutLink({ to, children }) {
 }
 
 /* ─── main ─── */
-export default function Portfolio({ loaded = false, theme = "dark" }) {
+export default function Portfolio({ theme = "dark" }) {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [formStatus, setFormStatus] = useState("idle");
 
@@ -375,7 +298,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
   const beamToolsRef = useRef(null);
   const beamAIRef = useRef(null);
   const getFramePath = useCallback((i) => `/sequence/frame_${String(i).padStart(3, '0')}.gif`, []);
-  const { canvasRef, isLoaded } = useScrollSequence({
+  const { canvasRef } = useScrollSequence({
     frameCount: 128,
     framePath: getFramePath,
     scrollRef: heroRef,
@@ -393,7 +316,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
   return (
     <motion.div
       key="main-content"
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
@@ -445,7 +368,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           }}
         >
           {/* 1. Interactive Vortex Background */}
-          <Vortex baseHue={20} particleCount={400} />
+          {!reduced && <Vortex baseHue={20} particleCount={400} />}
 
           {/* 2. Monumental Title */}
           <h1 aria-label="Rasika Patel" style={{
@@ -457,46 +380,15 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             zIndex: 10,
             display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(8px, 2vw, 32px)"
           }}>
-            <span aria-hidden="true" style={{ color: "var(--text-light)", textShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>
-              {reduced ? <span>Rasika</span> : (
-                <TextEffect per="char" as="span" preset="blur" delay={0.4} style={{ display: "inline-block" }}>Rasika</TextEffect>
-              )}
-            </span>
+            <span aria-hidden="true" style={{ color: "var(--text-light)", textShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>Rasika</span>
             <span aria-hidden="true" style={{ display: "flex", alignItems: "center" }}>
-              {reduced ? (
-                <span style={{
-                  background: "linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C)",
-                  backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite",
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                }}>Patel</span>
-              ) : (
-                <TextEffect per="char" as="span" preset="blur" delay={0.7}
-                  className="gradient-text-chars"
-                  style={{ display: "inline-block" }}>Patel</TextEffect>
-              )}
-              <span style={{ marginLeft: "clamp(4px, 1vw, 12px)" }}>
-                {reduced ? (
-                  <span style={{
-                    background: "linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C)",
-                    backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite",
-                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                  }}>.</span>
-                ) : (
-                  <TextEffect per="char" as="span" preset="blur" delay={1.0}
-                    className="gradient-text-chars"
-                    style={{ display: "inline-block" }}>.</TextEffect>
-                )}
-              </span>
+              <span style={HERO_NAME_GRADIENT}>Patel</span>
+              <span style={{ ...HERO_NAME_GRADIENT, marginLeft: "clamp(4px, 1vw, 12px)" }}>.</span>
             </span>
           </h1>
 
           {/* 2b. Role Badge */}
-          <div style={{
-            opacity: isLoaded ? 1 : 0,
-            transform: isLoaded ? "translateY(0)" : "translateY(8px)",
-            transition: "all 0.8s cubic-bezier(0.22,1,0.36,1) 0.6s",
-            zIndex: 10,
-          }}>
+          <div style={{ zIndex: 10 }}>
             <span style={{
               display: "inline-block",
               fontFamily: "var(--mono)",
@@ -510,7 +402,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               letterSpacing: "0.03em",
               textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             }}>
-              Marketing{"\u00A0\u00B7\u00A0Harkey Institute"}
+              Product marketer who builds with AI
             </span>
           </div>
 
@@ -530,9 +422,6 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             overflow: "hidden",
             boxShadow: "0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(237,232,245,0.1)",
             zIndex: 5,
-            opacity: isLoaded ? 1 : 0,
-            transform: isLoaded ? "translateY(0)" : "translateY(20px)",
-            transition: "all 1.2s cubic-bezier(0.22,1,0.36,1) 0.8s",
             background: "rgba(0,0,0,0.2)",
             marginTop: "8px"
           }}>
@@ -554,20 +443,8 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             />
           </div>
 
-          {/* 4. Subtitle (Rotating Roles) */}
-          <div style={{
-            opacity: loaded ? 1 : 0, transition: "opacity 1s ease 1.2s",
-            zIndex: 10, display: "flex", justifyContent: "center", width: "100%",
-            marginTop: "8px"
-          }}>
-            <RotatingTitle titles={HERO_ROLES} reduced={reduced} loaded={loaded} />
-          </div>
-
-          {/* 5. Tagline */}
-          <div style={{
-            opacity: loaded ? 1 : 0, transition: "opacity 1s ease 1.4s",
-            zIndex: 10, maxWidth: "600px", textAlign: "center"
-          }}>
+          {/* 4. Tagline */}
+          <div style={{ zIndex: 10, maxWidth: "600px", textAlign: "center" }}>
             <p style={{
               fontFamily: "var(--body)", fontSize: "clamp(16px, 1.6vw, 20px)", fontWeight: 300,
               color: "var(--text-light)", lineHeight: 1.5,
@@ -579,7 +456,7 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             </p>
               <p style={{
                 fontFamily: "var(--mono)", fontSize: "clamp(11px, 1.1vw, 13px)", fontWeight: 400,
-                letterSpacing: "0.4px", color: "var(--text-dim)", lineHeight: 1.6,
+                letterSpacing: "0.4px", color: "var(--text-light)", lineHeight: 1.6,
                 textShadow: "0 2px 12px rgba(0,0,0,0.7)",
                 margin: "14px 0 0"
               }}>
@@ -590,14 +467,12 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               </p>
           </div>
 
-          {/* 6. CTAs */}
+          {/* 5. CTAs */}
           <div style={{
             display: "flex", 
             gap: "16px", 
             flexDirection: isMobile ? "column" : "row",
             justifyContent: "center",
-            opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(20px)",
-            transition: "all 1s cubic-bezier(0.22,1,0.36,1) 1.6s",
             zIndex: 20, pointerEvents: "auto",
             marginTop: "8px", width: isMobile ? "100%" : "auto", 
             maxWidth: isMobile ? "300px" : "none"
@@ -635,12 +510,12 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           }}>
             {stats.map((s) => (
               <div key={s.label}>
-                <CountUp value={s.val} style={{
+                <span style={{
                   display: "block", fontFamily: "var(--display)",
                   fontSize: isMobile ? "clamp(30px, 8.5vw, 38px)" : "clamp(38px, 4vw, 56px)",
                   fontWeight: 800, letterSpacing: "-2px", lineHeight: 1,
                   color: "var(--accent)", fontVariantNumeric: "tabular-nums",
-                }} />
+                }}>{s.val}</span>
                 <span style={{
                   display: "block", marginTop: "10px", fontFamily: "var(--mono)",
                   fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase",
@@ -699,14 +574,6 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           </div>
         </section>
 
-        {/* ── TRANSITION / VELOCITY SCROLL divider ── */}
-        {!isMobile && (
-          <VelocityScroll 
-            text1="Figma • Claude Code • Canva • Airtable •" 
-            text2="Apps • Websites • Instagram • Flyers •" 
-          />
-        )}
-
         {/* ═══════════════════════════════════
            WORK
            ═══════════════════════════════════ */}
@@ -722,20 +589,9 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
             </h2>
           </Reveal>
 
-          {/* Every project is a card: 2 big case studies, then 8 small cards */}
-          <ProjectGrid projects={featuredProjects} reduced={reduced} />
+          {/* Tiers: 2 big case studies, 4 small cards, then compact rows */}
+          <ProjectGrid projects={featuredProjects} reduced={reduced} isMobile={isMobile} />
         </section>
-
-        {/* ── WORK-TIMELINE DIVIDER ── */}
-        <Marquee items={projectMarqueeItems} speed={25} direction="right" separator="·" />
-
-        {/* ═══════════════════════════════════
-           TIMELINE
-           ═══════════════════════════════════ */}
-        <RadialOrbitalTimeline reduced={reduced} />
-
-        {/* ── TIMELINE-SKILLS DIVIDER ── */}
-        <Marquee items={projectMarqueeItems} speed={35} direction="left" separator="·" />
 
         {/* ═══════════════════════════════════
            SKILLS
@@ -851,9 +707,6 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
               </div>
             </div>
         </section>
-
-        {/* ── SKILLS-CONTACT DIVIDER ── */}
-        <Marquee items={projectMarqueeItems} speed={30} direction="right" separator="·" />
 
         {/* ═══════════════════════════════════
            CONTACT
@@ -1001,9 +854,6 @@ export default function Portfolio({ loaded = false, theme = "dark" }) {
           </EvervaultCard>
         </section>
       </main>
-      
-      {/* ── FOOTER DIVIDER ── */}
-      <Marquee items={projectMarqueeItems} speed={40} direction="left" separator="·" />
 
       {/* FOOTER */}
       <Reveal reduced={reduced}>

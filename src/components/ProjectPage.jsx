@@ -126,7 +126,7 @@ function SectionHeading({ index, children }) {
         gap: "12px",
       }}
     >
-      <span style={{ color: "var(--accent)", opacity: 0.5 }}>0{index + 1}</span>
+      <span style={{ color: "var(--accent)" }}>0{index + 1}</span>
       {children}
     </h2>
   );

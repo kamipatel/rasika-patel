@@ -25,7 +25,7 @@ const CONTACT = [
 
 const EXTRAS = [
   ["Technical Skills", "Figma, Canva, Adobe Creative Suite (Illustrator, Photoshop), Airtable, Tableau, Microsoft Office (Excel, PowerPoint), SQL, Python, Java, HTML/CSS, React, React Native, Supabase, Vercel, PostHog, Qualtrics, VS Code"],
-  ["AI Tools", "Claude, Claude Code, Instinct, MCP integrations, Gemini, ChatGPT, Perplexity, Antigravity, OpenClaw"],
+  ["AI Tools", "Claude, Claude Code, MCP integrations, ChatGPT, Gemini, Perplexity"],
   ["Certifications", "Data Science (2023), IT Java Specialist (2024), 200hr Yoga Teacher Training (2025), CPR/AED/FA (2025)"],
   ["Interests", "UX Design, Matcha Connoisseur, Entrepreneurship, AI Tools, Yoga, Breathwork, Building Apps/Websites"],
   ["Work Eligibility", "Eligible to work in the U.S. with no restrictions"],
@@ -120,6 +120,7 @@ function pageHtml() {
     <h2>Education</h2>
     <div class="row"><span><b>${escapeHtml(education.school)}</b> · ${escapeHtml(education.division)}</span><span>${escapeHtml(education.dates)}</span></div>
     <p>${escapeHtml(education.degree)} · ${escapeHtml(education.minor)}</p>
+    <p>${escapeHtml(education.abroad)}</p>
     ${sectionsHtml()}
     <h2>Additional information and skills</h2>
     <div class="extras">${extras}</div>

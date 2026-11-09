@@ -12,8 +12,8 @@
   --hl-ai: #A78BFA;
   --hl-product: #34D399;
   --text-light: rgba(237, 232, 245, 0.92);
-  --text-mid: rgba(237, 232, 245, 0.6);
-  --text-dim: rgba(237, 232, 245, 0.38);
+  --text-mid: rgba(237, 232, 245, 0.7);
+  --text-dim: rgba(237, 232, 245, 0.58);
   --text-faint: rgba(237, 232, 245, 0.06);
   --surface-hover: rgba(237, 232, 245, 0.05);
   --display: 'Bricolage Grotesque', sans-serif;
@@ -26,8 +26,8 @@
   --card: rgba(23, 15, 46, 0.04);
   --border: rgba(23, 15, 46, 0.1);
   --text-light: rgba(23, 15, 46, 0.92);
-  --text-mid: rgba(23, 15, 46, 0.55);
-  --text-dim: rgba(23, 15, 46, 0.4);
+  --text-mid: rgba(23, 15, 46, 0.72);
+  --text-dim: rgba(23, 15, 46, 0.62);
   --text-faint: rgba(23, 15, 46, 0.06);
   --surface-hover: rgba(23, 15, 46, 0.05);
   --hl-ai: #7C3AED;
@@ -123,16 +123,6 @@ body {
   100% {
     background-position: 0% 50%;
   }
-}
-
-.gradient-text-chars > span:not(.sr-only) > span,
-.gradient-text-chars > span:not(.sr-only) > span > span {
-  background: linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C);
-  background-size: 200% 200%;
-  animation: gradShift 6s ease infinite;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 @keyframes glowPulse {
@@ -395,27 +385,6 @@ body {
 
   .featured-card-grid {
     grid-template-columns: 1fr !important;
-  }
-}
-
-/* ── Orbital timeline responsive ── */
-@media (max-width: 768px) {
-  .radial-timeline-orbital {
-    display: none !important;
-  }
-
-  .radial-timeline-linear {
-    display: block !important;
-  }
-}
-
-@media (min-width: 769px) {
-  .radial-timeline-orbital {
-    display: block !important;
-  }
-
-  .radial-timeline-linear {
-    display: none !important;
   }
 }
 

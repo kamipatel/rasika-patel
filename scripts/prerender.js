@@ -31,6 +31,12 @@ const SHELL = path.join(DIST, "index.html");
  */
 const STATIC_BODIES = { "/": homeStaticBody, "/work/servicenow": servicenowStaticBody };
 
+/*
+ * Only the homepage paints the hero portrait, so only its HTML preloads the
+ * first frame. It then downloads alongside the JS instead of after React mounts.
+ */
+const HOME_PRELOAD = '<link rel="preload" as="image" href="/sequence/frame_000.gif" fetchpriority="high" />';
+
 /** Escape a value for use inside a double-quoted HTML attribute. */
 const attr = (value) =>
   String(value)
@@ -160,7 +166,8 @@ for (const route of PRERENDER_ROUTES) {
 
 // "/" is the shell itself, so it is rewritten last, after every route has been
 // built from the untouched shell.
-writeFileSync(SHELL, withStaticBody(shell, { path: "/" }), "utf8");
+const homeShell = replaceOne(shell, /<\/head>/g, `  ${HOME_PRELOAD}\n  </head>`, "</head>");
+writeFileSync(SHELL, withStaticBody(homeShell, { path: "/" }), "utf8");
 
 writeSitemap();
 
