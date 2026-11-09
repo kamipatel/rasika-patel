@@ -26,8 +26,12 @@ export default function PortfolioNav({ activeNav }) {
     { name: "Resume", url: "/resume", icon: FileText },
   ];
 
+  const isWorkPage =
+    location.pathname.startsWith("/work/") ||
+    location.pathname.startsWith("/projects/");
+
   // Route pages own the active state; section tracking only applies on home
-  const activeTab = location.pathname.startsWith("/work/")
+  const activeTab = isWorkPage
     ? "Work"
     : location.pathname === "/resume"
       ? "Resume"
