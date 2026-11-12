@@ -48,7 +48,7 @@ export const context = {
       { label: "Other request tools" },
       { label: "Customer advocate recs" },
       { label: "An internal AI tool" },
-      { label: "The official platform", ignored: true },
+      { label: "The official platform", bypassed: true },
     ],
     target: "One application-based Bureau",
   },
@@ -117,7 +117,7 @@ export const flow = {
       "Welcome email",
       "Training email",
     ],
-    caption: "High drop-off between every step. No reason to finish.",
+    caption: "None of these handoffs were tracked, so no one could see where people dropped out.",
   },
   after: {
     steps: [
@@ -192,7 +192,7 @@ export const onboarding = {
 export const acceptance = {
   label: "The biggest change",
   heading: "Designing the moment people say yes.",
-  before: { label: "Before", subject: "Please complete your enrollment", note: "Long and ignored." },
+  before: { label: "Before", subject: "Please complete your enrollment", note: "Long, with no clear next step." },
   after: { label: "After", subject: "Congratulations, you've been selected", cta: "Set up your profile", note: "Short, with one button." },
   closing: [
     "Interviews showed the old process lost people right after they said yes. So I rewrote the acceptance email to feel like being chosen, with one clear next step.",

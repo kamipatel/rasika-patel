@@ -1,8 +1,8 @@
-import { ArrowDownRight } from "lucide-react";
+import { EyeOff } from "lucide-react";
 import Reveal from "../Reveal";
 
 /*
- * Visual C: the old six-step chain (muted, leaking between every step) above
+ * Visual C: the old six-step chain (muted, untracked between every step) above
  * the new eight-step path, color-coded by who does each step. Horizontal on
  * desktop, a vertical stepper on phones.
  */
@@ -14,8 +14,8 @@ const CSS = `
 
 .sn-before { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; max-width: 560px; }
 .sn-before-step { padding: 12px 16px; border: 1px dashed var(--text-dim); border-radius: 12px; color: var(--text-mid); font-family: var(--body); font-size: 15px; line-height: 1.35; }
-.sn-leak { display: flex; align-items: center; gap: 8px; padding: 6px 0 6px 16px; color: var(--text-mid); font-family: var(--mono); font-size: var(--sn-small); letter-spacing: 0.08em; text-transform: uppercase; }
-.sn-leak svg { flex-shrink: 0; }
+.sn-handoff { display: flex; align-items: center; gap: 8px; padding: 6px 0 6px 16px; color: var(--text-mid); font-family: var(--mono); font-size: var(--sn-small); letter-spacing: 0.08em; text-transform: uppercase; }
+.sn-handoff svg { flex-shrink: 0; }
 
 .sn-legend { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 0 0 22px; padding: 0; list-style: none; }
 .sn-legend li { display: flex; align-items: center; gap: 8px; font-family: var(--body); font-size: 14px; color: var(--text-mid); }
@@ -44,8 +44,8 @@ const CSS = `
 @media (min-width: 1000px) {
   .sn-before { flex-direction: row; align-items: stretch; max-width: none; }
   .sn-before-step { flex: 1 1 0; min-width: 0; display: flex; align-items: center; }
-  .sn-leak { flex-direction: column; justify-content: center; gap: 2px; padding: 0 6px; }
-  .sn-leak-text { display: none; }
+  .sn-handoff { flex-direction: column; justify-content: center; gap: 2px; padding: 0 6px; }
+  .sn-handoff-text { display: none; }
 }
 @media (min-width: 1100px) {
   .sn-after { grid-template-columns: repeat(8, minmax(0, 1fr)); column-gap: 12px; }
@@ -64,9 +64,9 @@ function BeforeChain({ steps, caption }) {
           const item = <li key={step} className="sn-before-step">{step}</li>;
           if (i === 0) return [item];
           return [
-            <li key={`${step}-leak`} className="sn-leak" aria-hidden="true">
-              <ArrowDownRight size={16} />
-              <span className="sn-leak-text">Drop-off</span>
+            <li key={`${step}-handoff`} className="sn-handoff" aria-hidden="true">
+              <EyeOff size={16} />
+              <span className="sn-handoff-text">Untracked</span>
             </li>,
             item,
           ];

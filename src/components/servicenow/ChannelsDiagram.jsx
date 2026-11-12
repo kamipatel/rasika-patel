@@ -16,8 +16,7 @@ const CSS = `
 .sn-ch { display: grid; grid-template-columns: minmax(0, 1fr); }
 .sn-ch-sources { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: ${CHIP_GAP}px; }
 .sn-ch-source { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: ${CHIP_H}px; padding: 8px 14px; border: 1px solid var(--accent-dim); border-radius: 12px; background: var(--accent-bg); color: var(--text-light); font-family: var(--body); font-size: 15px; line-height: 1.25; }
-.sn-ch-source.is-ignored { grid-column: 1 / -1; border-style: dashed; border-color: var(--text-dim); background: transparent; color: var(--text-dim); }
-.sn-ch-source.is-ignored span:first-child { text-decoration: line-through; text-decoration-thickness: 1px; }
+.sn-ch-source.is-bypassed { grid-column: 1 / -1; border-style: dashed; border-color: var(--text-dim); background: transparent; color: var(--text-dim); }
 .sn-ch-source:nth-child(odd):nth-last-child(2) { grid-column: 1 / -1; }
 .sn-ch-tag { font-family: var(--mono); font-size: var(--sn-small); letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid currentColor; border-radius: 99px; padding: 2px 8px; white-space: nowrap; }
 .sn-ch-wires { display: block; width: 100%; height: auto; color: var(--accent); overflow: visible; }
@@ -27,14 +26,14 @@ const CSS = `
   .sn-ch { grid-template-columns: minmax(0, 1fr) ${WIRE_W}px minmax(0, 0.8fr); align-items: center; }
   .sn-ch-sources { grid-template-columns: minmax(0, 1fr); }
   .sn-ch-source { height: ${CHIP_H}px; min-height: 0; }
-  .sn-ch-source.is-ignored { grid-column: auto; }
+  .sn-ch-source.is-bypassed { grid-column: auto; }
   .sn-ch-wires.is-v { display: none; }
   .sn-ch-wires.is-h { display: block; }
 }
 `;
 
-function Wire({ d, index, ignored, reduced }) {
-  if (ignored) {
+function Wire({ d, index, bypassed, reduced }) {
+  if (bypassed) {
     return (
       <motion.path
         d={d} fill="none" stroke="var(--text-dim)" strokeWidth="1.5" strokeDasharray="4 6"
@@ -59,9 +58,9 @@ export default function ChannelsDiagram({ data, reduced }) {
   const height = sources.length * CHIP_H + (sources.length - 1) * CHIP_GAP;
   const midY = height / 2;
   const lowerFirst = (text) => text.charAt(0).toLowerCase() + text.slice(1);
-  const informal = sources.filter((s) => !s.ignored).length;
-  const label = `${title}. Diagram: ${informal} informal channels coordinators used to find speakers, plus the one they ignored (${sources
-    .map((s) => (s.ignored ? `${lowerFirst(s.label)}, which was ignored` : lowerFirst(s.label)))
+  const informal = sources.filter((s) => !s.bypassed).length;
+  const label = `${title}. Diagram: ${informal} informal channels coordinators used to find speakers, plus the official platform they mostly bypassed (${sources
+    .map((s) => (s.bypassed ? `${lowerFirst(s.label)}, mostly bypassed` : lowerFirst(s.label)))
     .join(", ")}) converge into ${lowerFirst(target)}.`;
 
   return (
@@ -71,9 +70,9 @@ export default function ChannelsDiagram({ data, reduced }) {
       <div className="sn-ch" role="img" aria-label={label}>
         <ul className="sn-ch-sources">
           {sources.map((s) => (
-            <li key={s.label} className={`sn-ch-source${s.ignored ? " is-ignored" : ""}`}>
+            <li key={s.label} className={`sn-ch-source${s.bypassed ? " is-bypassed" : ""}`}>
               <span>{s.label}</span>
-              {s.ignored && <span className="sn-ch-tag">Ignored</span>}
+              {s.bypassed && <span className="sn-ch-tag">Mostly bypassed</span>}
             </li>
           ))}
         </ul>
@@ -83,7 +82,7 @@ export default function ChannelsDiagram({ data, reduced }) {
             const y = i * (CHIP_H + CHIP_GAP) + CHIP_H / 2;
             const half = WIRE_W / 2;
             return (
-              <Wire key={s.label} index={i} ignored={s.ignored} reduced={reduced}
+              <Wire key={s.label} index={i} bypassed={s.bypassed} reduced={reduced}
                 d={`M0 ${y} C ${half} ${y}, ${half} ${midY}, ${WIRE_W} ${midY}`} />
             );
           })}
@@ -93,7 +92,7 @@ export default function ChannelsDiagram({ data, reduced }) {
           {sources.map((s, i) => {
             const x = (300 * (i + 0.5)) / sources.length;
             return (
-              <Wire key={s.label} index={i} ignored={s.ignored} reduced={reduced}
+              <Wire key={s.label} index={i} bypassed={s.bypassed} reduced={reduced}
                 d={`M${x} 0 C ${x} 36, 150 36, 150 72`} />
             );
           })}
