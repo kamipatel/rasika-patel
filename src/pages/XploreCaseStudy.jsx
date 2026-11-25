@@ -263,7 +263,7 @@ const CSS = `
 }
 
 @media (min-width: 640px) {
-  .xp-statrow { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .xp-statrow { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
   .xp-features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .xp-decisions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -581,7 +581,7 @@ export default function XploreCaseStudy() {
     window.scrollTo(0, 0);
   }, []);
 
-  const deckParts = hero.deck.split("Solo, with AI,");
+  const deckParts = hero.deck.split("Solo, with Claude Code,");
 
   return (
     <motion.div
@@ -615,7 +615,7 @@ export default function XploreCaseStudy() {
                 <h1 className="xp-h1">{hero.title}</h1>
                 <p className="xp-deck">
                   {deckParts[0]}
-                  <strong>Solo, with AI,</strong>
+                  <strong>Solo, with Claude Code,</strong>
                   {deckParts[1]}
                 </p>
                 <div className="xp-roles" aria-label="My roles">
@@ -773,7 +773,7 @@ export default function XploreCaseStudy() {
               </div>
               <div className="xp-arrow" aria-hidden="true">
                 <ArrowDown size={16} />
-                <span className="xp-label">AI turns it into filters</span>
+                <span className="xp-label">Filters</span>
               </div>
               <div className="xp-filters">
                 {ai.vibe.filters.map((f) => (
@@ -785,7 +785,7 @@ export default function XploreCaseStudy() {
             </div>
 
             <div className="xp-card">
-              <h3 className="xp-h3">AI on a schedule</h3>
+              <h3 className="xp-h3">AI on a schedule (Nov 2026 snapshot)</h3>
               <ul className="xp-tasks">
                 {ai.scheduled.map((t) => (
                   <li key={t.day}>
@@ -921,7 +921,6 @@ export default function XploreCaseStudy() {
               ))}
             </div>
           </div>
-          <StatRow items={traction.stats} tone="var(--accent)" />
         </Chapter>
 
         {/* ── 07 Business ── */}
