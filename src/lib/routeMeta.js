@@ -32,7 +32,7 @@ export const xploreMeta = () => ({
   path: "/work/xplore",
   title: "Xplore Austin Case Study | Rasika Patel",
   description: truncate(
-    "How I built Xplore Austin solo with Claude Code and got 246K Instagram views in 90 days with $0 in ads."
+    "How I built Xplore Austin solo with Claude Code, then grew it on Instagram with ranked lists and $0 in ads."
   ),
 });
 
@@ -40,7 +40,7 @@ export const servicenowMeta = () => ({
   path: "/work/servicenow",
   title: "Rebuilding the Speakers Bureau | Rasika Patel",
   description: truncate(
-    "How I rebuilt ServiceNow's executive Speakers Bureau: 15+ interviews, a new application-based model, and 438 rewritten expertise notes."
+    "How I rebuilt ServiceNow's executive Speakers Bureau: 15+ interviews, a new application-based model, and a handoff to Digital Technology."
   ),
 });
 
