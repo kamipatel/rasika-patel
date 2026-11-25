@@ -402,7 +402,7 @@ export default function Portfolio({ theme = "dark" }) {
               letterSpacing: "0.03em",
               textShadow: "0 2px 8px rgba(0,0,0,0.4)",
             }}>
-              Product marketer who builds with AI
+              AI expert specializing in Claude
             </span>
           </div>
 
