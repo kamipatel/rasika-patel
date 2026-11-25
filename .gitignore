@@ -6,3 +6,6 @@ dist
 .env*.local
 ui-ux-pro-max-skill
 .claude/skills
+
+# Proposed résumé PDFs from scripts/resume-pdf.js; never committed
+proposed/
