@@ -132,7 +132,7 @@ export default function ResumeEntry({ entry, index, reduced, isMobile }) {
         )}
 
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
-          {entry.bullets.map((b) => (
+          {entry.bullets.map((b, i) => (
             <li
               key={b}
               style={{
@@ -145,7 +145,14 @@ export default function ResumeEntry({ entry, index, reduced, isMobile }) {
               }}
             >
               <span style={{ color: "var(--accent)", flexShrink: 0, opacity: 0.7 }}>•</span>
-              <span>{b}</span>
+              <span>
+                {entry.bulletHeads?.[i] && (
+                  <span style={{ display: "block", fontFamily: "var(--mono)", fontSize: "11px", color: "var(--text-dim)" }}>
+                    {entry.bulletHeads[i]}
+                  </span>
+                )}
+                {b}
+              </span>
             </li>
           ))}
         </ul>

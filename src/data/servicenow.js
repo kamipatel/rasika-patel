@@ -28,8 +28,8 @@ export const hero = {
   ],
   glance: [
     "15+ stakeholder interviews",
-    "438 expertise notes rewritten",
-    "443 bios standardized",
+    "4 root causes found",
+    "90 to 95% of ~450 profiles dormant",
     "Presented to ~10 directors",
   ],
 };
@@ -165,7 +165,7 @@ export const application = {
 export const onboarding = {
   label: "Onboarding",
   heading: "No duplicate entry.",
-  body: "Onboarding pre-fills everything from the application. AI drafts the bio and expertise notes, and the speaker just approves.",
+  body: "Onboarding is an 8-step self-serve flow that pre-fills everything from the application. AI drafts the bio and expertise notes, and the speaker just approves.",
   progress: [
     { label: "Application", state: "done" },
     { label: "Profile setup", state: "current" },
@@ -184,7 +184,7 @@ export const onboarding = {
   gate: {
     title: "The certification gate",
     rubric: ["Tone", "Conciseness", "Charisma", "Technical knowledge"],
-    threshold: "80%+ to enroll",
+    threshold: "Pass to enroll",
     body: "Before enrolling, speakers run a custom AI roleplay with an executive persona.",
   },
 };
@@ -238,9 +238,9 @@ export const dataWork = {
     ["Industries", "Banking, Healthcare"],
   ],
   stats: [
-    { value: "438", label: "expertise notes rewritten into this structure" },
-    { value: "443", label: "bios standardized" },
-    { value: "300", label: "enrollment dates set, so participation is trackable for the first time" },
+    { value: "~450", label: "speaker profiles, 90 to 95% of them dormant" },
+    { label: "Expertise notes rewritten into this structure" },
+    { label: "Bios standardized" },
     { label: "Industry labels remapped" },
   ],
 };
@@ -250,7 +250,7 @@ export const timeline = {
   phases: [
     { weeks: "Weeks 1 to 2", work: "Process audit, walkthrough, shadowed a live briefing" },
     { weeks: "Weeks 3 to 5", work: "15+ interviews, intake form audit" },
-    { weeks: "Weeks 6 to 8", work: "Application model, 438 notes and 443 bios, leadership workshop" },
+    { weeks: "Weeks 6 to 8", work: "Application model, expertise notes and bios, leadership workshop" },
     { weeks: "Weeks 9 to 12", work: "Redrawn forms, handoff package, final presentation to leadership" },
   ],
   body: "In July I presented the model to about 10 directors at a leadership workshop. They endorsed it and handed it to the internal tech team to build.",
@@ -261,9 +261,9 @@ export const impact = {
   delivered: {
     label: "Delivered",
     stats: [
-      { value: "438", label: "Expertise notes rewritten" },
-      { value: "443", label: "Bios standardized" },
-      { value: "300", label: "Enrollment dates set" },
+      { value: "5", label: "Lifecycle emails" },
+      { value: "8-step", label: "Self-serve onboarding flow" },
+      { value: "4", label: "Root causes of underuse diagnosed" },
     ],
     outcome: "Model endorsed and handed off to be built",
   },

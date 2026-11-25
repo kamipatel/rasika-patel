@@ -11,7 +11,7 @@ export const INSTAGRAM_URL = "https://www.instagram.com/xplore.austin/";
 export const hero = {
   eyebrow: "Case study",
   title: "Xplore Austin",
-  deck: "I built the app UT students open to see what's on near campus today. Solo, with AI, from first idea to the App Store.",
+  deck: "I built the app UT students open to see what's on near campus today. Solo, with Claude Code, from first idea to the App Store.",
   roles: ["Founder", "Product", "Design", "Code with Claude Code", "Growth"],
   dates: "Feb 2025 – Present",
   screens: [
@@ -22,13 +22,13 @@ export const hero = {
 
 export const proof = [
   { value: "700+", label: "App Store downloads" },
-  { value: "300+", label: "UT student accounts" },
-  { value: "246K", label: "Instagram views in the last 90 days" },
+  { value: "100K+", label: "Views on our matcha rankings post" },
+  { value: "3.7K+", label: "Shares of that post" },
   { value: "1.3K+", label: "Instagram followers" },
 ];
 
 export const SOURCES_NOTE =
-  "Numbers as of Nov 4 to 5 2026, from the App Store, Supabase, PostHog, GitHub, and Instagram Insights. People counts are unique devices with test traffic removed.";
+  "Downloads are from the App Store. The matcha post's views and shares, and the follower count, are from Instagram Insights.";
 
 /* The three things a recruiter should leave with. Tones map to the site-wide
    highlight colors: ai = violet, product = green, growth = orange. */
@@ -38,7 +38,7 @@ export const tldr = [
     target: "ai",
     title: "Built and run with AI",
     points: [
-      "Shipped the whole app solo with Claude Code: 72 merged pull requests and 147 test files.",
+      "Shipped the whole app solo with Claude Code.",
       "An AI pipeline now adds campus events for me. 73 a month by hand became 222 a month on autopilot.",
     ],
   },
@@ -56,8 +56,8 @@ export const tldr = [
     target: "growth",
     title: "Grown on Instagram, no ads",
     points: [
-      "246K Instagram views in the last 90 days, 76% from people who don't follow us.",
-      "One ranked list hit 118,946 views and 4,269 shares. Ad spend: $0.",
+      "Grew the account to 300K+ organic views with zero paid spend, including 127K in a 30-day period.",
+      "One ranked list hit 100K+ views and 3.7K+ shares.",
     ],
   },
 ];
@@ -105,9 +105,9 @@ export const product = {
   features: [
     { icon: "zap", title: "Right now", text: "Live deals, happy hours, and events starting soon sit at the top of Home." },
     { icon: "dice", title: "Pick For Me", text: "One tap, one place, scored on reviews, distance, polls, and what's active." },
-    { icon: "sparkles", title: "Vibe search", text: "Type \"somewhere quiet to study that's open now\" and AI turns it into filters.", ai: true },
+    { icon: "sparkles", title: "Vibe search", text: "A search typed in plain words, like \"somewhere quiet to study that's open now\".", ai: true },
     { icon: "ticket", title: "Show at the counter", text: "Deals open as a screen the cashier can read in one glance." },
-    { icon: "calendar", title: "Pop-ups and events", text: "99 coming up right now. Pop-ups only show on the map while they're live." },
+    { icon: "calendar", title: "Pop-ups and events", text: "A calendar of what's coming up (99 events were listed in early Nov). Pop-ups only show on the map while they're live." },
     { icon: "list", title: "Ranked lists", text: "My taste, in order, with exactly what to get. Never for sale." },
   ],
 };
@@ -119,28 +119,26 @@ export const ai = {
     { title: "One sentence", text: "I describe the feature the way a user would." },
     { title: "Spec from real data", text: "Claude checks the live database and analytics, then writes a scoped prompt." },
     { title: "Build in its own lane", text: "A Claude Code session builds it on its own branch, with tests." },
-    { title: "Pull request", text: "Every change lands as a reviewable PR, never straight to production." },
+    { title: "Plugged into the stack", text: "Claude works with Supabase, Vercel, and PostHog through MCPs." },
     { title: "Verified live", text: "Claude checks it against production before I merge." },
   ],
   shipStats: [
-    { value: "72", label: "Merged pull requests" },
-    { value: "147", label: "Test files" },
-    { value: "30+", label: "Production deploys in 3 weeks" },
-    { value: "18", label: "Database migrations in those 3 weeks" },
+    { value: "30+", label: "Production deploys, Aug 28 to Sept 15 2026" },
+    { value: "18", label: "Database migrations, same stretch" },
   ],
   vibe: {
-    title: "AI search that can't make things up",
+    title: "Example search",
     query: "somewhere quiet to study that's open now",
     filters: ["Study spot", "Quiet", "Open now", "Near campus"],
-    note: "AI only picks the filters, so every result is a real listing.",
-    meta: "Claude Haiku 4.5 · about 1/8 of a cent per search",
+    note: "A search typed in plain words, shown with four filters.",
+    meta: "Illustration, not a screenshot",
   },
   pipeline: {
     title: "The event pipeline runs itself",
     steps: [
       "A vendor posts a pop-up on Instagram",
-      "Instinct, an AI agent, spots it and emails me",
-      "A scheduled Claude task adds it 4x a day, with the right time, place, and no duplicates",
+      "An AI assistant spots it and sends it to me",
+      "Claude adds it to the app with the right time, place, and no duplicates",
       "It shows up on Home",
       "The next morning's push tells students",
     ],
@@ -155,8 +153,8 @@ export const ai = {
   },
   scheduled: [
     { day: "Sun", text: "Sweep UT calendars for new events" },
-    { day: "Wed", text: "Fill gaps so every weekday has 3+ things on" },
-    { day: "Mon", text: "Health check on every automation" },
+    { day: "Wed", text: "Add more campus events to the week" },
+    { day: "Mon", text: "Health check on the automations" },
     { day: "Fri", text: "Analytics report in my inbox" },
   ],
   tools: ["Supabase", "Vercel", "PostHog", "Stripe", "GitHub", "Gmail", "Google Calendar", "Canva"],
@@ -179,11 +177,11 @@ export const decisions = {
     {
       metric: "6x",
       saw: "Events got 6x the taps of weekly specials (28.6% vs 4.7%).",
-      did: "Automated the event supply so every weekday has 3+ things on.",
+      did: "Automated the event supply to add more campus events each week.",
     },
     {
       metric: "11",
-      saw: "reviews written a month. But one ranked list got 118,946 views.",
+      saw: "reviews written a month. But one ranked list got 100K+ views.",
       did: "Bet on ranked lists over crowd reviews. Paid spots sit beside a list, never inside it.",
     },
   ],
@@ -193,9 +191,9 @@ export const decisions = {
 export const growth = {
   headline: "I grew it on Instagram with $0 in ads.",
   stats: [
-    { value: "246,609", label: "Views in the last 90 days" },
-    { value: "118,946", label: "Views on one ranked list" },
-    { value: "96%", label: "Of that post's views from non-followers" },
+    { value: "100K+", label: "Views on the matcha rankings post" },
+    { value: "3.7K+", label: "Shares of that post" },
+    { value: "2K+", label: "Saves of that post" },
     { value: "$0", label: "Spent on ads" },
   ],
   followers: {
@@ -212,7 +210,7 @@ export const growth = {
     title: "Same topic, two formats: views per post",
     bars: [
       { label: "Mar 31", value: 6407, note: "First version" },
-      { label: "Aug 31", value: 118946, note: "Full ranking on slide one" },
+      { label: "Aug 31", value: 119185, note: "Full ranking on slide one" },
     ],
     takeaway: "Same topic, full list on slide one: 18x the views.",
   },
@@ -223,8 +221,8 @@ export const growth = {
       date: "Aug 31 2026",
       title: "The best matcha in Austin, ranked",
       lesson: "Put the whole ranked list on slide one.",
-      stats: "118,946 views · 4,269 shares · 2,096 saves",
-      alt: "Instagram Insights for the matcha ranking post: 118,946 views, 96.3% from non-followers, 59,573 viewers",
+      stats: "100K+ views · 3.7K+ shares · 2K+ saves",
+      alt: "Instagram Insights for the matcha ranking post",
     },
     {
       image: "/projects/xplore-austin/insights/insights-dine-in-dollars.jpg",
@@ -235,19 +233,10 @@ export const growth = {
       stats: "51,483 views · 873 shares · 433 saves",
       alt: "Instagram Insights for the Dine In Dollars post: 51,483 views, 93.7% from non-followers, 22,979 viewers",
     },
-    {
-      image: "/projects/xplore-austin/insights/insights-account-90d.jpg",
-      url: "https://www.instagram.com/xplore.austin/",
-      date: "Aug 7 to Nov 4 2026",
-      title: "The whole account, last 90 days",
-      lesson: "Three out of four views came from people who didn't follow us yet.",
-      stats: "246,609 views · 75,916 viewers · 75.8% non-followers",
-      alt: "Instagram account insights for the last 90 days: 246,609 views, 75.8% from non-followers, 75,916 viewers, top posts 118K, 51.4K, and 7.9K views",
-    },
   ],
   learnings: [
     "Put the full ranking on slide one. Same topic got 18x the views.",
-    "Lists travel. 96% of the matcha post's views came from people who didn't follow us.",
+    "Lists travel. The matcha post got 3.7K+ shares.",
     "Solve a real student problem. The Dine In Dollars list hit 51K views.",
   ],
 };
@@ -273,12 +262,6 @@ export const traction = {
       { at: "Sept", text: "Welcome week + daily events" },
     ],
   },
-  stats: [
-    { value: "1,000+", label: "People since March" },
-    { value: "47", label: "People on the best single day" },
-    { value: "49", label: "Signups over the summer with zero work" },
-    { value: "5.0", label: "App Store rating" },
-  ],
 };
 
 export const business = {

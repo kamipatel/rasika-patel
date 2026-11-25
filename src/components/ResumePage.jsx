@@ -5,7 +5,7 @@ import { useReducedMotion } from "framer-motion";
 import { Mail, Linkedin, FileDown } from "lucide-react";
 import Reveal from "./Reveal";
 import ResumeEntry from "./ResumeEntry";
-import { education, experience, leadership, RESUME_PDF_URL } from "../data/resume";
+import { education, experience, projects, leadership, RESUME_PDF_URL } from "../data/resume";
 import { skillGroups } from "../data/skills";
 import Seo from "./Seo";
 import { resumeMeta } from "../lib/routeMeta";
@@ -158,7 +158,7 @@ export default function ResumePage() {
             marginBottom: "14px",
           }}
         >
-          AI, Marketing &amp; Product · Austin, TX
+          AI expert, Claude focus · Austin, TX
         </div>
 
         <p
@@ -372,6 +372,20 @@ export default function ResumePage() {
         <SectionHead title="Experience" reduced={reduced} />
         <div style={{ marginTop: "24px", marginBottom: "80px", borderTop: "1px solid var(--border)" }}>
           {experience.map((entry, i) => (
+            <ResumeEntry
+              key={entry.org}
+              entry={entry}
+              index={i}
+              reduced={reduced}
+              isMobile={isMobile}
+            />
+          ))}
+        </div>
+
+        {/* ─── Projects ─── */}
+        <SectionHead title="Projects" reduced={reduced} />
+        <div style={{ marginTop: "24px", marginBottom: "80px", borderTop: "1px solid var(--border)" }}>
+          {projects.map((entry, i) => (
             <ResumeEntry
               key={entry.org}
               entry={entry}
