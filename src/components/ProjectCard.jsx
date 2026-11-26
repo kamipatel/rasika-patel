@@ -4,18 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { springConfig } from "../lib/animation";
 
 const PROJECT_META = {
-  "xplore-austin":                { gradient: ["#f97316", "#ef4444"] },
-  "texas-momentum":               { gradient: ["#a855f7", "#4f46e5"], ink: "var(--hl-ai)" },
-  "herdup":                       { gradient: ["#22d3ee", "#3b82f6"] },
-  "sell-fellowship":              { gradient: ["#f43f5e", "#ec4899"] },
-  "foundry":                      { gradient: ["#fb923c", "#c2410c"] },
-  "harkey":                       { gradient: ["#fbbf24", "#b45309"] },
-  "servicenow":                   { gradient: ["#E3EBA6", "#7FA650"] },
-  "center-for-integrated-design": { gradient: ["#38bdf8", "#2563eb"] },
-  "well-water-finders":           { gradient: ["#2dd4bf", "#059669"] },
-  "cultured-carrot":              { gradient: ["#f59e0b", "#f97316"] },
-  "ama":                          { gradient: ["#10b981", "#059669"] },
-  "texas-convergent":             { gradient: ["#22d3ee", "#059669"] },
+  "xplore-austin":                { gradient: ["#9CC25A", "#3F6B21"] },
+  "texas-momentum":               { gradient: ["#C4DB80", "#6F9B3A"], ink: "var(--hl-ai)" },
+  "herdup":                       { gradient: ["#7FA650", "#2F5A2A"] },
+  "sell-fellowship":              { gradient: ["#D5E5A0", "#8FB36B"] },
+  "foundry":                      { gradient: ["#6FA06A", "#2B5A3C"] },
+  "harkey":                       { gradient: ["#B7D46F", "#5C7F2A"] },
+  "servicenow":                   { gradient: ["#9CC25A", "#3F6B21"] },
+  "center-for-integrated-design": { gradient: ["#C4DB80", "#6F9B3A"] },
+  "well-water-finders":           { gradient: ["#7FA650", "#2F5A2A"] },
+  "cultured-carrot":              { gradient: ["#D5E5A0", "#8FB36B"] },
+  "ama":                          { gradient: ["#6FA06A", "#2B5A3C"] },
+  "texas-convergent":             { gradient: ["#B7D46F", "#5C7F2A"] },
 };
 
 /*
@@ -27,7 +27,7 @@ const SIZES = {
   small: { padding: "16px", gap: "12px", tags: 2, title: "18px", role: "13px", desc: "13px", footerGap: "8px" },
 };
 
-const CATEGORY_COLORS = { Marketing: "#3B82F6", "UI/UX": "#C9E4A0", Design: "#B7D46F" };
+const CATEGORY_COLORS = { Marketing: "#4C7A2E", "UI/UX": "#7FA650", Design: "#8FA34A" };
 
 const DESC_CLAMP = {
   display: "-webkit-box",
@@ -36,7 +36,7 @@ const DESC_CLAMP = {
   overflow: "hidden",
 };
 
-const DEFAULT_META = { gradient: ["#6366f1", "#4338ca"] };
+const DEFAULT_META = { gradient: ["#9CC25A", "#3F6B21"] };
 
 /* ─── hooks ─── */
 const useMediaQuery = (query) => {
@@ -289,7 +289,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
                 fontSize: "12px",
                 fontWeight: 700,
                 // `ink` overrides g1 where the gradient color is under 4.5:1 as text
-                color: meta.ink ?? g1,
+                color: "var(--accent)",
                 letterSpacing: "0.3px",
                 borderLeft: `2px solid ${g1}`,
                 paddingLeft: "8px",
