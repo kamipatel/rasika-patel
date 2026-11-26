@@ -47,6 +47,7 @@ import Seo from "./components/Seo";
 import { homeMeta } from "./lib/routeMeta";
 import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
+import LiveTicket from "./components/LiveTicket";
 import RethinkHero from "./components/RethinkHero";
 import ReceiptScroll from "./components/ReceiptScroll";
 import ProjectGrid from "./components/ProjectGrid";
@@ -354,6 +355,7 @@ export default function Portfolio({ theme = "dark" }) {
 
       <main>
         <RethinkHero isMobile={isMobile} />
+        <LiveTicket isMobile={isMobile} />
 
         <ReceiptScroll isMobile={isMobile} />
 
@@ -361,6 +363,7 @@ export default function Portfolio({ theme = "dark" }) {
         <Marquee items={projectMarqueeItems} speed={30} direction="left" separator="·" />
 
         {/* About: the cup label */}
+        <div data-theme="dark" data-block="about" style={{ background: "var(--bg)", color: "var(--text-light)", position: "relative", zIndex: 10 }}>
         <section id="about" aria-label="About section" style={{ padding: "clamp(60px, 8vw, 96px) clamp(24px, 6vw, 80px)", maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 10 }}>
           <Reveal reduced={reduced}>
             <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(34px, 6vw, 64px)", fontWeight: 800, lineHeight: 1.02, letterSpacing: "-1.5px", margin: "0 0 40px", maxWidth: "18ch", overflowWrap: "break-word" }}>
@@ -368,9 +371,10 @@ export default function Portfolio({ theme = "dark" }) {
             </h2>
           </Reveal>
           <AboutLabel />
-        </section>
+        </section></div>
 
         {/* Work: the menu board */}
+        <div data-theme="light" data-block="work" style={{ background: "#E8E1C3", color: "var(--text-light)", position: "relative", zIndex: 10 }}>
         <section id="work" aria-label="Work section" style={{ padding: "clamp(60px, 8vw, 96px) clamp(24px, 6vw, 80px)", maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 10 }}>
           <Reveal reduced={reduced}>
             <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(34px, 6vw, 64px)", fontWeight: 800, lineHeight: 1.02, letterSpacing: "-1.5px", margin: "0 0 40px", maxWidth: "18ch", overflowWrap: "break-word" }}>
@@ -378,9 +382,10 @@ export default function Portfolio({ theme = "dark" }) {
             </h2>
           </Reveal>
           <ProjectGrid projects={featuredProjects} reduced={reduced} isMobile={isMobile} />
-        </section>
+        </section></div>
 
         {/* Skills: the customizer */}
+        <div data-theme="light" data-block="skills" style={{ background: "#CBD981", color: "var(--text-light)", position: "relative", zIndex: 10 }}>
         <section id="skills" aria-label="Skills section" style={{ padding: "clamp(60px, 8vw, 96px) clamp(24px, 6vw, 80px)", maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 10 }}>
           <Reveal reduced={reduced}>
             <h2 style={{ fontFamily: "var(--display)", fontSize: "clamp(34px, 6vw, 64px)", fontWeight: 800, lineHeight: 1.02, letterSpacing: "-1.5px", margin: "0 0 40px", maxWidth: "18ch", overflowWrap: "break-word" }}>
@@ -388,12 +393,13 @@ export default function Portfolio({ theme = "dark" }) {
             </h2>
           </Reveal>
           <SkillsOrder />
-        </section>
+        </section></div>
 
         {/* Contact: the pickup window */}
+        <div data-theme="dark" data-block="contact" style={{ background: "var(--bg)", color: "var(--text-light)", position: "relative", zIndex: 10 }}>
         <section id="contact" aria-label="Contact section" style={{ padding: "clamp(40px, 6vw, 80px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)", maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 10 }}>
           <PickupWindow />
-        </section>
+        </section></div>
 
       </main>
 
