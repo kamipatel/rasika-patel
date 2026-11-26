@@ -1,37 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg: #170F2E;
-  --card: rgba(237, 232, 245, 0.04);
-  --border: rgba(237, 232, 245, 0.08);
-  --accent: #FF6B35;
-  --accent-dim: rgba(255, 107, 53, 0.35);
-  --accent-bg: rgba(255, 107, 53, 0.1);
-  --accent-glow: rgba(255, 107, 53, 0.25);
-  --secondary: #4D8BFF;
-  --hl-ai: #A78BFA;
-  --hl-product: #34D399;
-  --text-light: rgba(237, 232, 245, 0.92);
-  --text-mid: rgba(237, 232, 245, 0.7);
-  --text-dim: rgba(237, 232, 245, 0.58);
-  --text-faint: rgba(237, 232, 245, 0.06);
-  --surface-hover: rgba(237, 232, 245, 0.05);
+  --bg: #14201A;
+  --card: rgba(238,242,222, 0.04);
+  --border: rgba(238,242,222, 0.08);
+  --accent: #B7D46F;
+  --accent-dim: rgba(183,212,111, 0.35);
+  --accent-bg: rgba(183,212,111, 0.1);
+  --accent-glow: rgba(183,212,111, 0.25);
+  --secondary: #8FB36B;
+  --hl-ai: #C9E4A0;
+  --hl-product: #E6D9AE;
+  --text-light: rgba(238,242,222, 0.92);
+  --text-mid: rgba(238,242,222, 0.7);
+  --text-dim: rgba(238,242,222, 0.58);
+  --text-faint: rgba(238,242,222, 0.06);
+  --surface-hover: rgba(238,242,222, 0.05);
   --display: 'Bricolage Grotesque', sans-serif;
   --body: 'Outfit', sans-serif;
   --mono: 'IBM Plex Mono', monospace;
 }
 
 [data-theme="light"] {
-  --bg: #F0ECF5;
-  --card: rgba(23, 15, 46, 0.04);
-  --border: rgba(23, 15, 46, 0.1);
-  --text-light: rgba(23, 15, 46, 0.92);
-  --text-mid: rgba(23, 15, 46, 0.72);
-  --text-dim: rgba(23, 15, 46, 0.62);
-  --text-faint: rgba(23, 15, 46, 0.06);
-  --surface-hover: rgba(23, 15, 46, 0.05);
-  --hl-ai: #7C3AED;
-  --hl-product: #059669;
+  --bg: #F3F0E2;
+  --card: rgba(20,32,26, 0.04);
+  --border: rgba(20,32,26, 0.1);
+  --text-light: rgba(20,32,26, 0.92);
+  --text-mid: rgba(20,32,26, 0.72);
+  --text-dim: rgba(20,32,26, 0.62);
+  --text-faint: rgba(20,32,26, 0.06);
+  --surface-hover: rgba(20,32,26, 0.05);
+  --hl-ai: #3F6B3A;
+  --accent: #5C7F2A;
+  --accent-dim: rgba(92, 127, 42, 0.4);
+  --accent-bg: rgba(92, 127, 42, 0.12);
+  --accent-glow: rgba(92, 127, 42, 0.25);
+  --secondary: #7FA650;
+  --hl-product: #9A6B34;
 }
 
 *,
