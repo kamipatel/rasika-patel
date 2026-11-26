@@ -135,7 +135,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
       } : undefined}
       transition={reduced ? { duration: 0.01 } : { ...springConfig, delay: index * 0.06 }}
       onClick={handleCardClick}
-      style={{ cursor: "pointer", height: "100%", borderRadius: index === 0 ? "2px" : index % 2 === 0 ? "16px" : "8px" }}
+      style={{ cursor: "pointer", height: "100%", borderRadius: "20px" }}
     >
       <div
         onMouseMove={handleMouseMove}
@@ -143,14 +143,12 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
         style={{
           position: "relative",
           height: "100%",
-          borderRadius: "12px",
+          borderRadius: "20px",
           padding: s.padding,
           overflow: "hidden",
-          background: "var(--card)",
-          border: hovered
-            ? `1px solid rgba(${g1Rgb}, 0.5)`
-            : `1px solid var(--border)`,
-          transform: `perspective(800px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+          background: "var(--foam)",
+          border: "2px solid var(--text-light)",
+          transform: "none",
           transition: "transform 0.15s ease-out, background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease",
           display: "flex",
           flexDirection: "column",
@@ -162,7 +160,7 @@ export default function ProjectCard({ project, index, reduced, isActive, onActiv
           position: "absolute",
           inset: 0,
           background: gradientStr,
-          opacity: hovered ? 0.15 : 0.08,
+          opacity: hovered ? 0.34 : 0.24,
           borderRadius: "inherit",
           pointerEvents: "none",
           transition: "opacity 0.3s ease",
