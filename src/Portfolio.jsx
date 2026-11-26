@@ -414,6 +414,7 @@ export default function Portfolio({ theme = "dark" }) {
           </div>
         </footer>
       </Reveal>
+      {isMobile && <div aria-hidden="true" style={{ height: 64 }} />}
     </motion.div>
   );
 }
