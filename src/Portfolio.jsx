@@ -41,6 +41,7 @@ import {
 import { Link } from "react-router-dom";
 import Marquee from "./components/Marquee";
 import { useScrollSequence } from "./components/useScrollSequence";
+import MatchaScroll from "./components/MatchaScroll";
 import { projects } from "./data/projects";
 import { skillGroups } from "./data/skills";
 import Seo from "./components/Seo";
@@ -102,7 +103,7 @@ const MARQUEE_SLUGS = [
 ];
 const projectMarqueeItems = MARQUEE_SLUGS.map((slug) => projects.find((p) => p.slug === slug).title);
 const HERO_NAME_GRADIENT = {
-  background: "linear-gradient(135deg, #FF6B35, #E8453C, #FF9F1C)",
+  background: "linear-gradient(135deg, #B7D46F, #7FA650, #E3EBA6)",
   backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite",
   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
 };
@@ -341,7 +342,7 @@ export default function Portfolio({ theme = "dark" }) {
         <div style={{
           position: "fixed", left: mouse.x - 250, top: mouse.y - 250,
           width: 500, height: 500,
-          background: "radial-gradient(circle, rgba(255,107,53,0.04), transparent 70%)",
+          background: "radial-gradient(circle, rgba(183,212,111,0.04), transparent 70%)",
           borderRadius: "50%", pointerEvents: "none", zIndex: 1,
           transition: "left 0.6s cubic-bezier(0.22,1,0.36,1), top 0.6s cubic-bezier(0.22,1,0.36,1)",
           filter: "blur(20px)",
@@ -368,7 +369,7 @@ export default function Portfolio({ theme = "dark" }) {
           }}
         >
           {/* 1. Interactive Vortex Background */}
-          {!reduced && <Vortex baseHue={20} particleCount={400} />}
+          {!reduced && <Vortex baseHue={78} particleCount={400} />}
 
           {/* 2. Monumental Title */}
           <h1 aria-label="Rasika Patel" style={{
@@ -420,7 +421,7 @@ export default function Portfolio({ theme = "dark" }) {
             position: "relative",
             borderRadius: "200px 200px 0 0",
             overflow: "hidden",
-            boxShadow: "0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(237,232,245,0.1)",
+            boxShadow: "0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(238,242,222,0.1)",
             zIndex: 5,
             background: "rgba(0,0,0,0.2)",
             marginTop: "8px"
@@ -439,6 +440,7 @@ export default function Portfolio({ theme = "dark" }) {
                 // of background above the hair survives as headroom;
                 // scale(1.2) translateY(5%) cut source rows 0-8 instead.
                 transform: "scale(1.1) translateY(4%)",
+                filter: "sepia(0.55) hue-rotate(38deg) saturate(0.85) brightness(1.02)",
               }}
             />
           </div>
@@ -526,6 +528,8 @@ export default function Portfolio({ theme = "dark" }) {
           </div>
         </section>
 
+        <MatchaScroll isMobile={isMobile} />
+
         {/* ── HERO-ABOUT DIVIDER ── */}
         <Marquee items={projectMarqueeItems} speed={30} direction="left" separator="·" />
 
@@ -582,7 +586,7 @@ export default function Portfolio({ theme = "dark" }) {
             <h2 style={{ fontFamily: "var(--display)", fontSize: isMobile ? "clamp(32px, 9vw, 44px)" : "clamp(40px, 7vw, 80px)", fontWeight: 800, letterSpacing: isMobile ? "-1px" : "-3px", lineHeight: 0.95, marginTop: "16px", marginBottom: "48px" }}>
               Selected{" "}
               <span style={{
-                background: "linear-gradient(135deg, var(--accent), #E8453C)",
+                background: "linear-gradient(135deg, var(--accent), #7FA650)",
                 backgroundSize: "200% 200%", animation: "gradShift 5s ease infinite",
                 WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
               }}>work</span>
@@ -649,11 +653,11 @@ export default function Portfolio({ theme = "dark" }) {
                   </div>
 
                   {/* Animated beams from hub to each category */}
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamDesignRef} curvature={50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={0} duration={4} />
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamCodeRef} curvature={50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={0.5} duration={4} />
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAnalyticsRef} curvature={50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={1} duration={4} />
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamToolsRef} curvature={-50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={1.5} duration={4} />
-                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAIRef} curvature={-50} gradientStartColor="var(--accent)" gradientStopColor="#E8453C" pathColor="var(--border)" delay={2} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamDesignRef} curvature={50} gradientStartColor="var(--accent)" gradientStopColor="#7FA650" pathColor="var(--border)" delay={0} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamCodeRef} curvature={50} gradientStartColor="var(--accent)" gradientStopColor="#7FA650" pathColor="var(--border)" delay={0.5} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAnalyticsRef} curvature={50} gradientStartColor="var(--accent)" gradientStopColor="#7FA650" pathColor="var(--border)" delay={1} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamToolsRef} curvature={-50} gradientStartColor="var(--accent)" gradientStopColor="#7FA650" pathColor="var(--border)" delay={1.5} duration={4} />
+                  <AnimatedBeam containerRef={beamContainerRef} fromRef={beamHubRef} toRef={beamAIRef} curvature={-50} gradientStartColor="var(--accent)" gradientStopColor="#7FA650" pathColor="var(--border)" delay={2} duration={4} />
                 </div>
               )}
 
@@ -712,7 +716,7 @@ export default function Portfolio({ theme = "dark" }) {
            CONTACT
            ═══════════════════════════════════ */}
         <section id="contact" aria-label="Contact section" style={{ padding: "clamp(40px, 5vw, 60px) clamp(24px, 6vw, 80px)", maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 10 }}>
-          <div style={{ position: "absolute", top: "20%", left: "10%", width: "600px", height: "600px", background: "radial-gradient(circle, rgba(255,107,53,0.05), transparent 60%)", borderRadius: "50%", filter: "blur(100px)", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", top: "20%", left: "10%", width: "600px", height: "600px", background: "radial-gradient(circle, rgba(183,212,111,0.05), transparent 60%)", borderRadius: "50%", filter: "blur(100px)", pointerEvents: "none" }} />
 
           {/* Core Spotlight effect over the background */}
 
@@ -750,14 +754,14 @@ export default function Portfolio({ theme = "dark" }) {
                   }}
                   whileHover={reduced ? {} : { 
                     scale: 1.05, 
-                    textShadow: "0 0 50px rgba(255,107,53,0.6)"
+                    textShadow: "0 0 50px rgba(183,212,111,0.6)"
                   }}
                 >
                   rasikap@utexas.edu
                 </MagneticButton>
               </Reveal>
 
-              <div style={{ width: "1px", height: "12px", background: "var(--border)", margin: "8px auto", boxShadow: "0 0 10px rgba(255,107,53,0.3)" }} />
+              <div style={{ width: "1px", height: "12px", background: "var(--border)", margin: "8px auto", boxShadow: "0 0 10px rgba(183,212,111,0.3)" }} />
 
               <div style={{ position: "relative", zIndex: 20, width: "100%", display: "flex", justifyContent: "center" }}>
                 <FloatingDock
@@ -868,4 +872,4 @@ export default function Portfolio({ theme = "dark" }) {
       </Reveal>
     </motion.div>
   );
-}
+          }
