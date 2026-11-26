@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 
 const TABS = [
@@ -40,9 +40,10 @@ const CSS = `
 .about-label dt { color: var(--text-dim); font-size: 12px; margin-top: 14px; }
 .about-label dd { margin: 2px 0 0; color: var(--text-light); font-weight: 600; }
 .about-copy { grid-column: 6 / span 7; }
-.about-chips { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: nowrap; }
-.about-chip { font-family: var(--body); font-size: 16px; font-weight: 600; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1.5px solid var(--text-light); background: transparent; color: var(--text-light); cursor: pointer; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 160ms cubic-bezier(0.23,1,0.32,1); }
-.about-chip[aria-pressed="true"] { background: var(--text-light); color: var(--bg); }
+.about-chips { position: relative; display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: nowrap; }
+.about-ind { position: absolute; left: 0; top: 0; height: 44px; border-radius: 999px; background: var(--text-light); transition: transform 220ms cubic-bezier(0.77,0,0.175,1), width 220ms cubic-bezier(0.77,0,0.175,1); pointer-events: none; }
+.about-chip { position: relative; z-index: 1; font-family: var(--body); font-size: 16px; font-weight: 600; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1.5px solid var(--text-light); background: transparent; color: var(--text-light); cursor: pointer; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 160ms cubic-bezier(0.23,1,0.32,1); }
+.about-chip[aria-pressed="true"] { color: var(--bg); }
 .about-chip:active { transform: scale(0.97); }
 .about-chip:focus-visible, .about-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .about-body { font-family: var(--body); font-size: clamp(18px, 2vw, 21px); line-height: 1.6; max-width: 58ch; color: var(--text-light); margin: 0; animation: aboutIn 200ms cubic-bezier(0.23,1,0.32,1); }
@@ -52,13 +53,19 @@ const CSS = `
   .about-wrap { gap: 28px; } .about-label, .about-copy { grid-column: 1 / -1; } .about-label { padding: 20px; }
   .about-chips { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; } .about-chip { scroll-snap-align: start; flex: none; }
 }
-@media (prefers-reduced-motion: reduce) { .about-body { animation: aboutFade 120ms linear; } .chip, .about-chip { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .about-body { animation: aboutFade 120ms linear; } .about-chip, .about-ind { transition: none; } }
 @keyframes aboutFade { from { opacity: 0; } to { opacity: 1; } }
 `;
 
 export default function AboutLabel() {
   const [tab, setTab] = useState("marketing");
   const current = TABS.find((t) => t.id === tab);
+  const btns = useRef({});
+  const [ind, setInd] = useState({ x: 0, w: 0 });
+  useLayoutEffect(() => {
+    const el = btns.current[tab];
+    if (el) setInd({ x: el.offsetLeft, w: el.offsetWidth });
+  }, [tab]);
   return (
     <div className="about-wrap">
       <style>{CSS}</style>
@@ -73,8 +80,9 @@ export default function AboutLabel() {
       </div>
       <div className="about-copy">
         <div className="about-chips" role="group" aria-label="Pick a topic">
+          <span className="about-ind" aria-hidden="true" style={{ width: ind.w, transform: `translateX(${ind.x}px)` }} />
           {TABS.map((t) => (
-            <button key={t.id} type="button" className="about-chip" aria-pressed={tab === t.id} onClick={() => setTab(t.id)}>{t.label}</button>
+            <button key={t.id} ref={(el) => (btns.current[t.id] = el)} type="button" className="about-chip" aria-pressed={tab === t.id} onClick={() => setTab(t.id)}>{t.label}</button>
           ))}
         </div>
         <p className="about-body" key={tab} aria-live="polite">{current.body}</p>
