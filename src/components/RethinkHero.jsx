@@ -1,4 +1,5 @@
 import { useReducedMotion } from "framer-motion";
+import MatchaDust from "./MatchaDust";
 
 /* Home hero. Lime backdrop, the name set huge, a latte photographed on the same lime, one slowly turning badge. */
 
@@ -38,6 +39,7 @@ export default function RethinkHero({ isMobile }) {
         .rk-btn:hover { transform: translateY(-2px) rotate(-1deg); }
         .rk-btn:focus-visible { outline: 3px solid ${INK}; outline-offset: 3px; }
       `}</style>
+      <MatchaDust reduced={reduced} />
 
       <div style={{
         padding: isMobile ? "96px 24px 28px" : "120px clamp(24px, 5vw, 72px) 56px clamp(24px, 6vw, 88px)",
