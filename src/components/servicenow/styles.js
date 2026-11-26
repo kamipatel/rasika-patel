@@ -56,7 +56,7 @@ export const BASE_CSS = `
 /* Paper mockups */
 .sn-mock { margin: 0; min-width: 0; }
 .sn-paper { background: var(--sn-paper); color: var(--sn-ink); border-radius: 18px; box-shadow: 0 32px 64px -32px rgba(0, 0, 0, 0.75), 0 2px 8px rgba(0, 0, 0, 0.25); font-family: var(--body); font-size: 14px; line-height: 1.5; overflow: hidden; }
-[data-theme="light"] .sn-paper { border: 1px solid rgba(23, 15, 46, 0.08); box-shadow: 0 24px 56px -28px rgba(23, 15, 46, 0.35), 0 1px 4px rgba(23, 15, 46, 0.12); }
+[data-theme="light"] .sn-paper { border: 1px solid rgba(20,32,26, 0.08); box-shadow: 0 24px 56px -28px rgba(20,32,26, 0.35), 0 1px 4px rgba(20,32,26, 0.12); }
 .sn-paper-label { font-family: var(--mono); font-size: var(--sn-small); letter-spacing: 0.1em; text-transform: uppercase; color: var(--sn-ink-dim); margin: 0; }
 .sn-pchip { display: inline-flex; align-items: center; gap: 6px; font-size: max(13px, var(--sn-small)); line-height: 1.3; border: 1px solid var(--sn-paper-line); border-radius: 999px; padding: 5px 12px; color: var(--sn-ink-mid); background: #fff; }
 .sn-pchip.is-on { background: var(--accent); border-color: var(--accent); color: var(--sn-on-accent); font-weight: 600; }
