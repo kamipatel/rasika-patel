@@ -32,7 +32,7 @@ export default function LiveTicket({ isMobile }) {
   if (seen === 0) return null;
   const shown = LINES.slice(0, seen);
   const last = shown[shown.length - 1];
-  const expanded = !isMobile || open;
+  const expanded = open;
 
   return (
     <aside aria-label="Order ticket: a running summary of this page" style={{
@@ -49,7 +49,7 @@ export default function LiveTicket({ isMobile }) {
         style={{ all: "unset", boxSizing: "border-box", width: "100%", minHeight: 44, padding: "8px 14px", display: "flex",
           justifyContent: "space-between", alignItems: "center", cursor: "pointer", fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", fontSize: 11 }}>
         <span>Order #{String(seen).padStart(2, "0")}</span>
-        {isMobile && !expanded ? <span style={{ fontWeight: 500, textTransform: "none", letterSpacing: 0, marginLeft: 10, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1, textAlign: "right" }}>{last.item}</span> : <span>{expanded ? "−" : "+"}</span>}
+        {!expanded ? <span style={{ fontWeight: 500, textTransform: "none", letterSpacing: 0, marginLeft: 10, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1, textAlign: "right" }}>{last.item}</span> : <span>{expanded ? "−" : "+"}</span>}
       </button>
       {expanded && (
         <ul style={{ listStyle: "none", margin: 0, padding: "2px 14px 12px", borderTop: `1.5px dashed ${INK}` }}>
