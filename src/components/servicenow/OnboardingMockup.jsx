@@ -17,7 +17,7 @@ const CSS = `
 .sn-progress li.is-done { color: var(--sn-ink); }
 .sn-progress li.is-done .sn-progress-dot { background: var(--sn-ok); border-color: var(--sn-ok); color: #fff; }
 .sn-progress li.is-current { color: var(--sn-ink-accent); }
-.sn-progress li.is-current .sn-progress-dot { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.18); }
+.sn-progress li.is-current .sn-progress-dot { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(183,212,111, 0.18); }
 .sn-progress li.is-current .sn-progress-dot::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
 .sn-prefill { border: 1px solid var(--sn-ok-line); background: var(--sn-ok-bg); border-radius: 14px; padding: 14px 16px; }
 .sn-prefill-head { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-weight: 700; color: var(--sn-ok); }
