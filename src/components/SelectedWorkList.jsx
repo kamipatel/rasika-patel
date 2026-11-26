@@ -35,7 +35,7 @@ function Row({ project, index, reduced, isMobile }) {
   return (
     <motion.div
       ref={ref}
-      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 20 }}
+      initial={reduced || isMobile ? false : { opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : undefined}
       transition={reduced ? { duration: 0.01 } : { ...springConfig, delay: index * 0.05 }}
     >
