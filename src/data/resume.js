@@ -30,7 +30,7 @@ export const experience = [
     dates: "Summer 2026",
     bullets: [
       "Led rebuild of the Executive Briefing Center Speakers Bureau; diagnosed 4 root causes of underuse via stakeholder interviews",
-      "Redesigned the program from open nomination to a selective, application-based model after 15+ stakeholder interviews found 90–95% of ~450 profiles dormant",
+      "Reactivated 500+ dormant speaker profiles & updated 450 expertise notes, making participation trackable for the first time",
       "Built an 8-step self-serve onboarding flow & AI roleplay-scored certification, replacing manual processes",
     ],
   },
