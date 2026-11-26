@@ -41,14 +41,14 @@ import {
 import { Link } from "react-router-dom";
 import Marquee from "./components/Marquee";
 import { useScrollSequence } from "./components/useScrollSequence";
-import MatchaScroll from "./components/MatchaScroll";
 import { projects } from "./data/projects";
 import { skillGroups } from "./data/skills";
 import Seo from "./components/Seo";
 import { homeMeta } from "./lib/routeMeta";
 import Reveal from "./components/Reveal";
 import MagButton from "./components/MagButton";
-import { stats } from "./data/homeStats";
+import RethinkHero from "./components/RethinkHero";
+import ReceiptScroll from "./components/ReceiptScroll";
 import ProjectGrid from "./components/ProjectGrid";
 import Vortex from "./components/Vortex";
 import IconCloud from "./components/IconCloud";
@@ -303,7 +303,7 @@ export default function Portfolio({ theme = "dark" }) {
     frameCount: 128,
     framePath: getFramePath,
     scrollRef: heroRef,
-    enabled: !reduced && !isMobile,
+    enabled: false,
     mode: "scroll",
   });
 
@@ -350,192 +350,9 @@ export default function Portfolio({ theme = "dark" }) {
       )}
 
       <main>
-        {/* ═══════════════════════════════════
-           HERO
-           ═══════════════════════════════════ */}
-        <section
-          id="hero"
-          ref={heroRef}
-          aria-label="Hero section"
-          style={{
-            height: "min(88dvh, 820px)",
-            position: "relative",
-            overflow: "hidden",
-            background: "var(--bg)",
-            display: "flex", flexDirection: "column",
-            alignItems: "center", justifyContent: "center",
-            padding: "calc(var(--nav-height, 80px) + 20px) 24px clamp(60px, 8vw, 80px) 24px",
-            gap: "clamp(16px, 3vh, 32px)",
-          }}
-        >
-          {/* 1. Interactive Vortex Background */}
-          {!reduced && <Vortex baseHue={78} particleCount={400} />}
+        <RethinkHero isMobile={isMobile} />
 
-          {/* 2. Monumental Title */}
-          <h1 aria-label="Rasika Patel" style={{
-            fontFamily: "var(--display)",
-            fontSize: isMobile ? "clamp(38px, 10vw, 56px)" : "clamp(46px, 11vw, 130px)",
-            fontWeight: 800, lineHeight: 0.85, letterSpacing: "-0.04em",
-            textTransform: "uppercase", margin: 0,
-            textAlign: "center",
-            zIndex: 10,
-            display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "clamp(8px, 2vw, 32px)"
-          }}>
-            <span aria-hidden="true" style={{ color: "var(--text-light)", textShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>Rasika</span>
-            <span aria-hidden="true" style={{ display: "flex", alignItems: "center" }}>
-              <span style={HERO_NAME_GRADIENT}>Patel</span>
-              <span style={{ ...HERO_NAME_GRADIENT, marginLeft: "clamp(4px, 1vw, 12px)" }}>.</span>
-            </span>
-          </h1>
-
-          {/* 2b. Role Badge */}
-          <div style={{ zIndex: 10 }}>
-            <span style={{
-              display: "inline-block",
-              fontFamily: "var(--mono)",
-              fontSize: "clamp(11px, 1.2vw, 14px)",
-              fontWeight: 500,
-              color: "var(--accent)",
-              border: "1px solid var(--accent-dim)",
-              background: "var(--accent-bg)",
-              borderRadius: "999px",
-              padding: "6px 16px",
-              letterSpacing: "0.03em",
-              textShadow: "0 2px 8px rgba(0,0,0,0.4)",
-            }}>
-              AI expert specializing in Claude
-            </span>
-          </div>
-
-          {/* 3. Interactive Portrait Masked inside an Arch */}
-          <div style={{
-            // Sized by height so it tracks the hero's vertical budget; width
-            // follows from the ratio. flexShrink:0 is load-bearing: because
-            // overflow:hidden makes min-height:auto resolve to 0, flex was
-            // free to crush the 3:4 box into a landscape sliver once the hero
-            // got shorter, and that is what cropped the head.
-            height: "clamp(130px, 20vh, 220px)",
-            width: "auto",
-            aspectRatio: "3/4",
-            flexShrink: 0,
-            position: "relative",
-            borderRadius: "200px 200px 0 0",
-            overflow: "hidden",
-            boxShadow: "0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(238,242,222,0.1)",
-            zIndex: 5,
-            background: "rgba(0,0,0,0.2)",
-            marginTop: "8px"
-          }}>
-            <canvas
-              ref={canvasRef}
-              style={{
-                display: "block",
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                // Inert while the bitmap matches the box, but if a resize lands
-                // before updateCanvasSize() repaints, bias the crop to the top.
-                objectPosition: "50% 0%",
-                // Lands the top of the frame flush with the container so the ~8%
-                // of background above the hair survives as headroom;
-                // scale(1.2) translateY(5%) cut source rows 0-8 instead.
-                transform: "scale(1.1) translateY(4%)",
-                filter: "brightness(1.1) saturate(0.92)",
-              }}
-            />
-            {/* Matcha grade: recolors the studio background, hair and jacket, and leaves the face and skin as shot. */}
-            <div aria-hidden="true" style={{
-              position: "absolute", inset: 0, pointerEvents: "none",
-              background: "#86a853", mixBlendMode: "color", opacity: 0.75,
-              WebkitMaskImage: "radial-gradient(ellipse 38% 34% at 50% 42%, transparent 70%, #000 100%)",
-              maskImage: "radial-gradient(ellipse 38% 34% at 50% 42%, transparent 70%, #000 100%)",
-            }} />
-          </div>
-
-          {/* 4. Tagline */}
-          <div style={{ zIndex: 10, maxWidth: "600px", textAlign: "center" }}>
-            <p style={{
-              fontFamily: "var(--body)", fontSize: "clamp(16px, 1.6vw, 20px)", fontWeight: 300,
-              color: "var(--text-light)", lineHeight: 1.5,
-              textShadow: "0 4px 20px rgba(0,0,0,0.8)",
-              margin: 0
-            }}>
-              I build apps, then I get people to{" "}
-              <span style={{ color: "var(--accent)", fontWeight: 600, fontStyle: "italic" }}>use them</span>.
-            </p>
-              <p style={{
-                fontFamily: "var(--mono)", fontSize: "clamp(11px, 1.1vw, 13px)", fontWeight: 400,
-                letterSpacing: "0.4px", color: "var(--text-light)", lineHeight: 1.6,
-                textShadow: "0 2px 12px rgba(0,0,0,0.7)",
-                margin: "14px 0 0"
-              }}>
-                Open to Summer 2027 internships in{" "}
-                <strong style={{ fontWeight: 700, color: "var(--hl-ai)" }}>AI</strong>,{" "}
-                <strong style={{ fontWeight: 700, color: "var(--accent)" }}>marketing</strong>, and{" "}
-                <strong style={{ fontWeight: 700, color: "var(--hl-product)" }}>product management</strong>.
-              </p>
-          </div>
-
-          {/* 5. CTAs */}
-          <div style={{
-            display: "flex", 
-            gap: "16px", 
-            flexDirection: isMobile ? "column" : "row",
-            justifyContent: "center",
-            zIndex: 20, pointerEvents: "auto",
-            marginTop: "8px", width: isMobile ? "100%" : "auto", 
-            maxWidth: isMobile ? "300px" : "none"
-          }}>
-            <MagButton href="#work" filled style={{ width: "100%" }}>View my work</MagButton>
-            <MagButton href="#contact" style={{ width: "100%" }}>Get in touch</MagButton>
-          </div>
-
-          {/* Smooth blend to next section */}
-          <div style={{
-            position: "absolute", bottom: 0, left: 0, right: 0, height: "15vh",
-            background: "linear-gradient(to top, var(--bg) 0%, transparent 100%)",
-            pointerEvents: "none", zIndex: 11
-          }} />
-        </section>
-
-        {/* ═══ PROOF BAND: first thing after the hero ═══ */}
-        <section
-          aria-label="Key results"
-          style={{
-            borderTop: "1px solid var(--border)",
-            borderBottom: "1px solid var(--border)",
-            background: "var(--card)",
-            padding: isMobile ? "34px 0" : "44px 0",
-            position: "relative",
-            zIndex: 12,
-          }}
-        >
-          <div style={{
-            maxWidth: "1100px", margin: "0 auto",
-            padding: `0 ${isMobile ? "24px" : "clamp(24px, 6vw, 80px)"}`,
-            display: "grid",
-            gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)",
-            gap: isMobile ? "26px 16px" : "24px",
-          }}>
-            {stats.map((s) => (
-              <div key={s.label}>
-                <span style={{
-                  display: "block", fontFamily: "var(--display)",
-                  fontSize: isMobile ? "clamp(30px, 8.5vw, 38px)" : "clamp(38px, 4vw, 56px)",
-                  fontWeight: 800, letterSpacing: "-2px", lineHeight: 1,
-                  color: "var(--accent)", fontVariantNumeric: "tabular-nums",
-                }}>{s.val}</span>
-                <span style={{
-                  display: "block", marginTop: "10px", fontFamily: "var(--mono)",
-                  fontSize: "10px", letterSpacing: "2px", textTransform: "uppercase",
-                  color: "var(--text-dim)", lineHeight: 1.5,
-                }}>{s.label}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <MatchaScroll isMobile={isMobile} />
+        <ReceiptScroll isMobile={isMobile} />
 
         {/* ── HERO-ABOUT DIVIDER ── */}
         <Marquee items={projectMarqueeItems} speed={30} direction="left" separator="·" />
