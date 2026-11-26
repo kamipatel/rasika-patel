@@ -428,3 +428,12 @@ body {
 }
 .work-grid-large > *:active, .work-grid-small > *:active { transform: scale(0.98); }
 @media (prefers-reduced-motion: reduce) { .work-grid-large > *:hover, .work-grid-small > *:hover { transform: none; } }
+
+/* Steam wisps over menu cards */
+.work-grid-large > *, .work-grid-small > * { position: relative; }
+.work-grid-large > *::before, .work-grid-small > *::before { content: ""; position: absolute; top: -30px; right: 32px; width: 54px; height: 30px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 54 30' fill='none' stroke='%233F6B21' stroke-width='3' stroke-linecap='round'><path d='M8 28 C2 21 14 16 8 8 C6 5 8 2 8 2'/><path d='M27 28 C21 21 33 16 27 8 C25 5 27 2 27 2'/><path d='M46 28 C40 21 52 16 46 8 C44 5 46 2 46 2'/></svg>") center/contain no-repeat; opacity: 0; pointer-events: none; z-index: 2; }
+@keyframes steam-up { 0% { transform: translateY(8px); opacity: 0; } 30% { opacity: .85; } 100% { transform: translateY(-14px); opacity: 0; } }
+@media (hover: hover) and (pointer: fine) {
+  .work-grid-large > *:hover::before, .work-grid-small > *:hover::before, .work-grid-large > *:focus-within::before, .work-grid-small > *:focus-within::before { animation: steam-up 1.8s cubic-bezier(0.23,1,0.32,1) infinite; }
+}
+@media (prefers-reduced-motion: reduce) { .work-grid-large > *::before, .work-grid-small > *::before { animation: none !important; opacity: 0; } }
