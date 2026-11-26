@@ -29,7 +29,7 @@ export const hero = {
   glance: [
     "15+ stakeholder interviews",
     "4 root causes found",
-    "90 to 95% of ~450 profiles dormant",
+    "500+ dormant speaker profiles reactivated",
     "Presented to ~10 directors",
   ],
 };
@@ -37,7 +37,7 @@ export const hero = {
 export const context = {
   label: "The context",
   heading: "High-stakes meetings, sourced by hand.",
-  body: "ServiceNow's Executive Briefing Centers host meetings with C-suite and VP-level customers, and every one needs internal experts in the room. The Speakers Bureau was supposed to be where coordinators found them. In practice, 90 to 95% of profiles were dormant, and coordinators mostly worked around the official platform, using 7+ informal channels.",
+  body: "ServiceNow's Executive Briefing Centers host meetings with C-suite and VP-level customers, and every one needs internal experts in the room. The Speakers Bureau was supposed to be where coordinators found them. In practice, profiles sat dormant, and coordinators mostly worked around the official platform, using 7+ informal channels.",
   channels: {
     title: "Seven channels, one system",
     sources: [
@@ -238,8 +238,8 @@ export const dataWork = {
     ["Industries", "Banking, Healthcare"],
   ],
   stats: [
-    { value: "~450", label: "speaker profiles, 90 to 95% of them dormant" },
-    { label: "Expertise notes rewritten into this structure" },
+    { value: "500+", label: "dormant speaker profiles reactivated" },
+    { value: "450", label: "Expertise notes updated into this structure" },
     { label: "Bios standardized" },
     { label: "Industry labels remapped" },
   ],
