@@ -35,7 +35,7 @@
 }
 
 [data-theme="light"] {
-  --bg: #F3F0E2;
+  --bg: #F2F6E6;
   --card: rgba(20,32,26, 0.04);
   --border: rgba(20,32,26, 0.1);
   --text-light: rgba(20,32,26, 0.92);
@@ -44,7 +44,7 @@
   --text-faint: rgba(20,32,26, 0.06);
   --surface-hover: rgba(20,32,26, 0.05);
   --hl-ai: #3F6B3A;
-  --accent: #5C7F2A;
+  --accent: #3F6B21;
   --accent-dim: rgba(92, 127, 42, 0.4);
   --accent-bg: rgba(92, 127, 42, 0.12);
   --accent-glow: rgba(92, 127, 42, 0.25);
