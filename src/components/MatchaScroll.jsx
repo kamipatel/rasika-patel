@@ -51,10 +51,10 @@ const STEPS = [
   },
 ];
 
-const KEYFRAMES = 11; // generated photoreal stills, same camera and kitchen
+const KEYFRAMES = 15; // generated photoreal stills, same camera and kitchen
 const COLS = 4;
 const CELL = 640;
-const SHEET_PARTS = ["/matcha/kf-a.txt", "/matcha/kf-b.txt"]; // base64 webp sheet, split in two
+const SHEET_PARTS = ["/matcha/kf-a.txt", "/matcha/kf-b.txt", "/matcha/kf-c.txt"]; // base64 webp sheet, split in three
 
 let sheetPromise = null;
 function loadSheet() {
@@ -85,7 +85,8 @@ function PhotoStage({ p, still = false }) {
     const ctx = c.getContext("2d");
     const pos = clamp(pRef.current / 0.94) * (KEYFRAMES - 1);
     const i = Math.min(KEYFRAMES - 1, Math.floor(pos));
-    const t = ease(pos - i);
+    // hold each still for most of its span and blend quickly, so the dissolve is short
+    const t = ease(clamp((pos - i - 0.3) / 0.4));
     ctx.globalAlpha = 1;
     drawKey(ctx, bmp, i, 1, c.width);
     if (i < KEYFRAMES - 1 && t > 0.001) drawKey(ctx, bmp, i + 1, t, c.width);
@@ -141,8 +142,8 @@ export default function MatchaScroll({ isMobile = false }) {
   const idx = Math.min(STEPS.length - 1, Math.floor(clamp(p, 0, 0.999) * STEPS.length));
   const stepStart = idx / STEPS.length;
   const local = clamp((p - stepStart) * STEPS.length);
-  const textOpacity = kf(local, [[0, 0], [0.18, 1], [0.8, 1], [1, idx === STEPS.length - 1 ? 1 : 0]]);
-  const textShift = kf(local, [[0, 24], [0.18, 0]]);
+  const textOpacity = kf(local, [[0, idx === 0 ? 0 : 0.55], [0.08, 1], [0.9, 1], [1, idx === STEPS.length - 1 ? 1 : 0.55]]);
+  const textShift = kf(local, [[0, 10], [0.08, 0]]);
 
   return (
     <section
