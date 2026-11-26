@@ -73,7 +73,7 @@ function drawKey(ctx, bmp, k, alpha, size) {
 }
 
 /* Scroll position cross-fades between the generated keyframes on a canvas. */
-function PhotoStage({ p, still = false }) {
+export function PhotoStage({ p, still = false }) {
   const canvasRef = useRef(null);
   const bmpRef = useRef(null);
   const pRef = useRef(still ? 1 : 0);
