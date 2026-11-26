@@ -23,7 +23,7 @@ const useMediaQuery = (query) => {
 };
 
 export default function App() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [scrollY, setScrollY] = useState(0);
   const [activeNav, setActiveNav] = useState("hero");
   const location = useLocation();
