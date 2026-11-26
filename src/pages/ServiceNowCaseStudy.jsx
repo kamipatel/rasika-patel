@@ -32,7 +32,7 @@ import {
 
 const HERO_CSS = `
 .sn-hero { position: relative; overflow: hidden; padding: clamp(112px, 13vw, 160px) 0 clamp(52px, 7vw, 92px); }
-.sn-hero-glow { position: absolute; top: -30%; right: -10%; width: min(720px, 90vw); height: min(720px, 90vw); background: radial-gradient(circle, rgba(255, 107, 53, 0.10), transparent 62%); filter: blur(70px); pointer-events: none; }
+.sn-hero-glow { position: absolute; top: -30%; right: -10%; width: min(720px, 90vw); height: min(720px, 90vw); background: radial-gradient(circle, rgba(183,212,111, 0.10), transparent 62%); filter: blur(70px); pointer-events: none; }
 .sn-back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-family: var(--mono); font-size: var(--sn-small); letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-mid); margin-bottom: 48px; padding: 10px 20px; border-radius: 100px; border: 1px solid var(--border); transition: all 0.3s ease; }
 .sn-h1 { font-family: var(--display); font-weight: 800; font-size: clamp(38px, 7vw, 88px); letter-spacing: -0.04em; line-height: 0.98; color: var(--text-light); margin: 18px 0 26px; max-width: 980px; }
 .sn-deck { font-family: var(--body); font-weight: 300; font-size: clamp(19px, 2.4vw, 28px); line-height: 1.4; color: var(--text-light); max-width: 760px; margin: 0; }
