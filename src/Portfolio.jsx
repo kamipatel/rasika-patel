@@ -440,9 +440,16 @@ export default function Portfolio({ theme = "dark" }) {
                 // of background above the hair survives as headroom;
                 // scale(1.2) translateY(5%) cut source rows 0-8 instead.
                 transform: "scale(1.1) translateY(4%)",
-                filter: "sepia(0.55) hue-rotate(38deg) saturate(0.85) brightness(1.02)",
+                filter: "brightness(1.1) saturate(0.92)",
               }}
             />
+            {/* Matcha grade: recolors the studio background, hair and jacket, and leaves the face and skin as shot. */}
+            <div aria-hidden="true" style={{
+              position: "absolute", inset: 0, pointerEvents: "none",
+              background: "#86a853", mixBlendMode: "color", opacity: 0.75,
+              WebkitMaskImage: "radial-gradient(ellipse 38% 34% at 50% 42%, transparent 70%, #000 100%)",
+              maskImage: "radial-gradient(ellipse 38% 34% at 50% 42%, transparent 70%, #000 100%)",
+            }} />
           </div>
 
           {/* 4. Tagline */}
@@ -872,4 +879,4 @@ export default function Portfolio({ theme = "dark" }) {
       </Reveal>
     </motion.div>
   );
-          }
+}
