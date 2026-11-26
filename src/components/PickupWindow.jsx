@@ -2,7 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const CSS = `
-.pk-card { background: var(--foam); border: 2px solid var(--text-light); border-radius: 36px; padding: clamp(24px, 5vw, 56px); box-shadow: 8px 8px 0 var(--accent); display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+@keyframes pk-twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.pk-stars { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; overflow: hidden; }
+.pk-stars i { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pk-twinkle 4s ease-in-out infinite; }
+.pk-card > div:not(.pk-stars) { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) { .pk-stars i { animation: none; opacity: .5; } }
+.pk-card { position: relative; background: var(--foam); border: 2px solid var(--text-light); border-radius: 36px; padding: clamp(24px, 5vw, 56px); box-shadow: 8px 8px 0 var(--accent); display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
 .pk-title { font-family: var(--display); font-weight: 800; font-size: clamp(40px, 7vw, 84px); line-height: 0.95; letter-spacing: -2px; color: var(--text-light); margin: 0 0 20px; overflow-wrap: break-word; min-width: 0; }
 .pk-sub { font-family: var(--body); font-size: 19px; line-height: 1.55; color: var(--text-light); max-width: 40ch; margin: 0 0 24px; }
 .pk-mail { display: inline-block; font-family: var(--display); font-weight: 800; font-size: clamp(20px, 3vw, 30px); color: var(--text-light); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; text-decoration-color: var(--accent); overflow-wrap: anywhere; }
@@ -38,6 +43,7 @@ export default function PickupWindow() {
   return (
     <div className="pk-card">
       <style>{CSS}</style>
+      <div className="pk-stars" aria-hidden="true"><i style={{ left: "4%", top: "8%", animationDelay: "0s", width: 6, height: 6 }} /><i style={{ left: "48%", top: "6%", animationDelay: "1.1s", width: 4, height: 4 }} /><i style={{ left: "93%", top: "12%", animationDelay: "2.2s", width: 7, height: 7 }} /><i style={{ left: "52%", top: "92%", animationDelay: "0.6s", width: 5, height: 5 }} /><i style={{ left: "96%", top: "88%", animationDelay: "1.7s", width: 4, height: 4 }} /><i style={{ left: "3%", top: "86%", animationDelay: "2.6s", width: 6, height: 6 }} /><i style={{ left: "46%", top: "50%", animationDelay: "3.1s", width: 3, height: 3 }} /><i style={{ left: "70%", top: "4%", animationDelay: "0.3s", width: 5, height: 5 }} /></div>
       <div>
         <h2 className="pk-title">Order's up. Say hi.</h2>
         <p className="pk-sub">Open to Summer 2027 internships in AI, marketing, and product management.</p>
