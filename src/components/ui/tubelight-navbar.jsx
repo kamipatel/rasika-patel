@@ -35,7 +35,7 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
         )}
       >
         {/* Desktop / Tablet Nav */}
-        <div className="hidden md:flex items-center relative w-full bg-[var(--card)]/80 backdrop-blur-2xl py-4 px-12">
+        <div className="hidden md:flex items-center relative w-full bg-[#FBFDF4]/95 border-b border-[#17301F]/15 backdrop-blur-2xl py-4 px-12">
           {/* Logo */}
           <Link to="/#hero" className="absolute left-12 top-1/2 -translate-y-1/2 z-10 text-[var(--accent)] font-black text-xl tracking-tight px-3 py-2">
             RP<span className="text-[var(--text-mid)]">.</span>
@@ -80,7 +80,7 @@ export function NavBar({ items, className, activeTab, onTabChange }) {
         <div className="md:hidden flex justify-end">
           <button
             onClick={toggleMenu}
-            className="p-4 rounded-full bg-[var(--card)]/90 border border-[var(--border)] backdrop-blur-xl text-[var(--accent)] shadow-2xl active:scale-95 transition-transform"
+            className="p-4 rounded-full bg-[#FBFDF4] border border-[#17301F]/25 backdrop-blur-xl text-[var(--accent)] shadow-2xl active:scale-95 transition-transform"
             aria-label="Toggle Menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
