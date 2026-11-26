@@ -10,7 +10,7 @@ const PROJECT_META = {
   "sell-fellowship":              { gradient: ["#f43f5e", "#ec4899"] },
   "foundry":                      { gradient: ["#fb923c", "#c2410c"] },
   "harkey":                       { gradient: ["#fbbf24", "#b45309"] },
-  "servicenow":                   { gradient: ["#FF9F1C", "#E8453C"] },
+  "servicenow":                   { gradient: ["#E3EBA6", "#7FA650"] },
   "center-for-integrated-design": { gradient: ["#38bdf8", "#2563eb"] },
   "well-water-finders":           { gradient: ["#2dd4bf", "#059669"] },
   "cultured-carrot":              { gradient: ["#f59e0b", "#f97316"] },
@@ -27,7 +27,7 @@ const SIZES = {
   small: { padding: "16px", gap: "12px", tags: 2, title: "18px", role: "13px", desc: "13px", footerGap: "8px" },
 };
 
-const CATEGORY_COLORS = { Marketing: "#3B82F6", "UI/UX": "#A78BFA", Design: "#FF6B35" };
+const CATEGORY_COLORS = { Marketing: "#3B82F6", "UI/UX": "#C9E4A0", Design: "#B7D46F" };
 
 const DESC_CLAMP = {
   display: "-webkit-box",
