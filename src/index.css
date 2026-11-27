@@ -437,3 +437,9 @@ body {
   .work-grid-large > *:hover::before, .work-grid-small > *:hover::before, .work-grid-large > *:focus-within::before, .work-grid-small > *:focus-within::before { animation: steam-up 1.8s cubic-bezier(0.23,1,0.32,1) infinite; }
 }
 @media (prefers-reduced-motion: reduce) { .work-grid-large > *::before, .work-grid-small > *::before { animation: none !important; opacity: 0; } }
+
+/* lenis (vendored, src/vendor/lenis.mjs): required base styles */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
