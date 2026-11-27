@@ -1,5 +1,17 @@
+import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import MatchaDust from "./MatchaDust";
+import PixelTrail from "./bits/PixelTrail";
+import DecryptedText from "./bits/DecryptedText";
+
+/* PixelTrail draws on a WebGL2 canvas; skip it entirely where that is missing. */
+const supportsWebGL2 = () => {
+  try {
+    return !!document.createElement("canvas").getContext("webgl2");
+  } catch {
+    return false;
+  }
+};
 
 /* Home hero. Lime backdrop, the name set huge, a latte photographed on the same lime, one slowly turning badge. */
 
@@ -24,6 +36,20 @@ function Badge({ spin }) {
 export default function RethinkHero({ isMobile }) {
   const reduced = !!useReducedMotion();
   const rise = (d) => (reduced ? {} : { animation: `rk-rise 0.9s cubic-bezier(0.22,1,0.36,1) ${d}s both` });
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
+  const [webgl, setWebgl] = useState(false);
+
+  useEffect(() => {
+    setWebgl(supportsWebGL2() && window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, []);
+
+  const onHeroPointer = (e) => {
+    if (reduced || isMobile) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ rx: py * -5, ry: px * 7 });
+  };
 
   return (
     <section id="hero" aria-label="Hero section" style={{
@@ -40,6 +66,11 @@ export default function RethinkHero({ isMobile }) {
         .rk-btn:focus-visible { outline: 3px solid ${INK}; outline-offset: 3px; }
       `}</style>
       <MatchaDust reduced={reduced} />
+      {!reduced && !isMobile && webgl && (
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
+          <PixelTrail gridSize={46} trailSize={0.09} maxAge={320} color="#3F6B21" trailColor="#17301F" shape="circle" decay="fade" gooeyFilter={{ strength: 1.5 }} shine={0.35} glow={0.2} />
+        </div>
+      )}
 
       <div style={{
         padding: isMobile ? "96px 24px 28px" : "120px clamp(24px, 5vw, 72px) 56px clamp(24px, 6vw, 88px)",
@@ -58,7 +89,19 @@ export default function RethinkHero({ isMobile }) {
           fontFamily: "var(--body)", fontWeight: 400, margin: isMobile ? "26px 0 0" : "38px 0 0",
           fontSize: isMobile ? "21px" : "clamp(22px, 2.3vw, 32px)", lineHeight: 1.22, maxWidth: "17em", ...rise(0.32),
         }}>
-          I build apps, then I get people to use them.
+          {reduced ? (
+            "I build apps, then I get people to use them."
+          ) : (
+            <DecryptedText
+              text="I build apps, then I get people to use them."
+              animateOn="view"
+              sequential
+              speed={38}
+              maxIterations={14}
+              characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ·—*"
+              useOriginalCharsOnly={false}
+            />
+          )}
         </p>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "26px", ...rise(0.42) }}>
@@ -76,7 +119,11 @@ export default function RethinkHero({ isMobile }) {
         </div>
       </div>
 
-      <div style={{ position: "relative", minHeight: isMobile ? "min(70vw, 440px)" : undefined }}>
+      <div
+        onPointerMove={onHeroPointer}
+        onPointerLeave={() => setTilt({ rx: 0, ry: 0 })}
+        style={{ position: "relative", minHeight: isMobile ? "min(70vw, 440px)" : undefined, perspective: 1100 }}
+      >
         <img src="/hero-latte.webp" alt="An iced matcha latte with a green straw, photographed on a lime backdrop"
           width="1000" height="1250" fetchpriority="high"
           style={{
@@ -84,6 +131,8 @@ export default function RethinkHero({ isMobile }) {
             objectFit: "cover", objectPosition: "50% 60%", display: "block",
             WebkitMaskImage: isMobile ? "linear-gradient(to bottom, transparent 0, #000 14%)" : "linear-gradient(to right, transparent 0, #000 18%)",
             maskImage: isMobile ? "linear-gradient(to bottom, transparent 0, #000 14%)" : "linear-gradient(to right, transparent 0, #000 18%)",
+            transform: reduced || isMobile ? "none" : `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(1.03)`,
+            transition: "transform 0.35s cubic-bezier(0.22,1,0.36,1)",
           }} />
         <div style={{ position: "absolute", right: isMobile ? 14 : "8%", top: isMobile ? "auto" : "17%", bottom: isMobile ? 18 : "auto", zIndex: 3 }}>
           <Badge spin={!reduced} />
