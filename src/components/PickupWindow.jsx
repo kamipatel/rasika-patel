@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useReducedMotion } from "framer-motion";
+import DecryptedText from "./bits/DecryptedText";
 
 const CSS = `
 @keyframes pk-twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
@@ -31,6 +33,7 @@ const CSS = `
 
 export default function PickupWindow() {
   const [status, setStatus] = useState("idle");
+  const reduced = !!useReducedMotion();
   async function onSubmit(e) {
     e.preventDefault();
     setStatus("submitting");
@@ -45,7 +48,11 @@ export default function PickupWindow() {
       <style>{CSS}</style>
       <div className="pk-stars" aria-hidden="true"><i style={{ left: "4%", top: "8%", animationDelay: "0s", width: 6, height: 6 }} /><i style={{ left: "48%", top: "6%", animationDelay: "1.1s", width: 4, height: 4 }} /><i style={{ left: "93%", top: "12%", animationDelay: "2.2s", width: 7, height: 7 }} /><i style={{ left: "52%", top: "92%", animationDelay: "0.6s", width: 5, height: 5 }} /><i style={{ left: "96%", top: "88%", animationDelay: "1.7s", width: 4, height: 4 }} /><i style={{ left: "3%", top: "86%", animationDelay: "2.6s", width: 6, height: 6 }} /><i style={{ left: "46%", top: "50%", animationDelay: "3.1s", width: 3, height: 3 }} /><i style={{ left: "70%", top: "4%", animationDelay: "0.3s", width: 5, height: 5 }} /></div>
       <div>
-        <h2 className="pk-title">Order's up. Say hi.</h2>
+        <h2 className="pk-title">
+          {reduced ? "Order's up. Say hi." : (
+            <DecryptedText text="Order's up. Say hi." animateOn="inViewHover" sequential speed={45} maxIterations={10} characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ·*" />
+          )}
+        </h2>
         <p className="pk-sub">Open to Summer 2027 internships in AI, marketing, and product management.</p>
         <a className="pk-mail" href="mailto:rasikap@utexas.edu">rasikap@utexas.edu</a>
         <div className="pk-links">
