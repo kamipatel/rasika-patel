@@ -50,7 +50,7 @@ import MagButton from "./components/MagButton";
 import LiveTicket from "./components/LiveTicket";
 import RethinkHero from "./components/RethinkHero";
 import ReceiptScroll from "./components/ReceiptScroll";
-import ProjectGrid from "./components/ProjectGrid";
+import WorkRail from "./components/WorkRail";
 import AboutLabel from "./components/AboutLabel";
 import SkillsOrder from "./components/SkillsOrder";
 import PickupWindow from "./components/PickupWindow";
@@ -381,7 +381,7 @@ export default function Portfolio({ theme = "dark" }) {
               The menu: selected work.
             </h2>
           </Reveal>
-          <ProjectGrid projects={featuredProjects} reduced={reduced} isMobile={isMobile} />
+          <WorkRail projects={featuredProjects} reduced={reduced} isMobile={isMobile} />
         </section></div>
 
         {/* Skills: the customizer */}
