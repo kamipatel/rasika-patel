@@ -16,7 +16,11 @@ export function useHashScroll(hash) {
     const attempt = () => {
       const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (window.__lenis) {
+          window.__lenis.scrollTo(el, { offset: -72 });
+        } else {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
         return;
       }
       if (performance.now() < deadline) frame = requestAnimationFrame(attempt);
