@@ -20,6 +20,8 @@ const AT = [0.1, 0.32, 0.54, 0.76];
 function Receipt({ p, all, compact }) {
   const shown = (i) => all || p >= AT[i];
   const total = all || p >= 0.9;
+  // the bottom stub peels away at the very end of the scroll, like tearing a receipt
+  const tear = all ? 0 : clamp((p - 0.88) / 0.12);
   const mono = { fontFamily: "var(--mono)", color: INK };
   return (
     <div role="group" aria-label="Receipt of results" style={{
@@ -43,8 +45,21 @@ function Receipt({ p, all, compact }) {
           <span style={{ fontFamily: "var(--display)", fontWeight: 800, fontSize: compact ? 28 : 36, letterSpacing: "-0.04em", lineHeight: 1 }}>{l.val}</span>
         </div>
       ))}
-      <div style={{ borderTop: `1.5px dashed ${INK}`, margin: compact ? "12px 0 10px" : "16px 0 12px" }} />
-      <div style={{ opacity: total ? 1 : 0, transition: "opacity .4s ease", fontSize: compact ? 12.5 : 14, lineHeight: 1.45 }}>
+      <div style={{ borderTop: `1.5px dashed ${INK}`, margin: compact ? "12px 0 10px" : "16px 0 12px", position: "relative" }}>
+        <span style={{
+          position: "absolute", left: "50%", top: -8, transform: "translateX(-50%)",
+          background: "#FFFFFF", padding: "0 8px", fontSize: 9, letterSpacing: "0.2em",
+          textTransform: "uppercase", opacity: total ? 0.55 : 0, transition: "opacity .4s ease",
+        }}>tear here</span>
+      </div>
+      <div style={{
+        opacity: total ? 1 : 0,
+        transition: "opacity .4s ease",
+        fontSize: compact ? 12.5 : 14, lineHeight: 1.45,
+        transform: tear > 0 ? `rotate(${tear * 5}deg) translateY(${tear * 30}px)` : "none",
+        transformOrigin: "50% 0",
+        background: "#FFFFFF",
+      }}>
         <strong style={{ letterSpacing: "0.08em", textTransform: "uppercase" }}>Now serving</strong>
         <br />Open to Summer 2027 internships in AI, marketing, and product management.
         <br /><span style={{ opacity: 0.62 }}>Thank you! Work is just below.</span>
