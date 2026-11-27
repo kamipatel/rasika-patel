@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, useReducedMotion } from "framer-motion";
+import Lenis from "./vendor/lenis.mjs";
+import ClickSpark from "./components/bits/ClickSpark";
 import Portfolio from "./Portfolio";
 import ProjectPage from "./components/ProjectPage";
 import ResumePage from "./components/ResumePage";
@@ -28,8 +30,35 @@ export default function App() {
   const [activeNav, setActiveNav] = useState("hero");
   const location = useLocation();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const reduced = !!useReducedMotion();
 
   useHashScroll(location.hash);
+
+  /* Smooth inertial scrolling (lenis), desktop + full motion only. Exposed on
+     window.__lenis so useHashScroll can route anchor jumps through it. */
+  useEffect(() => {
+    if (isMobile || reduced) return undefined;
+    const lenis = new Lenis({ lerp: 0.11, smoothWheel: true });
+    window.__lenis = lenis;
+    const onClick = (e) => {
+      const a = e.target.closest?.('a[href^="#"]');
+      if (!a) return;
+      const el = document.querySelector(a.getAttribute("href"));
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el, { offset: -72 });
+    };
+    document.addEventListener("click", onClick);
+    let raf;
+    const loop = (t) => { lenis.raf(t); raf = requestAnimationFrame(loop); };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      document.removeEventListener("click", onClick);
+      lenis.destroy();
+      delete window.__lenis;
+    };
+  }, [isMobile, reduced]);
 
   // Theme effect
   useEffect(() => {
@@ -74,7 +103,8 @@ export default function App() {
       {/* Nav */}
       <PortfolioNav activeNav={activeNav} />
 
-      {/* Routes with page transitions */}
+      {/* Routes with page transitions; ClickSpark adds a matcha spark burst on clicks/taps */}
+      <ClickSpark sparkColor="#3F6B21" sparkSize={9} sparkRadius={24} sparkCount={7} duration={430}>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route
@@ -87,6 +117,7 @@ export default function App() {
           <Route path="/projects/:slug" element={<ProjectPage />} />
         </Routes>
       </AnimatePresence>
+      </ClickSpark>
     </div>
   );
 }
